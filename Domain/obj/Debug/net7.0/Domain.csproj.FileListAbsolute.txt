@@ -1,0 +1,12 @@
+D:\progs\projects\Skii\Domain\bin\Debug\net7.0\Domain.deps.json
+D:\progs\projects\Skii\Domain\bin\Debug\net7.0\Domain.dll
+D:\progs\projects\Skii\Domain\bin\Debug\net7.0\Domain.pdb
+D:\progs\projects\Skii\Domain\obj\Debug\net7.0\Domain.csproj.AssemblyReference.cache
+D:\progs\projects\Skii\Domain\obj\Debug\net7.0\Domain.GeneratedMSBuildEditorConfig.editorconfig
+D:\progs\projects\Skii\Domain\obj\Debug\net7.0\Domain.AssemblyInfoInputs.cache
+D:\progs\projects\Skii\Domain\obj\Debug\net7.0\Domain.AssemblyInfo.cs
+D:\progs\projects\Skii\Domain\obj\Debug\net7.0\Domain.csproj.CoreCompileInputs.cache
+D:\progs\projects\Skii\Domain\obj\Debug\net7.0\Domain.dll
+D:\progs\projects\Skii\Domain\obj\Debug\net7.0\refint\Domain.dll
+D:\progs\projects\Skii\Domain\obj\Debug\net7.0\Domain.pdb
+D:\progs\projects\Skii\Domain\obj\Debug\net7.0\ref\Domain.dll

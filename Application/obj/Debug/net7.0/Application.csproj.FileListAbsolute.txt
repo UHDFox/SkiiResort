@@ -1,0 +1,15 @@
+D:\progs\projects\Skii\Application\bin\Debug\net7.0\Application.deps.json
+D:\progs\projects\Skii\Application\bin\Debug\net7.0\Application.dll
+D:\progs\projects\Skii\Application\bin\Debug\net7.0\Application.pdb
+D:\progs\projects\Skii\Application\bin\Debug\net7.0\Domain.dll
+D:\progs\projects\Skii\Application\bin\Debug\net7.0\Domain.pdb
+D:\progs\projects\Skii\Application\obj\Debug\net7.0\Application.csproj.AssemblyReference.cache
+D:\progs\projects\Skii\Application\obj\Debug\net7.0\Application.GeneratedMSBuildEditorConfig.editorconfig
+D:\progs\projects\Skii\Application\obj\Debug\net7.0\Application.AssemblyInfoInputs.cache
+D:\progs\projects\Skii\Application\obj\Debug\net7.0\Application.AssemblyInfo.cs
+D:\progs\projects\Skii\Application\obj\Debug\net7.0\Application.csproj.CoreCompileInputs.cache
+D:\progs\projects\Skii\Application\obj\Debug\net7.0\Application.csproj.CopyComplete
+D:\progs\projects\Skii\Application\obj\Debug\net7.0\Application.dll
+D:\progs\projects\Skii\Application\obj\Debug\net7.0\refint\Application.dll
+D:\progs\projects\Skii\Application\obj\Debug\net7.0\Application.pdb
+D:\progs\projects\Skii\Application\obj\Debug\net7.0\ref\Application.dll
