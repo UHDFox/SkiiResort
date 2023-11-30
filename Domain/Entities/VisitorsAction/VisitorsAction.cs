@@ -1,5 +1,5 @@
-using System;
-
+using Domain.Enums;
+using Domain.Entities.SkipassEntity;
 namespace Domain.Entities.VisitorsAction;
 
 public class VisitorsActions

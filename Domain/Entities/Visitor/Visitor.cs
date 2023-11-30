@@ -1,8 +1,6 @@
-using System;
 using System.ComponentModel.DataAnnotations;
 
-
-namespace Domain
+namespace Domain.Entities.Visitor
 {
     public sealed class Visitor
     {

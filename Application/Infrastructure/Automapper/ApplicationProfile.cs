@@ -1,9 +1,10 @@
-using Application.Entities;
+using AutoMapper;
+using Application.Entities.Skipass;
 using Application.Entities.Tariff;
 using Application.Entities.Visitor;
-using AutoMapper;
-using Domain;
-using Domain.Entities;
+using Domain.Entities.SkipassEntity;
+using Domain.Entities.Tariff;
+using Domain.Entities.Visitor;
 
 namespace Application.Infrastructure.Automapper;
 

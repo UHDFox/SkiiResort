@@ -1,3 +1,4 @@
+using Domain.Entities.Visitor;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 

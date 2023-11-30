@@ -1,8 +1,4 @@
-
-using System.Collections.Generic;
-using System.Threading.Tasks;
-
-namespace Application.Entities;
+namespace Application.Entities.Skipass;
 
 public interface ISkipassService
 {

@@ -1,5 +1,5 @@
 using Microsoft.EntityFrameworkCore;
-using Domain.Entities;
+using Domain.Entities.Tariff;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
 

@@ -1,6 +1,6 @@
-using System.Threading;
-using System.Threading.Tasks;
-using Domain.Entities;
+using Domain.Entities.SkipassEntity;
+using Domain.Entities.Tariff;
+using Domain.Entities.Visitor;
 using Microsoft.EntityFrameworkCore;
 
 namespace Domain;

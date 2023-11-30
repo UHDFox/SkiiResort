@@ -1,6 +1,4 @@
-using System.Collections.Generic;
-using System.Threading.Tasks;
-using Application.Entities;
+using Application.Entities.Skipass;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Web.Controllers;
@@ -14,11 +12,7 @@ public sealed class SkipassController : Controller
     {
         this.context = context;
     }
-    /*List<SkipassDto> ShowAllSkipasses();
-    Task<SkipassDto> GetSkipassByID(int skipassId);
-    Task<SkipassDto> AddNewSkipass(SkipassDto request);
-    Task<SkipassDto> UpdateSkipassInfo(SkipassDto updatedSkipass);
-    Task<SkipassDto> DeleteSkipass(int skipassId);*/
+  
     [HttpGet]
     public List<SkipassDto> ShowAllSkipasses()
     {
