@@ -1,3 +1,5 @@
+using System;
+
 namespace Domain.Entities.VisitorsAction;
 
 public class VisitorsActions
