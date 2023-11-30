@@ -1,6 +1,7 @@
-using Domain;
 using AutoMapper;
+using Domain;
 using Domain.Entities.SkipassEntity;
+
 namespace Application.Entities.Skipass;
 
 public class SkipassService : ISkipassService
@@ -26,7 +27,7 @@ public class SkipassService : ISkipassService
 
     public async Task<SkipassDto> AddNewSkipass(SkipassDto request)
     {
-        var newSkipass = mapper.Map<Domain.Entities.SkipassEntity.Skipass>(request);
+        var newSkipass = mapper.Map<SkipassRecord>(request);
         var result = context.Skipasses.AddAsync(newSkipass);
         context.SaveChangesAsync();
         return mapper.Map<SkipassDto>(request);
@@ -35,10 +36,10 @@ public class SkipassService : ISkipassService
     public async Task<SkipassDto> UpdateSkipassInfo(SkipassDto updatedSkipass)
     {
         var skipassEntity = context.Skipasses.FindAsync(updatedSkipass.Id);
-        var mappedEntity = mapper.Map<SkipassDto, Skipass>(updatedSkipass);
+        var mappedEntity = mapper.Map<SkipassDto, SkipassRecord>(updatedSkipass);
         var result = context.Skipasses.Update(mappedEntity);
         await context.SaveChangesAsync();
-        return mapper.Map<Skipass, SkipassDto>(mappedEntity);
+        return mapper.Map<SkipassRecord, SkipassDto>(mappedEntity);
     }
 
     public async Task<SkipassDto> DeleteSkipass(int skipassId)

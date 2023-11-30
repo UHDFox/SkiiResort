@@ -2,7 +2,8 @@ using Application.Entities.Skipass;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Web.Controllers;
-[Route("api/[controller]/[action]")] 
+
+[Route("api/[controller]/[action]")]
 [Controller]
 public sealed class SkipassController : Controller
 {
@@ -12,7 +13,7 @@ public sealed class SkipassController : Controller
     {
         this.context = context;
     }
-  
+
     [HttpGet]
     public List<SkipassDto> ShowAllSkipasses()
     {
@@ -23,8 +24,8 @@ public sealed class SkipassController : Controller
     [HttpGet]
     public async Task<SkipassDto> GetSkipassByID(int skipassId)
     {
-         var result = await context.GetSkipassByID(skipassId);
-         return result;
+        var result = await context.GetSkipassByID(skipassId);
+        return result;
     }
 
     [HttpPost]

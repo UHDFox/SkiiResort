@@ -1,7 +1,6 @@
-using Microsoft.EntityFrameworkCore;
 using Domain.Entities.Tariff;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
-
 
 namespace Domain.EntitiesConfiguration;
 

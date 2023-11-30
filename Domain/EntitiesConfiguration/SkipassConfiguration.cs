@@ -4,13 +4,12 @@ using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
 namespace Domain.EntitiesConfiguration;
 
-public class SkipassConfiguration : IEntityTypeConfiguration<Skipass>
+public class SkipassConfiguration : IEntityTypeConfiguration<SkipassRecord>
 {
-    public void Configure(EntityTypeBuilder<Skipass> builder)
+    public void Configure(EntityTypeBuilder<SkipassRecord> builder)
     {
         builder.HasKey(e => e.Id);
         builder.HasOne(t => t.Tariff);
         builder.HasOne(v => v.Visitor);
-
     }
 }

@@ -1,7 +1,7 @@
-using AutoMapper;
 using Application.Entities.Skipass;
 using Application.Entities.Tariff;
 using Application.Entities.Visitor;
+using AutoMapper;
 using Domain.Entities.SkipassEntity;
 using Domain.Entities.Tariff;
 using Domain.Entities.Visitor;
@@ -14,6 +14,6 @@ public sealed class ApplicationProfile : Profile
     {
         CreateMap<VisitorDto, Visitor>().ReverseMap();
         CreateMap<TariffDto, Tariff>().ReverseMap();
-        CreateMap<SkipassDto, Skipass>().ReverseMap();
+        CreateMap<SkipassDto, SkipassRecord>().ReverseMap();
     }
 }
