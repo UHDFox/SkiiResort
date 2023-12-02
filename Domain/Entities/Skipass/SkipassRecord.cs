@@ -1,4 +1,4 @@
-namespace Domain.Entities.SkipassEntity;
+namespace Domain.Entities.Skipass;
 
 public sealed class SkipassRecord
 {

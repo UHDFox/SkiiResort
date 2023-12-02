@@ -1,4 +1,4 @@
-using Domain.Entities.SkipassEntity;
+using Domain.Entities.Skipass;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 

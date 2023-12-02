@@ -1,15 +1,15 @@
 using AutoMapper;
 using Domain;
-using Domain.Entities.SkipassEntity;
+using Domain.Entities.Skipass;
 
 namespace Application.Entities.Skipass;
 
 public class SkipassService : ISkipassService
 {
-    private readonly IDBContext context;
+    private readonly IHotelDbContext context;
     private readonly IMapper mapper;
 
-    public SkipassService(IDBContext context, IMapper mapper)
+    public SkipassService(IHotelDbContext context, IMapper mapper)
     {
         this.context = context;
         this.mapper = mapper;
