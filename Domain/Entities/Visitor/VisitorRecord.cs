@@ -2,7 +2,7 @@ using System.ComponentModel.DataAnnotations;
 
 namespace Domain.Entities.Visitor;
 
-public sealed class Visitor
+public sealed class VisitorRecord
 {
     public int Id { get; set; }
     public string Name { get; set; }

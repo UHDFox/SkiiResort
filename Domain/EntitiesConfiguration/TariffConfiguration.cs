@@ -4,9 +4,9 @@ using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
 namespace Domain.EntitiesConfiguration;
 
-public class TariffConfiguration : IEntityTypeConfiguration<Tariff>
+public class TariffConfiguration : IEntityTypeConfiguration<TariffRecord>
 {
-    public void Configure(EntityTypeBuilder<Tariff> builder)
+    public void Configure(EntityTypeBuilder<TariffRecord> builder)
     {
         builder.HasKey(e => e.Id);
     }

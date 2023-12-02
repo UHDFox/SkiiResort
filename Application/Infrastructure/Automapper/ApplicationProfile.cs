@@ -12,8 +12,8 @@ public sealed class ApplicationProfile : Profile
 {
     public ApplicationProfile()
     {
-        CreateMap<VisitorDto, Visitor>().ReverseMap();
-        CreateMap<TariffDto, Tariff>().ReverseMap();
+        CreateMap<VisitorDto, VisitorRecord>().ReverseMap();
+        CreateMap<TariffDto, TariffRecord>().ReverseMap();
         CreateMap<SkipassDto, SkipassRecord>().ReverseMap();
     }
 }

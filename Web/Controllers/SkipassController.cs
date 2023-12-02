@@ -22,9 +22,9 @@ public sealed class SkipassController : Controller
     }
 
     [HttpGet]
-    public async Task<SkipassDto> GetSkipassByID(int skipassId)
+    public async Task<SkipassDto> GetSkipassById(int skipassId)
     {
-        var result = await context.GetSkipassByID(skipassId);
+        var result = await context.GetSkipassById(skipassId);
         return result;
     }
 

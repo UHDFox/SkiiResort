@@ -10,7 +10,7 @@ public static class ServiceCollectionExtension
 {
     public static IServiceCollection ConfigureSkipassServices(this IServiceCollection services)
     {
-        services.AddDbContext<HotelDbContext>((provider, builder) =>
+        services.AddDbContext<HotelContext>((provider, builder) =>
         {
             var connectionString = provider.GetRequiredService<IConfiguration>().GetConnectionString("Psql");
             builder.UseNpgsql(connectionString);

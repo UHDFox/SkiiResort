@@ -6,10 +6,10 @@ namespace Application.Entities.Skipass;
 
 public class SkipassService : ISkipassService
 {
-    private readonly IHotelDbContext context;
+    private readonly IHotelContext context;
     private readonly IMapper mapper;
 
-    public SkipassService(IHotelDbContext context, IMapper mapper)
+    public SkipassService(IHotelContext context, IMapper mapper)
     {
         this.context = context;
         this.mapper = mapper;
@@ -20,7 +20,7 @@ public class SkipassService : ISkipassService
         return context.Skipasses.ToList().Select(x => mapper.Map<SkipassDto>(x)).ToList();
     }
 
-    public async Task<SkipassDto> GetSkipassByID(int skipassId)
+    public async Task<SkipassDto> GetSkipassById(int skipassId)
     {
         return mapper.Map<SkipassDto>(await context.Skipasses.FindAsync(skipassId));
     }
@@ -29,7 +29,7 @@ public class SkipassService : ISkipassService
     {
         var newSkipass = mapper.Map<SkipassRecord>(request);
         var result = context.Skipasses.AddAsync(newSkipass);
-        context.SaveChangesAsync();
+        await context.SaveChangesAsync();
         return mapper.Map<SkipassDto>(request);
     }
 
