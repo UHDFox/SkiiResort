@@ -5,7 +5,7 @@ namespace Application.Entities.Skipass;
 
 public class SkipassDto
 {
-    public int Id { get; set; }
+    public Guid Id { get; set; }
     public int Balance { get; set; }
     public int TariffId { get; set; }
     public TariffDto Tariff { get; set; }
