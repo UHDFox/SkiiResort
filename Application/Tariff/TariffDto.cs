@@ -1,4 +1,4 @@
-namespace Application.Entities.Tariff;
+namespace Application.Tariff;
 
 public sealed class TariffDto
 {

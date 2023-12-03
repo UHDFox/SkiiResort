@@ -1,6 +1,6 @@
-using Application.Entities.Skipass;
-using Application.Entities.Tariff;
-using Application.Entities.Visitor;
+using Application.Skipass;
+using Application.Tariff;
+using Application.Visitor;
 using AutoMapper;
 using Domain.Entities.Skipass;
 using Domain.Entities.Tariff;

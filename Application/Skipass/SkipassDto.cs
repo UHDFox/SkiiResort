@@ -1,7 +1,7 @@
-using Application.Entities.Tariff;
-using Application.Entities.Visitor;
+using Application.Tariff;
+using Application.Visitor;
 
-namespace Application.Entities.Skipass;
+namespace Application.Skipass;
 
 public class SkipassDto
 {

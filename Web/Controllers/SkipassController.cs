@@ -1,4 +1,5 @@
-using Application.Entities.Skipass;
+using Application.Skipass;
+using Domain.Entities.Skipass;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Web.Controllers;
@@ -15,9 +16,9 @@ public sealed class SkipassController : Controller
     }
 
     [HttpGet]
-    public List<SkipassDto> ShowAllSkipasses()
+    public IReadOnlyCollection<SkipassRecord> ShowAllSkipasses()
     {
-        var skipasses = context.ShowAllSkipasses();
+        var skipasses = context.GetListAsync();
         return skipasses;
     }
 

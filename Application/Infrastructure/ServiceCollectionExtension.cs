@@ -1,4 +1,4 @@
-using Application.Entities.Skipass;
+using Application.Skipass;
 using Domain;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
