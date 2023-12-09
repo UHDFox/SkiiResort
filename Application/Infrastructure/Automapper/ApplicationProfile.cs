@@ -10,10 +10,20 @@ namespace Application.Infrastructure.Automapper;
 
 public sealed class ApplicationProfile : Profile
 {
+    /*public IServiceCollection ConfigureAutomapper(ApplicationProfile profile)
+    {
+        var mapperConfiguration = new MapperConfiguration(cfg => cfg.AddProfile(profile));
+        var mapper = mapperConfiguration.CreateMapper();
+
+    }*/
+
     public ApplicationProfile()
     {
         CreateMap<VisitorDto, VisitorRecord>().ReverseMap();
         CreateMap<TariffDto, TariffRecord>().ReverseMap();
-        CreateMap<SkipassDto, SkipassRecord>().ReverseMap();
+        CreateMap<AddSkipassModel, SkipassRecord>().ReverseMap();
+        CreateMap<UpdateSkipassModel, SkipassRecord>().ReverseMap();
+        CreateMap<GetSkipassModel, SkipassRecord>().ReverseMap();
+        CreateMap<TariffRecord, AddTariffModel>().ReverseMap();
     }
 }

@@ -7,7 +7,7 @@ public sealed class TariffRecord
         Id = id;
         Name = name;
     }
-    
+
     public Guid Id { get; set; }
     public string Name { get; set; }
 }

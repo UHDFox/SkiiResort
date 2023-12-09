@@ -1,5 +1,3 @@
-using Domain.Entities.Skipass;
-
 namespace Application.Skipass;
 
 public interface ISkipassService

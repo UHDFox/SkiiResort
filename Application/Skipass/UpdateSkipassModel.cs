@@ -3,7 +3,7 @@ using Domain.Entities.Visitor;
 
 namespace Application.Skipass;
 
-public class UpdateSkipassModel
+public sealed class UpdateSkipassModel
 {
     public Guid Id { get; set; }
     public int Balance { get; set; }

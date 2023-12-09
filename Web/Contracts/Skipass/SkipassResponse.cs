@@ -3,7 +3,7 @@ using Application.Visitor;
 
 namespace Web.Contracts.Skipass;
 
-public class SkipassResponse
+public sealed class SkipassResponse
 {
     public Guid Id { get; set; }
     public int Balance { get; set; }

@@ -1,7 +1,6 @@
 using Domain.Entities.Skipass;
 using Domain.Entities.Tariff;
 using Domain.Entities.Visitor;
-using Domain.Entities.VisitorsAction;
 using Microsoft.EntityFrameworkCore;
 
 namespace Domain;

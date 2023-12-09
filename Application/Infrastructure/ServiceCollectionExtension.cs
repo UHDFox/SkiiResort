@@ -1,4 +1,6 @@
+using Application.Infrastructure.Automapper;
 using Application.Skipass;
+using Application.Tariff;
 using Domain;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
@@ -16,7 +18,21 @@ public static class ServiceCollectionExtension
             builder.UseNpgsql(connectionString);
         });
 
-        services.AddTransient<ISkipassService>(provider => provider.GetRequiredService<SkipassService>());
+        services.AddTransient<ISkipassService, SkipassService>();
+        services.AddAutoMapper(typeof(ApplicationProfile));
+
+        return services;
+    }
+
+    public static IServiceCollection ConfigureTariffServices(this IServiceCollection services)
+    {
+        services.AddDbContext<HotelContext>((provider, builder) =>
+        {
+            var connectionString = provider.GetRequiredService<IConfiguration>().GetConnectionString("Psql");
+            builder.UseNpgsql(connectionString);
+        });
+
+        services.AddTransient<ITariffService, TariffService>();
 
         return services;
     }

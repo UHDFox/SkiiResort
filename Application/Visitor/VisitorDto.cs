@@ -1,5 +1,5 @@
 namespace Application.Visitor;
 
-public class VisitorDto
+public sealed class VisitorDto
 {
 }

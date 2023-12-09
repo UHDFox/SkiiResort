@@ -3,7 +3,7 @@ using Application.Visitor;
 
 namespace Application.Skipass;
 
-public class SkipassDto
+public sealed class SkipassDto
 {
     public Guid Id { get; set; }
     public int Balance { get; set; }

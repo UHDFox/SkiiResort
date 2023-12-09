@@ -1,5 +1,3 @@
-using System.ComponentModel.DataAnnotations;
-
 namespace Domain.Entities.Visitor;
 
 public sealed class VisitorRecord
@@ -13,11 +11,12 @@ public sealed class VisitorRecord
         Birthdate = birthdate;
         Passport = passport;
     }
+
     public Guid Id { get; set; }
     public string Name { get; set; }
     public int Age { get; set; }
-    
-    [Phone] public int Phone { get; set; }
+
+    public int Phone { get; set; }
 
     public DateTime Birthdate { get; set; }
     public string Passport { get; set; }
