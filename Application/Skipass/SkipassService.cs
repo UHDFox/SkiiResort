@@ -8,7 +8,7 @@ namespace Application.Skipass;
 
 internal class SkipassService : ISkipassService
 {
-    private readonly IHotelContext context;
+    private readonly HotelContext context;
     private readonly IMapper mapper;
 
 

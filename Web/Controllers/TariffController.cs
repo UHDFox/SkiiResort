@@ -33,6 +33,17 @@ public class TariffController : Controller
         //var result = await context.AddAsync(mapper.Map<TariffRecord>(tariffModel));
         var result = await context.AddAsync(tariffModel);
 
-        return Created($"{Request.Path}/{result.Id}", mapper.Map<TariffResponse>(result));
+        return Created($"{Request.Path}", mapper.Map<TariffResponse>(result));
+    }
+
+    [HttpGet(Name = "GetList")]
+    [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(GetAllResponse<TariffResponse>))]
+    [ProducesResponseType(StatusCodes.Status404NotFound)]
+    public async Task<IActionResult> GetListAsync(int offset, int limit)
+    {
+        var result = await context.GetListAsync(offset, limit);
+       // return Ok(new IReadOnlyCollection<GetTariffModel>(mapper.Map<IReadOnlyCollection<TariffResponse>>(result, )));
+       return Ok(new GetAllResponse<TariffResponse>(mapper.Map<IReadOnlyCollection<TariffResponse>>(result),
+           result.Count));
     }
 }

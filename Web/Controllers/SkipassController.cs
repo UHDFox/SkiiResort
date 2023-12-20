@@ -1,3 +1,4 @@
+using Application.Exceptions;
 using Application.Skipass;
 using AutoMapper;
 using Domain.Entities.Skipass;
@@ -36,8 +37,8 @@ public sealed class SkipassController : Controller
     [ProducesResponseType(StatusCodes.Status404NotFound)]
     public async Task<IActionResult> GetByIdAsync(Guid id)
     {
-        var result = await context.GetByIdAsync(id);
-        if (result == null) NotFound();
+        var result = await context.GetByIdAsync(id) ?? throw new NotFoundException("Tariff not found");
+            //if (result == null) NotFound();
         return Ok(mapper.Map<SkipassRecord>(result));
     }
 
@@ -49,7 +50,7 @@ public sealed class SkipassController : Controller
         //var skipass = mapper.Map<AddSkipassModel>(skipassModel);
         var result = await context.AddAsync(skipassModel);
 
-        return Created($"{Request.Path}/{result.Id}", mapper.Map<SkipassResponse>(result));
+        return Created($"{Request.Path}", mapper.Map<SkipassResponse>(result));
     }
 
     [HttpPut(Name = "Update record")]

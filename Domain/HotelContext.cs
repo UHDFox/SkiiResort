@@ -5,7 +5,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Domain;
 
-public sealed class HotelContext : DbContext, IHotelContext
+public sealed class HotelContext : DbContext
 {
     public HotelContext(DbContextOptions opts) : base(opts)
     {

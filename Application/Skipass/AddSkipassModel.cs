@@ -5,7 +5,7 @@ namespace Application.Skipass;
 
 public sealed class AddSkipassModel
 {
-    public Guid Id { get; set; }
+    //public Guid Id { get; set; }
     public int Balance { get; set; }
     public int TariffId { get; set; }
     public TariffRecord TariffRecord { get; set; }
