@@ -1,6 +1,8 @@
 using Application.Exceptions;
+using Application.Infrastructure.Automapper;
 using AutoMapper;
 using Domain;
+using Domain.Entities.Skipass;
 using Domain.Entities.Tariff;
 using Microsoft.EntityFrameworkCore;
 
@@ -16,22 +18,23 @@ internal class TariffService : ITariffService
         this.context = context;
         this.mapper = mapper;
     }
-    public async Task<GetTariffModel> GetByIdAsync(Guid skipassId)
+    public async Task<TariffRecord> GetByIdAsync(Guid skipassId)
     {
-        return mapper.Map<GetTariffModel>(await context.Skipasses.FindAsync(skipassId)) ??
-               throw new NotFoundException("Tariff not found");
+
+        return new TariffRecord("capy");
     }
 
-    public async Task<IReadOnlyCollection<GetTariffModel>> GetListAsync(int offset = 0, int limit = 150)
+    public async Task<IReadOnlyCollection<TariffRecord>> GetListAsync(int offset, int limit)
     {
-        return mapper.Map <IReadOnlyCollection<GetTariffModel>>(await context.Tariffs.Take(limit).ToListAsync());
+        /*return mapper.Map<IReadOnlyCollection<GetTariffModel>>(await context.Tariffs.Skip(offset).Take(limit)
+            .ToListAsync());*/
+        return await context.Tariffs.Skip(offset).Take(limit).ToListAsync();
     }
     
     public async Task<AddTariffModel> AddAsync(AddTariffModel tariffModel)
     {
-        /*await context.Tariffs.AddAsync(mapper.Map<TariffRecord>(tariffModel));
-        return mapper.Map<AddTariffModel>(mapper.Map<TariffRecord>())*/
-        //return mapper.Map<AddTariffModel>(await context.Tariffs.AddAsync(mapper.Map<TariffRecord>(tariffModel)));
-        return mapper.Map<AddTariffModel>(await context.Tariffs.AddAsync(mapper.Map<TariffRecord>(tariffModel)));
+        var result = await context.Tariffs.AddAsync(mapper.Map<TariffRecord>(tariffModel));
+        await context.SaveChangesAsync();
+        return mapper.Map<AddTariffModel>(result);
     }
 }

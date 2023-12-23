@@ -1,4 +1,5 @@
 using Application.Infrastructure;
+using Web.Infrastructure;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -9,6 +10,7 @@ builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.ConfigureSkipassServices();
 builder.Services.ConfigureTariffServices();
+builder.Services.ConfigureAutomapper();
 builder.Services.AddSwaggerGen();
 
 var app = builder.Build();

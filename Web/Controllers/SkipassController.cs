@@ -47,7 +47,6 @@ public sealed class SkipassController : Controller
     [ProducesResponseType(StatusCodes.Status400BadRequest, Type = typeof(ValidationProblemDetails))]
     public async Task<IActionResult> AddAsync(Guid id, AddSkipassModel skipassModel)
     {
-        //var skipass = mapper.Map<AddSkipassModel>(skipassModel);
         var result = await context.AddAsync(skipassModel);
 
         return Created($"{Request.Path}", mapper.Map<SkipassResponse>(result));

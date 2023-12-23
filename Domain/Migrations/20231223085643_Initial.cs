@@ -1,6 +1,5 @@
 ﻿using System;
 using Microsoft.EntityFrameworkCore.Migrations;
-using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
 #nullable disable
 
@@ -16,8 +15,7 @@ namespace Domain.Migrations
                 name: "Tariffs",
                 columns: table => new
                 {
-                    Id = table.Column<int>(type: "integer", nullable: false)
-                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
+                    Id = table.Column<Guid>(type: "uuid", nullable: false),
                     Name = table.Column<string>(type: "text", nullable: false)
                 },
                 constraints: table =>
@@ -47,10 +45,10 @@ namespace Domain.Migrations
                 {
                     Id = table.Column<Guid>(type: "uuid", nullable: false),
                     Balance = table.Column<int>(type: "integer", nullable: false),
-                    TariffId = table.Column<int>(type: "integer", nullable: false),
-                    TariffRecordId = table.Column<int>(type: "integer", nullable: false),
-                    VisitorId = table.Column<int>(type: "integer", nullable: false),
-                    VisitorRecordId = table.Column<Guid>(type: "uuid", nullable: false),
+                    TariffId = table.Column<Guid>(type: "uuid", nullable: false),
+                    TariffRecordId = table.Column<Guid>(type: "uuid", nullable: true),
+                    VisitorId = table.Column<Guid>(type: "uuid", nullable: false),
+                    VisitorRecordId = table.Column<Guid>(type: "uuid", nullable: true),
                     Status = table.Column<bool>(type: "boolean", nullable: false)
                 },
                 constraints: table =>
@@ -60,14 +58,12 @@ namespace Domain.Migrations
                         name: "FK_Skipasses_Tariffs_TariffRecordId",
                         column: x => x.TariffRecordId,
                         principalTable: "Tariffs",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
+                        principalColumn: "Id");
                     table.ForeignKey(
                         name: "FK_Skipasses_Visitors_VisitorRecordId",
                         column: x => x.VisitorRecordId,
                         principalTable: "Visitors",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
+                        principalColumn: "Id");
                 });
 
             migrationBuilder.CreateIndex(

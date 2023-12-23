@@ -11,10 +11,13 @@ internal class SkipassService : ISkipassService
     private readonly HotelContext context;
     private readonly IMapper mapper;
 
-
+    public SkipassService(HotelContext context, IMapper mapper)
+    {
+        this.context = context;
+        this.mapper = mapper;
+    }
     public async Task<IReadOnlyCollection<GetSkipassModel>> GetListAsync(int offset = 0, int limit = 150)
     {
-        //await context.Boxes.FirstOrDefaultAsync(box => box.Id == id, cancellationToken);
         return mapper.Map<IReadOnlyCollection<GetSkipassModel>>(await context.Skipasses.Take(limit).ToListAsync());
     }
 

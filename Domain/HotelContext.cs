@@ -19,4 +19,9 @@ public sealed class HotelContext : DbContext
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
     {
     }
+
+    protected override void OnModelCreating(ModelBuilder modelBuilder)
+    {
+        modelBuilder.Entity<TariffRecord>().Property(b => b.Id).ValueGeneratedOnAdd();
+    }
 }

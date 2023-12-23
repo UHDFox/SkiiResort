@@ -34,16 +34,16 @@ namespace Domain.Migrations
                     b.Property<bool>("Status")
                         .HasColumnType("boolean");
 
-                    b.Property<int>("TariffId")
-                        .HasColumnType("integer");
+                    b.Property<Guid>("TariffId")
+                        .HasColumnType("uuid");
 
-                    b.Property<int>("TariffRecordId")
-                        .HasColumnType("integer");
+                    b.Property<Guid?>("TariffRecordId")
+                        .HasColumnType("uuid");
 
-                    b.Property<int>("VisitorId")
-                        .HasColumnType("integer");
+                    b.Property<Guid>("VisitorId")
+                        .HasColumnType("uuid");
 
-                    b.Property<Guid>("VisitorRecordId")
+                    b.Property<Guid?>("VisitorRecordId")
                         .HasColumnType("uuid");
 
                     b.HasKey("Id");
@@ -57,11 +57,9 @@ namespace Domain.Migrations
 
             modelBuilder.Entity("Domain.Entities.Tariff.TariffRecord", b =>
                 {
-                    b.Property<int>("Id")
+                    b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("integer");
-
-                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
+                        .HasColumnType("uuid");
 
                     b.Property<string>("Name")
                         .IsRequired()
@@ -104,15 +102,11 @@ namespace Domain.Migrations
                 {
                     b.HasOne("Domain.Entities.Tariff.TariffRecord", "TariffRecord")
                         .WithMany()
-                        .HasForeignKey("TariffRecordId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("TariffRecordId");
 
                     b.HasOne("Domain.Entities.Visitor.VisitorRecord", "VisitorRecord")
                         .WithMany()
-                        .HasForeignKey("VisitorRecordId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("VisitorRecordId");
 
                     b.Navigation("TariffRecord");
 

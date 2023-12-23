@@ -1,13 +1,11 @@
+using System.Collections.ObjectModel;
 using Application.Tariff;
 using AutoMapper;
-using Domain;
-using Domain.Entities.Tariff;
 using Microsoft.AspNetCore.Mvc;
 using Web.Contracts.CommonResponses;
 using Web.Contracts.Tariff;
 
 namespace Web.Controllers;
-
 
 
 [Route("api/[controller]/[action]")]
@@ -29,11 +27,8 @@ public class TariffController : Controller
     [ProducesResponseType(StatusCodes.Status400BadRequest, Type = typeof(ValidationProblemDetails))]
     public async Task<IActionResult> AddAsync(Guid id, AddTariffModel tariffModel)
     {
-        //var tariff = mapper.Map<AddTariffModel>(tariffModel);
-        //var result = await context.AddAsync(mapper.Map<TariffRecord>(tariffModel));
         var result = await context.AddAsync(tariffModel);
-
-        return Created($"{Request.Path}", mapper.Map<TariffResponse>(result));
+        return Created($"{Request.Path}", result);
     }
 
     [HttpGet(Name = "GetList")]
@@ -42,8 +37,7 @@ public class TariffController : Controller
     public async Task<IActionResult> GetListAsync(int offset, int limit)
     {
         var result = await context.GetListAsync(offset, limit);
-       // return Ok(new IReadOnlyCollection<GetTariffModel>(mapper.Map<IReadOnlyCollection<TariffResponse>>(result, )));
-       return Ok(new GetAllResponse<TariffResponse>(mapper.Map<IReadOnlyCollection<TariffResponse>>(result),
-           result.Count));
+
+            return Ok(new GetAllResponse<TariffResponse>(mapper.Map<ReadOnlyCollection<TariffResponse>>(result), result.Count()));
     }
 }

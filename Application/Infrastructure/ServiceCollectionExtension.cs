@@ -19,21 +19,12 @@ public static class ServiceCollectionExtension
         });
 
         services.AddTransient<ISkipassService, SkipassService>();
-        services.AddAutoMapper(typeof(ApplicationProfile));
 
         return services;
     }
-
     public static IServiceCollection ConfigureTariffServices(this IServiceCollection services)
     {
-        services.AddDbContext<HotelContext>((provider, builder) =>
-        {
-            var connectionString = provider.GetRequiredService<IConfiguration>().GetConnectionString("Psql");
-            builder.UseNpgsql(connectionString);
-        });
-
         services.AddTransient<ITariffService, TariffService>();
-
         return services;
     }
 }
