@@ -12,7 +12,7 @@ public class WebProfile : Profile
     {
         CreateMap<TariffResponse, GetTariffModel>().ReverseMap();
         CreateMap<TariffRecord, GetTariffModel>().ReverseMap();
-        CreateMap<IReadOnlyCollection<TariffResponse>, IReadOnlyCollection<GetTariffModel>>().ReverseMap();
-        CreateMap<ReadOnlyCollection<GetTariffModel>, List<TariffRecord>>();
+        /*CreateMap<IReadOnlyCollection<TariffResponse>, IReadOnlyCollection<GetTariffModel>>().ReverseMap();
+        CreateMap<ReadOnlyCollection<GetTariffModel>, List<TariffRecord>>();*/
     }
 }
