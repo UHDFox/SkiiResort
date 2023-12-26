@@ -20,6 +20,7 @@ public sealed class ApplicationProfile : Profile
         CreateMap<UpdateSkipassModel, SkipassRecord>().ReverseMap();
         CreateMap<GetSkipassModel, SkipassRecord>().ReverseMap();
         CreateMap<TariffRecord, GetTariffModel>().ReverseMap();
+        CreateMap<AddTariffModel, TariffRecord>().ReverseMap();
         CreateMap<EntityEntry<TariffRecord>, AddTariffModel>()
             .ConstructUsing(x => new AddTariffModel(x.Entity.Name));
     }
