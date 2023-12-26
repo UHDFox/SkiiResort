@@ -24,11 +24,11 @@ internal class TariffService : ITariffService
         return new TariffRecord("capy");
     }
 
-    public async Task<IReadOnlyCollection<TariffRecord>> GetListAsync(int offset, int limit)
+    public async Task<IReadOnlyCollection<TariffRecord>> GetListAsync(int? offset, int? limit)
     {
         /*return mapper.Map<IReadOnlyCollection<GetTariffModel>>(await context.Tariffs.Skip(offset).Take(limit)
             .ToListAsync());*/
-        return await context.Tariffs.Skip(offset).Take(limit).ToListAsync();
+        return await context.Tariffs.Skip((int)offset!).Take((int)limit!).ToListAsync();
     }
     
     public async Task<AddTariffModel> AddAsync(AddTariffModel tariffModel)
