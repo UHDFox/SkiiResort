@@ -5,5 +5,5 @@ namespace Application.Tariff;
 public interface ITariffService
 {
     Task<AddTariffModel> AddAsync(AddTariffModel tariffModel);
-    Task<IReadOnlyCollection<TariffRecord>> GetListAsync(int? offset = 0, int? limit = 150);
+    Task<IReadOnlyCollection<GetTariffModel>> GetListAsync(int? offset = 0, int? limit = 150);
 }

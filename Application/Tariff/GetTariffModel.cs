@@ -8,6 +8,6 @@ public sealed class GetTariffModel
     public GetTariffModel(Guid id, string name)
     {
         Id = id;
-        Name = Name;
+        Name = name;
     }
 }

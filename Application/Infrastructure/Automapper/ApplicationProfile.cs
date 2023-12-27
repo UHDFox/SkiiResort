@@ -15,10 +15,10 @@ public sealed class ApplicationProfile : Profile
     public ApplicationProfile()
     {
         CreateMap<VisitorDto, VisitorRecord>().ReverseMap();
-        CreateMap<TariffDto, TariffRecord>().ReverseMap();
         CreateMap<AddSkipassModel, SkipassRecord>().ReverseMap();
         CreateMap<UpdateSkipassModel, SkipassRecord>().ReverseMap();
         CreateMap<GetSkipassModel, SkipassRecord>().ReverseMap();
+        
         CreateMap<TariffRecord, GetTariffModel>().ReverseMap();
         CreateMap<AddTariffModel, TariffRecord>().ReverseMap();
         CreateMap<EntityEntry<TariffRecord>, AddTariffModel>()

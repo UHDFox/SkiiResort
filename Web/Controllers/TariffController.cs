@@ -31,13 +31,13 @@ public class TariffController : Controller
         return Created($"{Request.Path}", result);
     }
 
-    [HttpGet(Name = "GetList")]
+    [HttpGet()]
     [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(GetAllResponse<TariffResponse>))]
     [ProducesResponseType(StatusCodes.Status404NotFound)]
     public async Task<IActionResult> GetListAsync(int offset, int limit)
     {
         var result = await context.GetListAsync(offset, limit);
+        return Ok(new GetAllResponse<TariffResponse>(mapper.Map<IReadOnlyCollection<TariffResponse>>(result), result.Count).List);
 
-            return Ok(new GetAllResponse<TariffResponse>(mapper.Map<ReadOnlyCollection<TariffResponse>>(result), result.Count()));
     }
 }

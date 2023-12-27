@@ -10,8 +10,7 @@ public class WebProfile : Profile
 {
     public WebProfile()
     {
-        CreateMap<TariffResponse, GetTariffModel>().ReverseMap();
-        CreateMap<TariffRecord, GetTariffModel>().ReverseMap();
+        CreateMap<GetTariffModel, TariffResponse>().ReverseMap();
         CreateMap<AddTariffModel, TariffRecord>().ReverseMap();
         CreateMap<AddTariffModel, TariffResponse>().ReverseMap();
     }
