@@ -16,6 +16,7 @@ internal class SkipassService : ISkipassService
         this.context = context;
         this.mapper = mapper;
     }
+
     public async Task<IReadOnlyCollection<GetSkipassModel>> GetListAsync(int offset = 0, int limit = 150)
     {
         return mapper.Map<IReadOnlyCollection<GetSkipassModel>>(await context.Skipasses.Take(limit).ToListAsync());

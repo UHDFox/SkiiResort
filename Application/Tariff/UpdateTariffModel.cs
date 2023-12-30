@@ -1,10 +1,9 @@
 namespace Application.Tariff;
 
-public sealed class GetTariffModel
+public sealed class UpdateTariffModel
 {
-    public GetTariffModel(Guid id, string name)
+    public UpdateTariffModel(string name)
     {
-        Id = id;
         Name = name;
     }
 

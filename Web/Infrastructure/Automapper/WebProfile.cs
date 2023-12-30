@@ -1,4 +1,3 @@
-using System.Collections.ObjectModel;
 using Application.Tariff;
 using AutoMapper;
 using Domain.Entities.Tariff;
@@ -13,5 +12,6 @@ public class WebProfile : Profile
         CreateMap<GetTariffModel, TariffResponse>().ReverseMap();
         CreateMap<AddTariffModel, TariffRecord>().ReverseMap();
         CreateMap<AddTariffModel, TariffResponse>().ReverseMap();
+        CreateMap<GetTariffModel, UpdateTariffModel>().ReverseMap();
     }
 }

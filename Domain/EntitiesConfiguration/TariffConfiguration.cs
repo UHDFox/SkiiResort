@@ -8,6 +8,6 @@ public class TariffConfiguration : IEntityTypeConfiguration<TariffRecord>
 {
     public void Configure(EntityTypeBuilder<TariffRecord> builder)
     {
-       builder.HasKey(e => e.Id);
+        builder.HasKey(e => e.Id);
     }
 }

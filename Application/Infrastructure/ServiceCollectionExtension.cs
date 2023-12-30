@@ -12,6 +12,7 @@ public static class ServiceCollectionExtension
 
         return services;
     }
+
     public static IServiceCollection ConfigureTariffServices(this IServiceCollection services)
     {
         services.AddTransient<ITariffService, TariffService>();
