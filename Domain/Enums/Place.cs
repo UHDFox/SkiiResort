@@ -1,9 +1,9 @@
-namespace Domain;
+namespace Domain.Enums;
 
 public enum Place
 {
     Hotel = 0,
-    CP1 = 1,
-    CP2 = 2,
-    AmusementPark = 3,
+    Cp1 = 1,
+    Cp2 = 2,
+    AmusementPark = 3
 }

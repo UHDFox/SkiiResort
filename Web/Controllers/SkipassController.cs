@@ -1,54 +1,77 @@
-using Application.Entities;
+using Application.Exceptions;
+using Application.Skipass;
+using AutoMapper;
+using Domain.Entities.Skipass;
 using Microsoft.AspNetCore.Mvc;
+using Web.Contracts.CommonResponses;
+using Web.Contracts.Skipass;
 
 namespace Web.Controllers;
-[Route("api/[controller]/[action]")] 
-[Controller]
+
+[Route("api/[controller]/[action]")]
+//[Route("/api/skipasses")]
+[ApiController]
 public sealed class SkipassController : Controller
 {
     private readonly ISkipassService context;
+    private readonly IMapper mapper;
 
-    public SkipassController(ISkipassService context)
+    public SkipassController(ISkipassService context, IMapper mapper)
     {
         this.context = context;
-    }
-    /*List<SkipassDto> ShowAllSkipasses();
-    Task<SkipassDto> GetSkipassByID(int skipassId);
-    Task<SkipassDto> AddNewSkipass(SkipassDto request);
-    Task<SkipassDto> UpdateSkipassInfo(SkipassDto updatedSkipass);
-    Task<SkipassDto> DeleteSkipass(int skipassId);*/
-    [HttpGet]
-    public List<SkipassDto> ShowAllSkipasses()
-    {
-        var skipasses = context.ShowAllSkipasses();
-        return skipasses;
+        this.mapper = mapper;
     }
 
-    [HttpGet]
-    public async Task<SkipassDto> GetSkipassByID(int skipassId)
+    [HttpGet(Name = "Get skipasses")]
+    [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(GetAllResponse<SkipassResponse>))]
+    [ProducesResponseType(StatusCodes.Status404NotFound)]
+    public async Task<IActionResult> GetListAsync(int offset, int limit)
     {
-         var result = await context.GetSkipassByID(skipassId);
-         return result;
+        var result = await context.GetListAsync(offset, limit);
+        return Ok(new GetAllResponse<SkipassResponse>(mapper.Map<IReadOnlyCollection<SkipassResponse>>(result),
+            result.Count));
     }
 
-    [HttpPost]
-    public async Task<SkipassDto> AddNewSkipass(SkipassDto request)
+    [HttpGet(Name = "Get skipass by Id")]
+    [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(SkipassResponse))]
+    [ProducesResponseType(StatusCodes.Status404NotFound)]
+    public async Task<IActionResult> GetByIdAsync(Guid id)
     {
-        var result = await context.AddNewSkipass(request);
-        return result;
+        var result = await context.GetByIdAsync(id) ?? throw new NotFoundException("Tariff not found");
+        //if (result == null) NotFound();
+        return Ok(mapper.Map<SkipassRecord>(result));
     }
 
-    [HttpPut]
-    public async Task<SkipassDto> UpdateSkipassInfo(SkipassDto updatedSkipass)
+    [HttpPost(Name = "Create skipass")]
+    [ProducesResponseType(StatusCodes.Status201Created, Type = typeof(CreatedResponse))]
+    [ProducesResponseType(StatusCodes.Status400BadRequest, Type = typeof(ValidationProblemDetails))]
+    public async Task<IActionResult> AddAsync(Guid id, AddSkipassModel skipassModel)
     {
-        var result = await context.UpdateSkipassInfo(updatedSkipass);
-        return result;
+        var result = await context.AddAsync(skipassModel);
+
+        return Created($"{Request.Path}", mapper.Map<SkipassResponse>(result));
     }
 
-    [HttpDelete]
-    public async Task<SkipassDto> DeleteSkipass(int skipassId)
+    [HttpPut(Name = "Update record")]
+    [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(UpdatedResponse))]
+    [ProducesResponseType(StatusCodes.Status404NotFound)]
+    public async Task<IActionResult> UpdateAsync(Guid id, UpdateSkipassModel skipassModel)
     {
-        var result = await context.DeleteSkipass(skipassId);
-        return result;
+        var record = await context.GetByIdAsync(id);
+        var updatedRecord = mapper.Map<UpdateSkipassModel>(skipassModel);
+        var result = await context.UpdateAsync(updatedRecord);
+        return Ok(new UpdatedResponse(id, result));
+    }
+
+    [HttpDelete(Name = "Delete skipass record")]
+    [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(DeletedResponse))]
+    [ProducesResponseType(StatusCodes.Status404NotFound)]
+    public async Task<IActionResult> DeleteAsync(Guid id, DeleteSkipassModel skipassModel)
+    {
+        var record = context.GetByIdAsync(id);
+        if (record == null) NotFound();
+
+        var result = await context.DeleteAsync(skipassModel);
+        return Ok(new DeletedResponse(id, result));
     }
 }

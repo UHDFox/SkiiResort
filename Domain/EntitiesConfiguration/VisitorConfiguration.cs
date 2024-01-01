@@ -1,11 +1,12 @@
+using Domain.Entities.Visitor;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
 namespace Domain.EntitiesConfiguration;
 
-public class VisitorConfiguration : IEntityTypeConfiguration<Visitor>
+public class VisitorConfiguration : IEntityTypeConfiguration<VisitorRecord>
 {
-    public void Configure(EntityTypeBuilder<Visitor> builder)
+    public void Configure(EntityTypeBuilder<VisitorRecord> builder)
     {
         builder.HasKey(e => e.Id);
     }

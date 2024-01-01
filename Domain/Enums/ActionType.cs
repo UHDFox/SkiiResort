@@ -1,4 +1,4 @@
-namespace Domain.Entities.VisitorsAction;
+namespace Domain.Enums;
 
 public enum ActionType
 {

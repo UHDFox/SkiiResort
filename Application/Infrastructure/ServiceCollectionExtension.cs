@@ -1,25 +1,21 @@
-
-using Application.Entities;
-using Domain;
-using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.Configuration;
+using Application.Skipass;
+using Application.Tariff;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace Application.Infrastructure;
 
-public static class ServiceCollectionExtension 
+public static class ServiceCollectionExtension
 {
     public static IServiceCollection ConfigureSkipassServices(this IServiceCollection services)
     {
-        //services.UseNpgsql(builder.Configuration.GetConnectionString("Psql"));
-        services.AddDbContext<DBContext>((provider, builder) =>
-        {
-            var connectionString = provider.GetRequiredService<IConfiguration>().GetConnectionString("Psql");
-            builder.UseNpgsql(connectionString);
-        });
-        
-        services.AddTransient<ISkipassService>(provider => provider.GetRequiredService<SkipassService>());
-        //services.AddTransient<ISkipassService, SkipassService>();
+        services.AddTransient<ISkipassService, SkipassService>();
+
+        return services;
+    }
+
+    public static IServiceCollection ConfigureTariffServices(this IServiceCollection services)
+    {
+        services.AddTransient<ITariffService, TariffService>();
         return services;
     }
 }

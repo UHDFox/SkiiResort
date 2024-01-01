@@ -1,7 +1,6 @@
-using Application.Entities;
 using Application.Infrastructure;
-using Domain;
-using Microsoft.EntityFrameworkCore;
+using Domain.Infrastructure;
+using Web.Infrastructure;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -10,20 +9,10 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
-/*builder.Services.AddTransient<ISkipassService>(provider =>
-{
-    var service = provider.GetRequiredService<ISkipassService>();
-    return new SkipassService(service);
-});*/
-//builder.Services.AddTransient<ISkipassService, SkipassService>();
-//builder.Services.AddTransient<ISkipassService>(provider => provider.GetRequiredService<ISkipassService>());
-
-/*builder.Services.AddDbContext<DBContext>(options =>
-{
-    options.UseNpgsql(builder.Configuration.GetConnectionString("Psql"));
-});*/
-
+builder.Services.ConfigureDataBase();
 builder.Services.ConfigureSkipassServices();
+builder.Services.ConfigureTariffServices();
+builder.Services.ConfigureAutomapper();
 builder.Services.AddSwaggerGen();
 
 var app = builder.Build();
