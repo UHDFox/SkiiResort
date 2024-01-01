@@ -58,9 +58,6 @@ public sealed class SkipassController : Controller
     public async Task<IActionResult> UpdateAsync(Guid id, UpdateSkipassModel skipassModel)
     {
         var record = await context.GetByIdAsync(id);
-
-        if (record == null) NotFound();
-
         var updatedRecord = mapper.Map<UpdateSkipassModel>(skipassModel);
         var result = await context.UpdateAsync(updatedRecord);
         return Ok(new UpdatedResponse(id, result));

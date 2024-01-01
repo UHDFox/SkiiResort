@@ -17,10 +17,15 @@ public class VisitorsActions
     }
 
     public Guid Id { get; set; }
+    
     public int SkipassId { get; set; }
+    
     public SkipassRecord? SkipassRecord { get; set; }
+    
     public string Place { get; set; }
+    
     public DateTime Time { get; set; }
+    
     public int BalanceChange { get; set; }
 
     public ActionType TypeOfAction { get; set; }
