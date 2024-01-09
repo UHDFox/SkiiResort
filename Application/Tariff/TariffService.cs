@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Application.Tariff;
 
-internal class TariffService : ITariffService
+internal sealed class TariffService : ITariffService
 {
     private readonly HotelContext context;
     private readonly IMapper mapper;
@@ -30,11 +30,11 @@ internal class TariffService : ITariffService
             .Take((int)limit!).ToListAsync());
     }
 
-    public async Task<AddTariffModel> AddAsync(AddTariffModel tariffModel)
+    public async Task<TariffRecord> AddAsync(AddTariffModel tariffModel)
     {
         var result = await context.Tariffs.AddAsync(mapper.Map<TariffRecord>(tariffModel));
         await context.SaveChangesAsync();
-        return mapper.Map<AddTariffModel>(result);
+        return mapper.Map<TariffRecord>(result.Entity);
     }
 
     public async Task DeleteAsync(Guid id)

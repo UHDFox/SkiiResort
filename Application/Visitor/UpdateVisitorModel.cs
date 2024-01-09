@@ -1,8 +1,8 @@
-namespace Domain.Entities.Visitor;
+namespace Application.Visitor;
 
-public sealed class VisitorRecord
+public sealed class UpdateVisitorModel
 {
-    public VisitorRecord(string name, int age, int phone, DateTime birthdate, string passport)
+    public UpdateVisitorModel(string name, int age, int phone, DateTime birthdate, string passport)
     {
         Name = name;
         Age = age;
@@ -10,16 +10,21 @@ public sealed class VisitorRecord
         Birthdate = birthdate;
         Passport = passport;
     }
-
+    
     public Guid Id { get; set; }
     
-    public string Name { get; set; }
+    
+    public string? Name { get; set; }
+    
     
     public int Age { get; set; }
     
+    
     public int Phone { get; set; }
+    
 
     public DateTime Birthdate { get; set; }
     
-    public string Passport { get; set; }
+    
+    public string? Passport { get; set; }
 }
