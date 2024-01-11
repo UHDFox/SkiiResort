@@ -30,7 +30,7 @@ namespace Domain.Migrations
                     Id = table.Column<Guid>(type: "uuid", nullable: false),
                     Name = table.Column<string>(type: "text", nullable: false),
                     Age = table.Column<int>(type: "integer", nullable: false),
-                    Phone = table.Column<int>(type: "integer", nullable: false),
+                    Phone = table.Column<string>(type: "text", nullable: false),
                     Birthdate = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
                     Passport = table.Column<string>(type: "text", nullable: false)
                 },

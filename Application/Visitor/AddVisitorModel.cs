@@ -2,7 +2,7 @@ namespace Application.Visitor;
 
 public sealed class AddVisitorModel
 {
-    public AddVisitorModel(string name, int age, int phone, string passport)
+    public AddVisitorModel(string name, int age, string phone, string passport)
     {
         Name = name;
         Age = age;
@@ -15,7 +15,7 @@ public sealed class AddVisitorModel
     public int Age { get; set; }
     
     
-    public int Phone { get; set; }
+    public string Phone { get; set; }
     
 
     public DateTime Birthdate { get; set; }
