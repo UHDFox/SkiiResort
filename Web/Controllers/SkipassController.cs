@@ -9,7 +9,6 @@ using Web.Contracts.Skipass;
 namespace Web.Controllers;
 
 [Route("api/[controller]/[action]")]
-//[Route("/api/skipasses")]
 [ApiController]
 public sealed class SkipassController : Controller
 {
@@ -38,7 +37,6 @@ public sealed class SkipassController : Controller
     public async Task<IActionResult> GetByIdAsync(Guid id)
     {
         var result = await context.GetByIdAsync(id) ?? throw new NotFoundException("Tariff not found");
-        //if (result == null) NotFound();
         return Ok(mapper.Map<SkipassRecord>(result));
     }
 

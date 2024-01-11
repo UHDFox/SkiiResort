@@ -24,5 +24,8 @@ public sealed class ApplicationProfile : Profile
         CreateMap<GetTariffModel, UpdateTariffModel>().ReverseMap();
         CreateMap<EntityEntry<TariffRecord>, AddTariffModel>()
             .ConstructUsing(x => new AddTariffModel(x.Entity.Name));
+
+        CreateMap<VisitorRecord, GetVisitorModel>().ReverseMap();
+        CreateMap<VisitorDto, AddVisitorModel>().ReverseMap();
     }
 }

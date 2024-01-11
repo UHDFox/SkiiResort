@@ -12,6 +12,7 @@ builder.Services.AddEndpointsApiExplorer();
 builder.Services.ConfigureDataBase();
 builder.Services.ConfigureSkipassServices();
 builder.Services.ConfigureTariffServices();
+builder.Services.ConfigureVisitorServices();
 builder.Services.ConfigureAutomapper();
 builder.Services.AddSwaggerGen();
 
