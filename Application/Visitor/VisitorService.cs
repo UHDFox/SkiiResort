@@ -1,7 +1,8 @@
+using System.ComponentModel.DataAnnotations;
+using System.Text.RegularExpressions;
 using Application.Exceptions;
 using AutoMapper;
 using Domain;
-using Domain.Entities.Tariff;
 using Domain.Entities.Visitor;
 using Microsoft.EntityFrameworkCore;
 
@@ -18,9 +19,15 @@ internal sealed class VisitorService : IVisitorService
         this.mapper = mapper;
     }
 
+    private static Regex passportRegex = new Regex(@"\d{4}-\d{6}");
     public async Task<VisitorRecord> AddAsync(AddVisitorModel model)
     {
         var result = await context.Visitors.AddAsync(mapper.Map<VisitorRecord>(model));
+
+        if (!passportRegex.IsMatch(result.Entity.Passport))
+        {
+            throw new ValidationException("Validation error - check passport series and number");
+        }
         await context.SaveChangesAsync(); 
         return mapper.Map<VisitorRecord>(result.Entity);
     }
