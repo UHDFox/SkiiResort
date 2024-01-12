@@ -24,10 +24,10 @@ internal sealed class TariffService : ITariffService
         return mapper.Map<GetTariffModel>(tariff);
     }
 
-    public async Task<IReadOnlyCollection<GetTariffModel>> GetListAsync(int? offset, int? limit)
+    public async Task<IReadOnlyCollection<GetTariffModel>> GetListAsync(int offset, int limit)
     {
-        return mapper.Map<IReadOnlyCollection<GetTariffModel>>(await context.Tariffs.Skip((int)offset!)
-            .Take((int)limit!).ToListAsync());
+        return mapper.Map<IReadOnlyCollection<GetTariffModel>>(await context.Tariffs.Skip(offset)
+            .Take(limit).ToListAsync());
     }
 
     public async Task<TariffRecord> AddAsync(AddTariffModel tariffModel)

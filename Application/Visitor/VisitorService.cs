@@ -31,9 +31,9 @@ internal sealed class VisitorService : IVisitorService
         await context.SaveChangesAsync(); 
         return mapper.Map<VisitorRecord>(result.Entity);
     }
-    public async Task<IReadOnlyCollection<GetVisitorModel>> GetListAsync(int? offset, int? limit)
+    public async Task<IReadOnlyCollection<GetVisitorModel>> GetListAsync(int offset, int limit)
     {
-        var result = await context.Visitors.Skip((int)offset!).Take((int)limit!).ToListAsync();
+        var result = await context.Visitors.Skip(offset).Take(limit).ToListAsync();
         return mapper.Map<IReadOnlyCollection<GetVisitorModel>>(result);
     }
 

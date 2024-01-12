@@ -32,9 +32,9 @@ public class TariffController : Controller
     [HttpGet("Get tariffs list")]
     [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(GetAllResponse<TariffResponse>))]
     [ProducesResponseType(StatusCodes.Status404NotFound)]
-    public async Task<IActionResult> GetListAsync(int offset, int limit)
+    public async Task<IActionResult> GetListAsync(int? offset, int? limit)
     {
-        var result = await context.GetListAsync(offset = 0, limit = 150);
+        var result = await context.GetListAsync(offset.GetValueOrDefault(0), limit.GetValueOrDefault(30));
         return Ok(new GetAllResponse<TariffResponse>(mapper.Map<IReadOnlyCollection<TariffResponse>>(result),
             result.Count).List);
     }
