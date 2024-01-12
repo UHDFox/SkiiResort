@@ -2,7 +2,7 @@ namespace Domain.Entities.Visitor;
 
 public sealed class VisitorRecord
 {
-    public VisitorRecord(string name, int age, int phone, DateTime birthdate, string passport)
+    public VisitorRecord(string name, int age, string phone, DateTime birthdate, string passport)
     {
         Name = name;
         Age = age;
@@ -17,7 +17,7 @@ public sealed class VisitorRecord
     
     public int Age { get; set; }
     
-    public int Phone { get; set; }
+    public string Phone { get; set; }
 
     public DateTime Birthdate { get; set; }
     
