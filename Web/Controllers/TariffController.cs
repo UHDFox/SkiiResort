@@ -4,6 +4,7 @@ using AutoMapper;
 using Microsoft.AspNetCore.Mvc;
 using Web.Contracts.CommonResponses;
 using Web.Contracts.Tariff;
+using Web.Contracts.Visitor;
 
 namespace Web.Controllers;
 
@@ -42,10 +43,10 @@ public class TariffController : Controller
     [HttpGet("Get tariff by Id")]
     [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(TariffResponse))]
     [ProducesResponseType(StatusCodes.Status404NotFound)]
-    public async Task<GetTariffModel> GetByIdAsync(Guid id)
+    public async Task<IActionResult> GetByIdAsync(Guid id)
     {
         var result = await context.GetByIdAsync(id) ?? throw new NotFoundException("There's no record with such an ID");
-        return result;
+        return Ok(mapper.Map<VisitorResponse>(result));
     }
     [HttpDelete]
     [ProducesResponseType(StatusCodes.Status404NotFound)]
@@ -59,9 +60,9 @@ public class TariffController : Controller
     [HttpPut("Update tariff")]
     [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(UpdatedResponse))]
     [ProducesResponseType(StatusCodes.Status404NotFound)]
-    public async Task<IActionResult> UpdateAsync(Guid id, UpdateTariffModel tariffModel)
+    public async Task<IActionResult> UpdateAsync(UpdateTariffModel tariffModel)
     {
-        var result = await context.UpdateAsync(id, tariffModel);
-        return Ok(new UpdatedResponse(id, result));
+        var result = await context.UpdateAsync(tariffModel);
+        return Ok(new UpdatedResponse(tariffModel.Id, result));
     }
 }
