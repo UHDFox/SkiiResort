@@ -37,16 +37,16 @@ internal sealed class VisitorService : IVisitorService
         return mapper.Map<IReadOnlyCollection<GetVisitorModel>>(result);
     }
 
-    public async Task<GetVisitorModel> GetByIdAsync(Guid id)
+    public async Task<VisitorRecord> GetByIdAsync(Guid id)
     {
         var entity = await context.Visitors.AsNoTracking().FirstOrDefaultAsync(x => x.Id == id) ?? throw new NotFoundException();
-        return mapper.Map<GetVisitorModel>(entity);
+        return entity;
     }
 
-    public async Task<bool> UpdateAsync(Guid id, UpdateVisitorModel model)
+    public async Task<bool> UpdateAsync(UpdateVisitorModel model)
     {
-        await GetByIdAsync(id); //to check if such record exists in db
-        context.Visitors.Update(mapper.Map<VisitorRecord>(model));
+        var visitor = await GetByIdAsync(model.Id);
+        context.Visitors.Update(mapper.Map(model, visitor));
         return await context.SaveChangesAsync() > 0;
     }
 

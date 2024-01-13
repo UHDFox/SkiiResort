@@ -49,10 +49,10 @@ public sealed class VisitorController : Controller
     [HttpPut]
     [ProducesResponseType(StatusCodes.Status404NotFound)]
     [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(UpdatedResponse))]
-    public async Task<IActionResult> UpdateAsync(Guid id, UpdateVisitorModel model)
+    public async Task<IActionResult> UpdateAsync(UpdateVisitorModel model)
     {
-        var result = await visitorService.UpdateAsync(id, model);
-        return Ok(new UpdatedResponse(id, result));
+        var result = await visitorService.UpdateAsync(model);
+        return Ok(new UpdatedResponse(model.Id, result));
     }
     [HttpDelete]
     [ProducesResponseType(StatusCodes.Status404NotFound)]

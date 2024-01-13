@@ -17,11 +17,11 @@ internal sealed class TariffService : ITariffService
         this.mapper = mapper;
     }
 
-    public async Task<GetTariffModel> GetByIdAsync(Guid id)
+    public async Task<TariffRecord> GetByIdAsync(Guid id)
     {
         var tariff = await context.Tariffs.AsNoTracking().FirstOrDefaultAsync(x => x.Id == id) ??
                      throw new NotFoundException();
-        return mapper.Map<GetTariffModel>(tariff);
+        return tariff;
     }
 
     public async Task<IReadOnlyCollection<GetTariffModel>> GetListAsync(int offset, int limit)
@@ -44,11 +44,10 @@ internal sealed class TariffService : ITariffService
         await context.SaveChangesAsync();
     }
 
-    public async Task<bool> UpdateAsync(Guid id, UpdateTariffModel tariffModel)
+    public async Task<bool> UpdateAsync(UpdateTariffModel tariffModel)
     {
-        await GetByIdAsync(id);
-        var updatedRecord = mapper.Map<TariffRecord>(tariffModel);
-        context.Tariffs.Update(updatedRecord);
+        var tariff = await GetByIdAsync(tariffModel.Id); 
+        context.Tariffs.Update(mapper.Map(tariffModel,tariff));
         return await context.SaveChangesAsync() > 0;
     }
 }
