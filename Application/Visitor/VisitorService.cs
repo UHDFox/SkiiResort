@@ -19,7 +19,7 @@ internal sealed class VisitorService : IVisitorService
         this.mapper = mapper;
     }
 
-    private static Regex passportRegex = new Regex(@"\d{4}-\d{6}");
+    private static readonly Regex passportRegex = new Regex(@"\d{4}-\d{6}");
     public async Task<VisitorRecord> AddAsync(AddVisitorModel model)
     {
         var result = await context.Visitors.AddAsync(mapper.Map<VisitorRecord>(model));
@@ -46,6 +46,10 @@ internal sealed class VisitorService : IVisitorService
     public async Task<bool> UpdateAsync(UpdateVisitorModel model)
     {
         var visitor = await GetByIdAsync(model.Id);
+        if (!passportRegex.IsMatch(model.Passport))
+        {
+            throw new ValidationException("Validation error - check passport series and number");
+        }
         context.Visitors.Update(mapper.Map(model, visitor));
         return await context.SaveChangesAsync() > 0;
     }
