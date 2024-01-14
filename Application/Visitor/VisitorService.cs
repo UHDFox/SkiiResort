@@ -46,6 +46,10 @@ internal sealed class VisitorService : IVisitorService
     public async Task<bool> UpdateAsync(UpdateVisitorModel model)
     {
         var visitor = await GetByIdAsync(model.Id);
+        if (!passportRegex.IsMatch(model.Passport))
+        {
+            throw new ValidationException("Validation error - check passport series and number");
+        }
         context.Visitors.Update(mapper.Map(model, visitor));
         return await context.SaveChangesAsync() > 0;
     }
