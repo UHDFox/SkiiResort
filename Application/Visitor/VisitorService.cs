@@ -19,7 +19,7 @@ internal sealed class VisitorService : IVisitorService
         this.mapper = mapper;
     }
 
-    private static Regex passportRegex = new Regex(@"\d{4}-\d{6}");
+    private static readonly Regex passportRegex = new Regex(@"\d{4}-\d{6}");
     public async Task<VisitorRecord> AddAsync(AddVisitorModel model)
     {
         var result = await context.Visitors.AddAsync(mapper.Map<VisitorRecord>(model));
