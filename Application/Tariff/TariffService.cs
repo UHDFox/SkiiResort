@@ -47,6 +47,7 @@ internal sealed class TariffService : ITariffService
     public async Task<bool> UpdateAsync(UpdateTariffModel tariffModel)
     {
         var tariff = await GetByIdAsync(tariffModel.Id); 
+        
         context.Tariffs.Update(mapper.Map(tariffModel,tariff));
         return await context.SaveChangesAsync() > 0;
     }
