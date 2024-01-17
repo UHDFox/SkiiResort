@@ -1,4 +1,5 @@
 using Application.Infrastructure.Automapper;
+using Web.Infrastructure.Automapper;
 
 namespace Web.Infrastructure;
 
