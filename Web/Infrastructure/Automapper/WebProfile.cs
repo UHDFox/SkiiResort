@@ -1,14 +1,17 @@
+using Application.Skipass;
 using Application.Tariff;
 using Application.Visitor;
 using AutoMapper;
+using Domain.Entities.Skipass;
 using Domain.Entities.Tariff;
 using Domain.Entities.Visitor;
+using Web.Contracts.Skipass;
 using Web.Contracts.Tariff;
 using Web.Contracts.Visitor;
 
-namespace Web.Infrastructure;
+namespace Web.Infrastructure.Automapper;
 
-public class WebProfile : Profile
+public sealed class WebProfile : Profile
 {
     public WebProfile()
     {
@@ -22,5 +25,10 @@ public class WebProfile : Profile
         CreateMap<AddVisitorModel, VisitorResponse>().ReverseMap();
         CreateMap<GetVisitorModel, UpdateVisitorModel>().ReverseMap();
         CreateMap<UpdateVisitorModel, VisitorRecord>().ReverseMap();
+
+
+        CreateMap<SkipassRecord, SkipassResponse>().ReverseMap();
+        CreateMap<GetSkipassModel, SkipassResponse>().ReverseMap();
+        CreateMap<UpdateSkipassModel, GetSkipassModel>().ReverseMap();
     }
 }
