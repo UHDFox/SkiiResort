@@ -1,3 +1,5 @@
+using Domain.Entities.Skipass;
+
 namespace Application.Tariff;
 
 public sealed class GetTariffModel
@@ -11,4 +13,6 @@ public sealed class GetTariffModel
     public Guid Id { get; set; }
     
     public string? Name { get; set; }
+    
+    public ICollection<SkipassRecord> Skipasses { get; set; } = new List<SkipassRecord>();
 }

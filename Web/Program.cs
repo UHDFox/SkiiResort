@@ -13,6 +13,7 @@ builder.Services.ConfigureDataBase();
 builder.Services.ConfigureSkipassServices();
 builder.Services.ConfigureTariffServices();
 builder.Services.ConfigureVisitorServices();
+builder.Services.ConfigureVisitorActionsServices();
 builder.Services.ConfigureAutomapper();
 builder.Services.AddSwaggerGen();
 

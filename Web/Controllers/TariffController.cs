@@ -1,10 +1,10 @@
 using Application.Exceptions;
 using Application.Tariff;
 using AutoMapper;
+using Domain.Entities.Tariff;
 using Microsoft.AspNetCore.Mvc;
 using Web.Contracts.CommonResponses;
 using Web.Contracts.Tariff;
-using Web.Contracts.Visitor;
 
 namespace Web.Controllers;
 
@@ -35,9 +35,8 @@ public class TariffController : Controller
     [ProducesResponseType(StatusCodes.Status404NotFound)]
     public async Task<IActionResult> GetListAsync(int? offset, int? limit)
     {
-        var result = await context.GetListAsync(offset.GetValueOrDefault(0), limit.GetValueOrDefault(30));
-        return Ok(new GetAllResponse<TariffResponse>(mapper.Map<IReadOnlyCollection<TariffResponse>>(result),
-            result.Count).List);
+        var collection = mapper.Map<IReadOnlyCollection<TariffResponse>>(await context.GetListAsync(offset.GetValueOrDefault(0), limit.GetValueOrDefault(15)));
+        return Ok(new GetAllResponse<TariffResponse>(collection,collection.Count).List);
     }
 
     [HttpGet("Get tariff by Id")]
@@ -45,8 +44,8 @@ public class TariffController : Controller
     [ProducesResponseType(StatusCodes.Status404NotFound)]
     public async Task<IActionResult> GetByIdAsync(Guid id)
     {
-        var result = await context.GetByIdAsync(id) ?? throw new NotFoundException("There's no record with such an ID");
-        return Ok(mapper.Map<VisitorResponse>(result));
+        var result = await context.GetByIdAsync(id);
+        return Ok(mapper.Map<TariffRecord>(result));
     }
     [HttpDelete]
     [ProducesResponseType(StatusCodes.Status404NotFound)]

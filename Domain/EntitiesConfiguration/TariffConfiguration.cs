@@ -1,3 +1,4 @@
+using Domain.Entities.Skipass;
 using Domain.Entities.Tariff;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
@@ -9,6 +10,6 @@ public class TariffConfiguration : IEntityTypeConfiguration<TariffRecord>
     public void Configure(EntityTypeBuilder<TariffRecord> builder)
     {
         builder.HasKey(e => e.Id);
-        builder.HasKey(e => e.Name);
+        builder.HasMany(s => s.Skipasses).WithOne(t => t.Tariff);
     }
 }

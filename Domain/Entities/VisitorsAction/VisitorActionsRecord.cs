@@ -2,9 +2,9 @@ using Domain.Entities.Skipass;
 using Domain.Enums;
 namespace Domain.Entities.VisitorsAction;
 
-public class VisitorsActions
+public class VisitorActionsRecord
 {
-    public VisitorsActions(Guid id, int skipassId, string place, DateTime time, int balanceChange,
+    public VisitorActionsRecord(Guid id, int skipassId, string place, DateTime time, int balanceChange,
         ActionType typeOfAction)
     {
         Id = id;

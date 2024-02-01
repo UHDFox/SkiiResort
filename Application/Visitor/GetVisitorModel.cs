@@ -1,4 +1,6 @@
 
+using Domain.Entities.Skipass;
+
 namespace Application.Visitor;
 
 public sealed class GetVisitorModel
@@ -28,4 +30,6 @@ public sealed class GetVisitorModel
     
     
     public string? Passport { get; set; }
+    
+    public ICollection<SkipassRecord> Skipasses { get; set; } = new List<SkipassRecord>();
 }
