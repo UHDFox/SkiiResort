@@ -5,9 +5,10 @@ namespace Application.Skipass;
 
 public sealed class UpdateSkipassModel
 {
-    public UpdateSkipassModel(Guid id, Guid tariffId, Guid visitorId, bool status)
+    public UpdateSkipassModel(Guid id, int balance, Guid tariffId, Guid visitorId, bool status)
     {
         Id = id;
+        Balance = balance;
         TariffId = tariffId;
         VisitorId = visitorId;
         Status = status;

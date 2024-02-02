@@ -17,8 +17,6 @@ public sealed class AddVisitorActionsModel
     
     public Guid SkipassId { get; set; }
     
-    public SkipassRecord? Skipass{ get; set; }
-    
     public Place Place { get; set; }
     
     public DateTime Time { get; set; }

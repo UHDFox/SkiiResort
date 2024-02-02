@@ -23,9 +23,9 @@ internal sealed class VisitorActionsService : IVisitorActions
         return mapper.Map<IReadOnlyCollection<GetVisitorActionsModel>>(await context.VisitorActions.Skip(offset).Take(limit).ToListAsync());
     }
 
-    public async Task<VisitorActionsRecord> GetByIdAsync(Guid id)
+    public async Task<GetVisitorActionsModel> GetByIdAsync(Guid id)
     {
-        return await context.VisitorActions.FindAsync(id) ?? throw new NotFoundException();
+        return mapper.Map<GetVisitorActionsModel>(await context.VisitorActions.FindAsync(id)) ?? throw new NotFoundException();
     }
 
     public async Task<VisitorActionsRecord> AddAsync(AddVisitorActionsModel model)
@@ -45,7 +45,7 @@ internal sealed class VisitorActionsService : IVisitorActions
     public async Task DeleteAsync(Guid id)
     {
         var record = await GetByIdAsync(id);
-        context.VisitorActions.Remove(record);
+        context.VisitorActions.Remove(mapper.Map<VisitorActionsRecord>(record));
         await context.SaveChangesAsync();
     }
 }

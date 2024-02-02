@@ -104,12 +104,11 @@ namespace Domain.Migrations
                     b.Property<int>("BalanceChange")
                         .HasColumnType("integer");
 
-                    b.Property<string>("Place")
-                        .IsRequired()
-                        .HasColumnType("text");
-
-                    b.Property<int>("SkipassId")
+                    b.Property<int>("Place")
                         .HasColumnType("integer");
+
+                    b.Property<Guid>("SkipassId")
+                        .HasColumnType("uuid");
 
                     b.Property<Guid?>("SkipassRecordId")
                         .HasColumnType("uuid");

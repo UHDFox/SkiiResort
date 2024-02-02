@@ -37,7 +37,7 @@ public sealed class SkipassController : Controller
     public async Task<IActionResult> GetByIdAsync(Guid id)
     {
         var result = await context.GetByIdAsync(id);
-        return Ok(mapper.Map<SkipassRecord>(result));
+        return Ok(mapper.Map<SkipassResponse>(result));
     }
 
     [HttpPost(Name = "Create skipass")]

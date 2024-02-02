@@ -4,7 +4,7 @@ namespace Domain.Entities.VisitorsAction;
 
 public class VisitorActionsRecord
 {
-    public VisitorActionsRecord(Guid id, int skipassId, string place, DateTime time, int balanceChange,
+    public VisitorActionsRecord(Guid id, Guid skipassId, Place place, DateTime time, int balanceChange,
         ActionType typeOfAction)
     {
         Id = id;
@@ -15,13 +15,15 @@ public class VisitorActionsRecord
         TypeOfAction = typeOfAction;
     }
 
+    
+
     public Guid Id { get; set; }
     
-    public int SkipassId { get; set; }
+    public Guid SkipassId { get; set; }
     
     public SkipassRecord? SkipassRecord { get; set; }
     
-    public string Place { get; set; }
+    public Place Place { get; set; }
     
     public DateTime Time { get; set; }
     

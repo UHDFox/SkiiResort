@@ -12,7 +12,7 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace Domain.Migrations
 {
     [DbContext(typeof(HotelContext))]
-    [Migration("20240111151201_Initial")]
+    [Migration("20240201125736_Initial")]
     partial class Initial
     {
         /// <inheritdoc />
@@ -23,6 +23,8 @@ namespace Domain.Migrations
                 .HasAnnotation("ProductVersion", "7.0.11")
                 .HasAnnotation("Relational:MaxIdentifierLength", 63);
 
+            NpgsqlModelBuilderExtensions.HasPostgresEnum(modelBuilder, "action_type", new[] { "infinite", "positive", "negative" });
+            NpgsqlModelBuilderExtensions.HasPostgresEnum(modelBuilder, "place", new[] { "hotel", "cp1", "cp2", "amusement_park" });
             NpgsqlModelBuilderExtensions.UseIdentityByDefaultColumns(modelBuilder);
 
             modelBuilder.Entity("Domain.Entities.Skipass.SkipassRecord", b =>
@@ -40,20 +42,14 @@ namespace Domain.Migrations
                     b.Property<Guid>("TariffId")
                         .HasColumnType("uuid");
 
-                    b.Property<Guid?>("TariffRecordId")
-                        .HasColumnType("uuid");
-
                     b.Property<Guid>("VisitorId")
-                        .HasColumnType("uuid");
-
-                    b.Property<Guid?>("VisitorRecordId")
                         .HasColumnType("uuid");
 
                     b.HasKey("Id");
 
-                    b.HasIndex("TariffRecordId");
+                    b.HasIndex("TariffId");
 
-                    b.HasIndex("VisitorRecordId");
+                    b.HasIndex("VisitorId");
 
                     b.ToTable("Skipasses");
                 });
@@ -102,19 +98,74 @@ namespace Domain.Migrations
                     b.ToTable("Visitors");
                 });
 
+            modelBuilder.Entity("Domain.Entities.VisitorsAction.VisitorActionsRecord", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uuid");
+
+                    b.Property<int>("BalanceChange")
+                        .HasColumnType("integer");
+
+                    b.Property<string>("Place")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.Property<int>("SkipassId")
+                        .HasColumnType("integer");
+
+                    b.Property<Guid?>("SkipassRecordId")
+                        .HasColumnType("uuid");
+
+                    b.Property<DateTime>("Time")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<int>("TypeOfAction")
+                        .HasColumnType("integer");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("SkipassRecordId");
+
+                    b.ToTable("VisitorActions");
+                });
+
             modelBuilder.Entity("Domain.Entities.Skipass.SkipassRecord", b =>
                 {
-                    b.HasOne("Domain.Entities.Tariff.TariffRecord", "TariffRecord")
+                    b.HasOne("Domain.Entities.Tariff.TariffRecord", "Tariff")
+                        .WithMany("Skipasses")
+                        .HasForeignKey("TariffId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("Domain.Entities.Visitor.VisitorRecord", "Visitor")
+                        .WithMany("Skipasses")
+                        .HasForeignKey("VisitorId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Tariff");
+
+                    b.Navigation("Visitor");
+                });
+
+            modelBuilder.Entity("Domain.Entities.VisitorsAction.VisitorActionsRecord", b =>
+                {
+                    b.HasOne("Domain.Entities.Skipass.SkipassRecord", "SkipassRecord")
                         .WithMany()
-                        .HasForeignKey("TariffRecordId");
+                        .HasForeignKey("SkipassRecordId");
 
-                    b.HasOne("Domain.Entities.Visitor.VisitorRecord", "VisitorRecord")
-                        .WithMany()
-                        .HasForeignKey("VisitorRecordId");
+                    b.Navigation("SkipassRecord");
+                });
 
-                    b.Navigation("TariffRecord");
+            modelBuilder.Entity("Domain.Entities.Tariff.TariffRecord", b =>
+                {
+                    b.Navigation("Skipasses");
+                });
 
-                    b.Navigation("VisitorRecord");
+            modelBuilder.Entity("Domain.Entities.Visitor.VisitorRecord", b =>
+                {
+                    b.Navigation("Skipasses");
                 });
 #pragma warning restore 612, 618
         }
