@@ -17,11 +17,11 @@ internal sealed class TariffService : ITariffService
         this.mapper = mapper;
     }
 
-    public async Task<TariffRecord> GetByIdAsync(Guid id)
+    public async Task<GetTariffModel> GetByIdAsync(Guid id)
     {
         var tariff = await context.Tariffs.AsNoTracking().FirstOrDefaultAsync(x => x.Id == id) ??
                      throw new NotFoundException();
-        return tariff;
+        return mapper.Map<GetTariffModel>(tariff);
     }
 
     public async Task<IReadOnlyCollection<GetTariffModel>> GetListAsync(int offset, int limit)
@@ -39,16 +39,15 @@ internal sealed class TariffService : ITariffService
 
     public async Task DeleteAsync(Guid id)
     {
-        var tariff = await context.Tariffs.FirstOrDefaultAsync(x => x.Id == id) ?? throw new NotFoundException();
-        context.Tariffs.Remove(tariff);
+        var tariff = await GetByIdAsync(id);
+        context.Tariffs.Remove(mapper.Map<TariffRecord>(tariff));
         await context.SaveChangesAsync();
     }
 
-    public async Task<bool> UpdateAsync(UpdateTariffModel tariffModel)
-    {
-        var tariff = await GetByIdAsync(tariffModel.Id); 
-        
-        context.Tariffs.Update(mapper.Map(tariffModel,tariff));
-        return await context.SaveChangesAsync() > 0;
-    }
+        public async Task<bool> UpdateAsync(UpdateTariffModel tariffModel)
+        {
+            var tariff = await GetByIdAsync(tariffModel.Id);
+            context.Tariffs.Update(mapper.Map<TariffRecord>(tariff));
+            return await context.SaveChangesAsync() > 0;
+        }
 }

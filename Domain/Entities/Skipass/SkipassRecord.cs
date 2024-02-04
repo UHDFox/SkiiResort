@@ -1,13 +1,7 @@
-using Domain.Entities.Tariff;
-using Domain.Entities.Visitor;
-
-namespace Domain.Entities.Skipass;
-
 public sealed class SkipassRecord
 {
-    public SkipassRecord( int balance, Guid tariffId, Guid visitorId, bool status)
+    public SkipassRecord(int balance, Guid tariffId, Guid visitorId, bool status)
     {
-        //Id = id;
         Balance = balance;
         TariffId = tariffId;
         VisitorId = visitorId;
@@ -20,7 +14,13 @@ public sealed class SkipassRecord
     
     public Guid TariffId { get; set; }
     
+    public TariffRecord? Tariff { get; set; }
+    
     public Guid VisitorId { get; set; }
     
+    public VisitorRecord? Visitor{ get; set; }
+    
     public bool Status { get; set; }
+
+    public ICollection<VisitorActionsRecord> VisitorActions { get; set; } = new List<VisitorActionsRecord>(); 
 }

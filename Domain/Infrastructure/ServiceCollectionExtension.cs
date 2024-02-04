@@ -13,7 +13,7 @@ public static class ServiceCollectionExtension
             var connectionString = provider.GetRequiredService<IConfiguration>().GetConnectionString("Psql");
             builder.UseNpgsql(connectionString);
         });
-
+        
         return services;
     }
 }

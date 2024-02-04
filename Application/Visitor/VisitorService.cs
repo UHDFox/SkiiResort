@@ -19,7 +19,7 @@ internal sealed class VisitorService : IVisitorService
         this.mapper = mapper;
     }
 
-    private static readonly Regex passportRegex = new Regex(@"\d{4}-\d{6}");
+    private static Regex passportRegex = new Regex(@"\d{4}-\d{6}");
     public async Task<VisitorRecord> AddAsync(AddVisitorModel model)
     {
         var result = await context.Visitors.AddAsync(mapper.Map<VisitorRecord>(model));
@@ -37,26 +37,22 @@ internal sealed class VisitorService : IVisitorService
         return mapper.Map<IReadOnlyCollection<GetVisitorModel>>(result);
     }
 
-    public async Task<VisitorRecord> GetByIdAsync(Guid id)
+    public async Task<GetVisitorModel> GetByIdAsync(Guid id)
     {
         var entity = await context.Visitors.AsNoTracking().FirstOrDefaultAsync(x => x.Id == id) ?? throw new NotFoundException();
-        return entity;
+        return mapper.Map<GetVisitorModel>(entity);
     }
 
     public async Task<bool> UpdateAsync(UpdateVisitorModel model)
     {
-        var visitor = await GetByIdAsync(model.Id);
-        if (!passportRegex.IsMatch(model.Passport))
-        {
-            throw new ValidationException("Validation error - check passport series and number");
-        }
-        context.Visitors.Update(mapper.Map(model, visitor));
+        await GetByIdAsync(model.Id); //to check if such record exists in db
+        context.Visitors.Update(mapper.Map<VisitorRecord>(model));
         return await context.SaveChangesAsync() > 0;
     }
 
     public async Task DeleteAsync(Guid id)
     {
-        var visitor = await GetByIdAsync(id) ?? throw new NotFoundException();
+        var visitor = await GetByIdAsync(id);
         context.Visitors.Remove(mapper.Map<VisitorRecord>(visitor));
         var result = await context.SaveChangesAsync();
     }

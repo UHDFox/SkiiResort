@@ -1,7 +1,7 @@
 using Application.Skipass;
 using Application.Tariff;
 using Application.Visitor;
-using Domain.Entities.Visitor;
+using Application.VisitorAction;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace Application.Infrastructure;
@@ -11,7 +11,6 @@ public static class ServiceCollectionExtension
     public static IServiceCollection ConfigureSkipassServices(this IServiceCollection services)
     {
         services.AddTransient<ISkipassService, SkipassService>();
-
         return services;
     }
 
@@ -24,6 +23,13 @@ public static class ServiceCollectionExtension
     public static IServiceCollection ConfigureVisitorServices(this IServiceCollection services)
     {
         services.AddTransient<IVisitorService, VisitorService>();
+        return services;
+    }
+
+    public static IServiceCollection ConfigureVisitorActionsServices(this IServiceCollection services)
+    {
+        services.AddTransient<IVisitorActions, VisitorActionsService>();
+        ConfigureSkipassServices(services);
         return services;
     }
 }

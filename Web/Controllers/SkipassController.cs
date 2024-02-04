@@ -1,7 +1,5 @@
-using Application.Exceptions;
 using Application.Skipass;
 using AutoMapper;
-using Domain.Entities.Skipass;
 using Microsoft.AspNetCore.Mvc;
 using Web.Contracts.CommonResponses;
 using Web.Contracts.Skipass;
@@ -26,9 +24,9 @@ public sealed class SkipassController : Controller
     [ProducesResponseType(StatusCodes.Status404NotFound)]
     public async Task<IActionResult> GetListAsync(int? offset, int? limit)
     {
-        var result = await context.GetListAsync();
+        var result = await context.GetListAsync(offset.GetValueOrDefault(0), limit.GetValueOrDefault(15));
         return Ok(new GetAllResponse<SkipassResponse>(mapper.Map<IReadOnlyCollection<SkipassResponse>>(result),
-            result.Count).List);
+            result.Count));
     }
 
     [HttpGet(Name = "Get skipass by Id")]
@@ -36,8 +34,8 @@ public sealed class SkipassController : Controller
     [ProducesResponseType(StatusCodes.Status404NotFound)]
     public async Task<IActionResult> GetByIdAsync(Guid id)
     {
-        var result = await context.GetByIdAsync(id) ?? throw new NotFoundException("Tariff not found");
-        return Ok(mapper.Map<SkipassRecord>(result));
+        var result = await context.GetByIdAsync(id);
+        return Ok(mapper.Map<SkipassResponse>(result));
     }
 
     [HttpPost(Name = "Create skipass")]
@@ -47,7 +45,7 @@ public sealed class SkipassController : Controller
     {
         var result = await context.AddAsync(skipassModel);
 
-        return Created($"{Request.Path}", mapper.Map<SkipassResponse>(result));
+        return Created($"{Request.Path}", result);
     }
 
     [HttpPut(Name = "Update record")]
@@ -55,10 +53,6 @@ public sealed class SkipassController : Controller
     [ProducesResponseType(StatusCodes.Status404NotFound)]
     public async Task<IActionResult> UpdateAsync(UpdateSkipassModel skipassModel)
     {
-        /*var record = await context.GetByIdAsync(skipassModel.Id);
-        var updatedRecord = mapper.Map<UpdateSkipassModel>(skipassModel);
-        var result = await context.UpdateAsync(updatedRecord);
-        return Ok(new UpdatedResponse(updatedRecord.Id, result));*/
         var result = await context.UpdateAsync(skipassModel);
         return Ok(new UpdatedResponse(skipassModel.Id, result));
     }
@@ -67,8 +61,8 @@ public sealed class SkipassController : Controller
     [ProducesResponseType(StatusCodes.Status204NoContent, Type = typeof(DeletedResponse))]
     [ProducesResponseType(StatusCodes.Status404NotFound)]
     public async Task<IActionResult> DeleteAsync(Guid id)
-    {
-        var result = await context.DeleteAsync(id);
+    { 
+        await context.DeleteAsync(id);
         return NoContent();
     }
 }

@@ -1,6 +1,6 @@
 namespace Web.Contracts.Visitor;
 
-public class VisitorResponse
+public sealed class VisitorResponse
 {
     public VisitorResponse(Guid id, string name, int age, string phone, DateTime birthdate, string passport)
     {

@@ -1,3 +1,5 @@
+using Domain.Entities.Skipass;
+
 namespace Domain.Entities.Visitor;
 
 public sealed class VisitorRecord
@@ -22,4 +24,6 @@ public sealed class VisitorRecord
     public DateTime Birthdate { get; set; }
     
     public string Passport { get; set; }
+
+    public ICollection<SkipassRecord> Skipasses { get; set; } = new List<SkipassRecord>();
 }
