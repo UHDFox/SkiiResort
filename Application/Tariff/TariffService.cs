@@ -44,10 +44,10 @@ internal sealed class TariffService : ITariffService
         await context.SaveChangesAsync();
     }
 
-    public async Task<bool> UpdateAsync(UpdateTariffModel tariffModel)
-    {
-        var tariff = await GetByIdAsync(tariffModel.Id);
-        context.Tariffs.Update(mapper.Map<TariffRecord>(tariff));
-        return await context.SaveChangesAsync() > 0;
-    }
+        public async Task<bool> UpdateAsync(UpdateTariffModel tariffModel)
+        {
+            var tariff = await GetByIdAsync(tariffModel.Id);
+            context.Tariffs.Update(mapper.Map<TariffRecord>(tariff));
+            return await context.SaveChangesAsync() > 0;
+        }
 }

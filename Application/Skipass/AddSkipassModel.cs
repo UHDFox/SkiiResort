@@ -9,7 +9,6 @@ public sealed class AddSkipassModel
         VisitorId = visitorId;
         Status = status;
     }
-
     public int Balance { get; set; }
 
     public Guid TariffId { get; set; }

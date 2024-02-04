@@ -13,7 +13,6 @@ public sealed class GetSkipassModel
         VisitorId = visitorId;
         Status = status;
     }
-    
     public Guid Id { get; set; }
     
     public int Balance { get; set; }
