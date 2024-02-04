@@ -3,7 +3,7 @@ using Domain.Enums;
 
 namespace Application.VisitorAction;
 
-public class UpdateVisitorActionsModel
+public sealed class UpdateVisitorActionsModel
 {
     public UpdateVisitorActionsModel(Guid id, Guid skipassId, Place place, DateTime time, int balanceChange, bool isVip)
     {
