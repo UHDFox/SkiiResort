@@ -3,6 +3,7 @@ using Domain.Infrastructure;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using Repository.Infrastructure;
 using Web.Infrastructure;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -19,6 +20,7 @@ builder.Services.ConfigureVisitorServices();
 builder.Services.ConfigureVisitorActionsServices();
 builder.Services.ConfigureAutomapper();
 builder.Services.ConfigureControllers();
+builder.Services.AddRepositories();
 builder.Services.AddSwaggerGen();
 
 var app = builder.Build();
