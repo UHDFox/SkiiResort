@@ -2,12 +2,11 @@ using Application.Exceptions;
 using AutoMapper;
 using Domain;
 using Domain.Entities.Skipass;
-using Domain.Entities.Visitor;
 using Microsoft.EntityFrameworkCore;
 
 namespace Application.Skipass;
 
-internal class SkipassService : ISkipassService
+internal sealed class SkipassService : ISkipassService
 {
     private readonly HotelContext context;
     private readonly IMapper mapper;

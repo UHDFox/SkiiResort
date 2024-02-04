@@ -1,7 +1,5 @@
-using Application.Exceptions;
 using Application.Skipass;
 using AutoMapper;
-using Domain.Entities.Skipass;
 using Microsoft.AspNetCore.Mvc;
 using Web.Contracts.CommonResponses;
 using Web.Contracts.Skipass;

@@ -1,5 +1,6 @@
 using Application.Infrastructure.Automapper;
 using Newtonsoft.Json;
+using Web.Infrastructure.Automapper;
 
 namespace Web.Infrastructure;
 
