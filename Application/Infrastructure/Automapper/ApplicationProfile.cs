@@ -18,6 +18,7 @@ public sealed class ApplicationProfile : Profile
         CreateMap<AddSkipassModel, SkipassRecord>().ReverseMap();
         CreateMap<UpdateSkipassModel, SkipassRecord>().ReverseMap();
         CreateMap<GetSkipassModel, SkipassRecord>().ReverseMap();
+        CreateMap<GetSkipassModel, UpdateSkipassModel>().ReverseMap();
 
         CreateMap<TariffRecord, GetTariffModel>().ReverseMap();
         CreateMap<AddTariffModel, TariffRecord>().ReverseMap();

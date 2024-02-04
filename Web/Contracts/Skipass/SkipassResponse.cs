@@ -7,7 +7,7 @@ namespace Web.Contracts.Skipass;
 
 public sealed class SkipassResponse
 {
-    public SkipassResponse(){}
+    //public SkipassResponse(){}
 
     public SkipassResponse(Guid id, int balance, Guid tariffId,  Guid visitorId, bool status)
     {

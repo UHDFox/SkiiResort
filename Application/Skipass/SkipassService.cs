@@ -25,13 +25,12 @@ internal class SkipassService : ISkipassService
 
     public async Task<GetSkipassModel> GetByIdAsync(Guid skipassId)
     {
-        var capy = await context.Skipasses
+        var result = await context.Skipasses
             .AsNoTracking()
             .Include(record => record.Tariff)
             .Include(record => record.Visitor)
             .FirstOrDefaultAsync(x => x.Id == skipassId);
-        
-        return mapper.Map<GetSkipassModel>(capy);
+        return mapper.Map<GetSkipassModel>(result);
     }
 
     public async Task<SkipassRecord> AddAsync(AddSkipassModel skipassModel)
@@ -42,8 +41,12 @@ internal class SkipassService : ISkipassService
     }
     public async Task<bool> UpdateAsync(UpdateSkipassModel skipassModel)
     {
-        var record = await GetByIdAsync(skipassModel.Id); 
-        context.Skipasses.Update(mapper.Map<SkipassRecord>(record));
+        var record = await context.Skipasses
+                         .AsNoTracking()
+                         .FirstOrDefaultAsync(record => record.Id == skipassModel.Id)
+                     ?? throw new NotFoundException();
+        mapper.Map(skipassModel, record);
+        context.Skipasses.Update(record);
         return await context.SaveChangesAsync() > 0;
     }
 
