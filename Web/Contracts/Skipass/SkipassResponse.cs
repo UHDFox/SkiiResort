@@ -1,14 +1,7 @@
-using Application.Tariff;
-using Application.Visitor;
-using Domain.Entities.Tariff;
-using Domain.Entities.Visitor;
-
 namespace Web.Contracts.Skipass;
 
 public sealed class SkipassResponse
 {
-    //public SkipassResponse(){}
-
     public SkipassResponse(Guid id, int balance, Guid tariffId,  Guid visitorId, bool status)
     {
         Id = id;

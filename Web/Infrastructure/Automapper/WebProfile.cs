@@ -10,9 +10,9 @@ using Web.Contracts.Tariff;
 using Web.Contracts.Visitor;
 using Web.Contracts.VisitorActions;
 
-namespace Web.Infrastructure;
+namespace Web.Infrastructure.Automapper;
 
-public class WebProfile : Profile
+public sealed class WebProfile : Profile
 {
     public WebProfile()
     {

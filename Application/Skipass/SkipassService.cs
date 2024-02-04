@@ -2,20 +2,23 @@ using Application.Exceptions;
 using AutoMapper;
 using Domain;
 using Domain.Entities.Skipass;
-using Domain.Entities.Visitor;
 using Microsoft.EntityFrameworkCore;
 
 namespace Application.Skipass;
 
-internal class SkipassService : ISkipassService
+internal sealed class SkipassService : ISkipassService
 {
     private readonly HotelContext context;
     private readonly IMapper mapper;
+    private readonly ITariffService tariffService;
+    private readonly IVisitorService visitorService;
 
-    public SkipassService(HotelContext context, IMapper mapper)
+    public SkipassService(HotelContext context, IMapper mapper, ITariffService tariffService, IVisitorService visitorService)
     {
         this.context = context;
         this.mapper = mapper;
+        this.tariffService = tariffService;
+        this.visitorService = visitorService;
     }
 
     public async Task<IReadOnlyCollection<GetSkipassModel>> GetListAsync(int offset, int limit)
