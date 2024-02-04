@@ -1,4 +1,6 @@
 
+using System;
+
 namespace Web.Contracts.Skipass;
 
 public sealed class SkipassResponse

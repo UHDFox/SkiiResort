@@ -1,3 +1,5 @@
+using System;
+
 namespace Application.Exceptions;
 
 public sealed class NotFoundException : Exception

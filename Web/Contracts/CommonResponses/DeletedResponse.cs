@@ -1,3 +1,5 @@
+using System;
+
 namespace Web.Contracts.CommonResponses;
 
 public sealed class DeletedResponse

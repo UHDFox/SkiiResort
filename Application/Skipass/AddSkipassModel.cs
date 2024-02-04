@@ -1,3 +1,5 @@
+using System;
+
 namespace Application.Skipass;
 
 public sealed class AddSkipassModel

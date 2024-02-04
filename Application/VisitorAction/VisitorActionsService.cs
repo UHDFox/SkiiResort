@@ -1,3 +1,7 @@
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
 using Application.Exceptions;
 using Application.Skipass;
 using AutoMapper;

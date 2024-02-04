@@ -1,3 +1,4 @@
+using System;
 using Domain.Entities.Skipass;
 
 namespace Application.Tariff;

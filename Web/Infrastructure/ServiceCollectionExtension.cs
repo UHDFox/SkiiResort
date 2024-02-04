@@ -1,4 +1,5 @@
 using Application.Infrastructure.Automapper;
+using Microsoft.Extensions.DependencyInjection;
 using Newtonsoft.Json;
 using Web.Infrastructure.Automapper;
 

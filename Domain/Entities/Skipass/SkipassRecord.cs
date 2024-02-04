@@ -1,3 +1,10 @@
+using System;
+using System.Collections.Generic;
+using Domain.Entities.Tariff;
+using Domain.Entities.Visitor;
+using Domain.Entities.VisitorsAction;
+
+namespace Domain.Entities.Skipass;
 public sealed class SkipassRecord
 {
     public SkipassRecord(int balance, Guid tariffId, Guid visitorId, bool status)

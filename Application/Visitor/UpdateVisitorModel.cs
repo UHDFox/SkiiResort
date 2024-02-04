@@ -1,3 +1,5 @@
+using System;
+
 namespace Application.Visitor;
 
 public sealed class UpdateVisitorModel

@@ -1,3 +1,5 @@
+using System;
+
 namespace Web.Contracts.Visitor;
 
 public sealed class VisitorResponse

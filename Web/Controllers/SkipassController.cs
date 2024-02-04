@@ -1,5 +1,9 @@
+using System;
+using System.Collections.Generic;
+using System.Threading.Tasks;
 using Application.Skipass;
 using AutoMapper;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Web.Contracts.CommonResponses;
 using Web.Contracts.Skipass;

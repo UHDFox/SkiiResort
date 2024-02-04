@@ -1,7 +1,11 @@
+using System;
+using System.Collections.Generic;
 using System.Reflection.Metadata.Ecma335;
+using System.Threading.Tasks;
 using Application.VisitorAction;
 using AutoMapper;
 using Domain.Entities.VisitorsAction;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Web.Contracts.CommonResponses;
 using Web.Contracts.Visitor;
