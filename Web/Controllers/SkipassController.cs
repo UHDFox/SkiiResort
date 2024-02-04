@@ -43,13 +43,13 @@ public sealed class SkipassController : Controller
     }
 
     [HttpPost(Name = "Create skipass")]
-    [ProducesResponseType(StatusCodes.Status201Created, Type = typeof(CreatedResponse))]
+    [ProducesResponseType(StatusCodes.Status201Created, Type = typeof(SkipassResponse))]
     [ProducesResponseType(StatusCodes.Status400BadRequest, Type = typeof(ValidationProblemDetails))]
     public async Task<IActionResult> AddAsync(AddSkipassModel skipassModel)
     {
-        var result = await context.AddAsync(skipassModel);
+        var id = await context.AddAsync(skipassModel);
 
-        return Created($"{Request.Path}", result);
+        return Created($"{Request.Path}", mapper.Map<SkipassResponse>(await context.GetByIdAsync(id)));
     }
 
     [HttpPut(Name = "Update record")]
