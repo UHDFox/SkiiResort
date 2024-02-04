@@ -28,5 +28,7 @@ public sealed class ApplicationProfile : Profile
         CreateMap<VisitorRecord, GetVisitorModel>().ReverseMap();
 
         CreateMap<AddVisitorActionsModel, VisitorActionsRecord>();
+        CreateMap<GetVisitorActionsModel, VisitorActionsRecord>().ReverseMap();
+        CreateMap<UpdateVisitorActionsModel, VisitorActionsRecord>().ReverseMap();
     }
 }

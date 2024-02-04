@@ -39,15 +39,15 @@ internal sealed class TariffService : ITariffService
 
     public async Task DeleteAsync(Guid id)
     {
-        var tariff = await context.Tariffs.FirstOrDefaultAsync(x => x.Id == id) ?? throw new NotFoundException();
+        var tariff = await GetByIdAsync(id);
         context.Tariffs.Remove(tariff);
         await context.SaveChangesAsync();
     }
 
     public async Task<bool> UpdateAsync(UpdateTariffModel tariffModel)
     {
-        var tariff = await GetByIdAsync(tariffModel.Id); 
-        context.Tariffs.Update(mapper.Map(tariffModel,tariff));
+        var tariff = await GetByIdAsync(tariffModel.Id);
+        context.Tariffs.Update(mapper.Map(tariffModel, tariff));
         return await context.SaveChangesAsync() > 0;
     }
 }

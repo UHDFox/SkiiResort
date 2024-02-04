@@ -36,7 +36,7 @@ public class TariffController : Controller
     public async Task<IActionResult> GetListAsync(int? offset, int? limit)
     {
         var collection = mapper.Map<IReadOnlyCollection<TariffResponse>>(await context.GetListAsync(offset.GetValueOrDefault(0), limit.GetValueOrDefault(15)));
-        return Ok(new GetAllResponse<TariffResponse>(collection,collection.Count).List);
+        return Ok(new GetAllResponse<TariffResponse>(collection,collection.Count));
     }
 
     [HttpGet("Get tariff by Id")]

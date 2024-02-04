@@ -34,7 +34,7 @@ public sealed class VisitorController : Controller
     public async Task<IActionResult> GetAllAsync(int? offset, int? limit)
     {
         var result = await visitorService.GetListAsync(offset.GetValueOrDefault(0), limit.GetValueOrDefault(15));
-        return Ok(new GetAllResponse<VisitorResponse>(mapper.Map<IReadOnlyCollection<VisitorResponse>>(result), result.Count).List);
+        return Ok(new GetAllResponse<VisitorResponse>(mapper.Map<IReadOnlyCollection<VisitorResponse>>(result), result.Count));
     }
     
     [HttpGet]

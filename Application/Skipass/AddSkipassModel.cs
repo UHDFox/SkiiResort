@@ -1,6 +1,3 @@
-using Domain.Entities.Tariff;
-using Domain.Entities.Visitor;
-
 namespace Application.Skipass;
 
 public sealed class AddSkipassModel
@@ -12,11 +9,12 @@ public sealed class AddSkipassModel
         VisitorId = visitorId;
         Status = status;
     }
-    
+
     public int Balance { get; set; }
-    
+
     public Guid TariffId { get; set; }
-    
+
     public Guid VisitorId { get; set; }
+
     public bool Status { get; set; }
 }

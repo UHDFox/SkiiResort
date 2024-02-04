@@ -15,6 +15,7 @@ builder.Services.ConfigureTariffServices();
 builder.Services.ConfigureVisitorServices();
 builder.Services.ConfigureVisitorActionsServices();
 builder.Services.ConfigureAutomapper();
+builder.Services.ConfigureControllers();
 builder.Services.AddSwaggerGen();
 
 var app = builder.Build();

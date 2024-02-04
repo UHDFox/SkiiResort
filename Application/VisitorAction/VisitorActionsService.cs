@@ -1,6 +1,8 @@
 using Application.Exceptions;
+using Application.Skipass;
 using AutoMapper;
 using Domain;
+using Domain.Entities.Skipass;
 using Domain.Entities.Tariff;
 using Domain.Entities.VisitorsAction;
 using Microsoft.EntityFrameworkCore;
@@ -25,7 +27,9 @@ internal sealed class VisitorActionsService : IVisitorActions
 
     public async Task<GetVisitorActionsModel> GetByIdAsync(Guid id)
     {
-        return mapper.Map<GetVisitorActionsModel>(await context.VisitorActions.FindAsync(id)) ?? throw new NotFoundException();
+        var entity = await context.VisitorActions.AsNoTracking()
+            .FirstOrDefaultAsync(x => x.Id == id) ?? throw new NotFoundException();
+        return mapper.Map<GetVisitorActionsModel>(entity);
     }
 
     public async Task<VisitorActionsRecord> AddAsync(AddVisitorActionsModel model)
@@ -37,8 +41,8 @@ internal sealed class VisitorActionsService : IVisitorActions
 
     public async Task<bool> UpdateAsync(UpdateVisitorActionsModel model)
     {
-        var record = GetByIdAsync(model.Id);
-        mapper.Map<VisitorActionsRecord>(model);
+        await GetByIdAsync(model.Id);
+        context.VisitorActions.Update(        mapper.Map<VisitorActionsRecord>(model));
         return await context.SaveChangesAsync() > 0;
     }
 

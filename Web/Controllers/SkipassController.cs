@@ -28,7 +28,7 @@ public sealed class SkipassController : Controller
     {
         var result = await context.GetListAsync(offset.GetValueOrDefault(0), limit.GetValueOrDefault(15));
         return Ok(new GetAllResponse<SkipassResponse>(mapper.Map<IReadOnlyCollection<SkipassResponse>>(result),
-            result.Count).List);
+            result.Count));
     }
 
     [HttpGet(Name = "Get skipass by Id")]

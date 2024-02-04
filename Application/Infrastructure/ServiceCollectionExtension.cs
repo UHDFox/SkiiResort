@@ -2,7 +2,6 @@ using Application.Skipass;
 using Application.Tariff;
 using Application.Visitor;
 using Application.VisitorAction;
-using Newtonsoft.Json;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace Application.Infrastructure;
@@ -30,6 +29,7 @@ public static class ServiceCollectionExtension
     public static IServiceCollection ConfigureVisitorActionsServices(this IServiceCollection services)
     {
         services.AddTransient<IVisitorActions, VisitorActionsService>();
+        ConfigureSkipassServices(services);
         return services;
     }
 }

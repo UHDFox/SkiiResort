@@ -5,14 +5,13 @@ namespace Application.VisitorAction;
 
 public sealed class AddVisitorActionsModel
 {
-    public AddVisitorActionsModel(Guid skipassId, Place place, DateTime time, int balanceChange,
-        ActionType typeOfAction)
+    public AddVisitorActionsModel(Guid skipassId, Place place, DateTime time, int balanceChange, bool isVip)
     {
         SkipassId = skipassId;
         Place = place;
         Time = time;
         BalanceChange = balanceChange;
-        TypeOfAction = typeOfAction;
+        IsVip = isVip;
     }
     
     public Guid SkipassId { get; set; }
@@ -23,5 +22,5 @@ public sealed class AddVisitorActionsModel
     
     public int BalanceChange { get; set; }
 
-    public ActionType TypeOfAction { get; set; }
+    public bool IsVip { get; set; }
 }

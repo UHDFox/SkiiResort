@@ -1,5 +1,3 @@
-using Domain.Entities.Skipass;
-
 namespace Application.Tariff;
 
 public sealed class AddTariffModel
@@ -8,5 +6,6 @@ public sealed class AddTariffModel
     {
         Name = name;
     }
+
     public string Name { get; set; }
 }

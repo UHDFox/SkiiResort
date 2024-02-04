@@ -26,9 +26,11 @@ internal class SkipassService : ISkipassService
     public async Task<GetSkipassModel> GetByIdAsync(Guid skipassId)
     {
         var capy = await context.Skipasses
+            .AsNoTracking()
             .Include(record => record.Tariff)
             .Include(record => record.Visitor)
             .FirstOrDefaultAsync(x => x.Id == skipassId);
+        
         return mapper.Map<GetSkipassModel>(capy);
     }
 

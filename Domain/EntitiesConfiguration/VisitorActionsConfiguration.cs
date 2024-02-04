@@ -9,6 +9,6 @@ public class VisitorActionsConfiguration : IEntityTypeConfiguration<VisitorActio
     public void Configure(EntityTypeBuilder<VisitorActionsRecord> builder)
     {
         builder.HasKey(va => va.Id);
-        builder.HasOne(s => s.SkipassRecord);
+        builder.HasOne(s => s.Skipass);
     }
 }
