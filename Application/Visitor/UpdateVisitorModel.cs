@@ -27,5 +27,5 @@ public sealed class UpdateVisitorModel
     public DateTime Birthdate { get; set; }
 
 
-    public string? Passport { get; set; }
+    public string Passport { get; set; }
 }
