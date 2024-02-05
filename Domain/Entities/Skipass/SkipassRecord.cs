@@ -31,5 +31,5 @@ public sealed class SkipassRecord
 
     public bool IsVip { get; set; }
 
-    public ICollection<VisitorActionsRecord> VisitorActions { get; set; } = new List<VisitorActionsRecord>();
+    public IReadOnlyList<VisitorActionsRecord> VisitorActions { get; set; } = new List<VisitorActionsRecord>();
 }
