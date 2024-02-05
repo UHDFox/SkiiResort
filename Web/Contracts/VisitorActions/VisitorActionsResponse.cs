@@ -14,12 +14,12 @@ public sealed class VisitorActionsResponse
     }
 
     public Guid Id { get; set; }
-    
+
     public Guid SkipassId { get; set; }
-    
+
     public Place Place { get; set; }
-    
+
     public DateTime Time { get; set; }
-    
+
     public int BalanceChange { get; set; }
 }

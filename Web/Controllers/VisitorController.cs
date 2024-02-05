@@ -1,10 +1,5 @@
-using System;
-using System.Collections.Generic;
-using System.Threading.Tasks;
-using Application.Tariff;
 using Application.Visitor;
 using AutoMapper;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Web.Contracts.CommonResponses;
 using Web.Contracts.Visitor;
@@ -15,9 +10,9 @@ namespace Web.Controllers;
 [Route("api/[controller]/[action]")]
 public sealed class VisitorController : Controller
 {
-    private readonly IVisitorService visitorService;
     private readonly IMapper mapper;
-    
+    private readonly IVisitorService visitorService;
+
     public VisitorController(IVisitorService visitorService, IMapper mapper)
     {
         this.visitorService = visitorService;
@@ -32,15 +27,17 @@ public sealed class VisitorController : Controller
         var id = await visitorService.AddAsync(model);
         return Created($"{Request.Path}", mapper.Map<VisitorResponse>(await visitorService.GetByIdAsync(id)));
     }
+
     [HttpGet]
     [ProducesResponseType(StatusCodes.Status404NotFound)]
     [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(GetAllResponse<VisitorResponse>))]
     public async Task<IActionResult> GetAllAsync(int? offset, int? limit)
     {
         var result = await visitorService.GetListAsync(offset.GetValueOrDefault(0), limit.GetValueOrDefault(15));
-        return Ok(new GetAllResponse<VisitorResponse>(mapper.Map<IReadOnlyCollection<VisitorResponse>>(result), result.Count));
+        return Ok(new GetAllResponse<VisitorResponse>(mapper.Map<IReadOnlyCollection<VisitorResponse>>(result),
+            result.Count));
     }
-    
+
     [HttpGet]
     [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(VisitorResponse))]
     [ProducesResponseType(StatusCodes.Status404NotFound)]
@@ -49,6 +46,7 @@ public sealed class VisitorController : Controller
         var result = await visitorService.GetByIdAsync(id);
         return Ok(mapper.Map<VisitorResponse>(result));
     }
+
     [HttpPut]
     [ProducesResponseType(StatusCodes.Status404NotFound)]
     [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(UpdatedResponse))]
@@ -57,6 +55,7 @@ public sealed class VisitorController : Controller
         var result = await visitorService.UpdateAsync(model);
         return Ok(new UpdatedResponse(model.Id, result));
     }
+
     [HttpDelete]
     [ProducesResponseType(StatusCodes.Status404NotFound)]
     [ProducesResponseType(StatusCodes.Status204NoContent)]

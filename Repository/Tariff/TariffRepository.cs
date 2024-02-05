@@ -8,8 +8,11 @@ internal sealed class TariffRepository : ITariffRepository
 {
     private readonly HotelContext context;
 
-    public TariffRepository(HotelContext context) => this.context = context;
-    
+    public TariffRepository(HotelContext context)
+    {
+        this.context = context;
+    }
+
     public async Task<IReadOnlyCollection<TariffRecord>> GetListAsync(int offset, int limit)
     {
         return await context.Tariffs.Skip(offset).Take(limit).ToListAsync();
@@ -17,7 +20,7 @@ internal sealed class TariffRepository : ITariffRepository
 
     public async Task<TariffRecord?> GetByIdAsync(Guid id)
     {
-        return await context.Tariffs.AsNoTracking().FirstOrDefaultAsync(record => record.Id == id);  
+        return await context.Tariffs.AsNoTracking().FirstOrDefaultAsync(record => record.Id == id);
     }
 
     public async Task<Guid> AddAsync(TariffRecord data)

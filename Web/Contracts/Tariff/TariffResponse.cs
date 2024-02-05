@@ -1,5 +1,3 @@
-using System;
-using System.Collections.Generic;
 using Domain.Entities.Skipass;
 
 namespace Web.Contracts.Tariff;

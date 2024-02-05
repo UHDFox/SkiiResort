@@ -2,7 +2,6 @@ using System.ComponentModel.DataAnnotations;
 using System.Text.RegularExpressions;
 using Application.Exceptions;
 using AutoMapper;
-using Domain;
 using Domain.Entities.Visitor;
 using Repository.Visitor;
 
@@ -11,13 +10,12 @@ namespace Application.Visitor;
 internal sealed class VisitorService : IVisitorService
 {
     private static readonly Regex passportRegex = new(@"\d{4}-\d{6}");
-    private readonly HotelContext context;
+    
     private readonly IMapper mapper;
     private readonly IVisitorRepository repository;
 
-    public VisitorService(HotelContext context, IMapper mapper, IVisitorRepository repository)
+    public VisitorService(IMapper mapper, IVisitorRepository repository)
     {
-        this.context = context;
         this.mapper = mapper;
         this.repository = repository;
     }

@@ -1,4 +1,3 @@
-using Domain.Entities.Skipass;
 using Domain.Entities.Tariff;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;

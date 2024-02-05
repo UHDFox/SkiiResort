@@ -6,7 +6,6 @@ using Domain.EntitiesConfiguration;
 using Domain.Enums;
 using Microsoft.EntityFrameworkCore;
 
-
 namespace Domain;
 
 public sealed class HotelContext : DbContext
@@ -27,12 +26,11 @@ public sealed class HotelContext : DbContext
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
-
         modelBuilder.ApplyConfiguration(new SkipassConfiguration());
         modelBuilder.ApplyConfiguration(new TariffConfiguration());
         modelBuilder.ApplyConfiguration(new VisitorConfiguration());
         modelBuilder.ApplyConfiguration(new VisitorActionsConfiguration());
-        
+
         modelBuilder.HasPostgresEnum<Place>();
     }
 }

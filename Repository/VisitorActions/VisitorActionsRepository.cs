@@ -8,8 +8,11 @@ internal sealed class VisitorActionsRepository : IVisitorActionsRepository
 {
     private readonly HotelContext context;
 
-    public VisitorActionsRepository(HotelContext context) => this.context = context;
-    
+    public VisitorActionsRepository(HotelContext context)
+    {
+        this.context = context;
+    }
+
     public async Task<IReadOnlyCollection<VisitorActionsRecord>> GetListAsync(int offset, int limit)
     {
         return await context.VisitorActions.Skip(offset).Take(limit).ToListAsync();

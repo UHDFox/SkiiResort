@@ -1,11 +1,6 @@
-using System;
-using System.Collections.Generic;
-using System.Threading.Tasks;
-using Application.Exceptions;
 using Application.Tariff;
 using AutoMapper;
 using Domain.Entities.Tariff;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Web.Contracts.CommonResponses;
 using Web.Contracts.Tariff;
@@ -14,7 +9,7 @@ namespace Web.Controllers;
 
 [Route("api/[action]")]
 [ApiController]
-public class TariffController : Controller
+public sealed class TariffController : Controller
 {
     private readonly ITariffService context;
     private readonly IMapper mapper;
@@ -39,8 +34,10 @@ public class TariffController : Controller
     [ProducesResponseType(StatusCodes.Status404NotFound)]
     public async Task<IActionResult> GetListAsync(int? offset, int? limit)
     {
-        var collection = mapper.Map<IReadOnlyCollection<TariffResponse>>(await context.GetListAsync(offset.GetValueOrDefault(0), limit.GetValueOrDefault(15)));
-        return Ok(new GetAllResponse<TariffResponse>(collection,collection.Count));
+        var collection =
+            mapper.Map<IReadOnlyCollection<TariffResponse>>(await context.GetListAsync(offset.GetValueOrDefault(0),
+                limit.GetValueOrDefault(15)));
+        return Ok(new GetAllResponse<TariffResponse>(collection, collection.Count));
     }
 
     [HttpGet("Get tariff by Id")]
@@ -51,6 +48,7 @@ public class TariffController : Controller
         var result = await context.GetByIdAsync(id);
         return Ok(mapper.Map<TariffRecord>(result));
     }
+
     [HttpDelete]
     [ProducesResponseType(StatusCodes.Status404NotFound)]
     [ProducesResponseType(StatusCodes.Status204NoContent, Type = typeof(DeletedResponse))]
