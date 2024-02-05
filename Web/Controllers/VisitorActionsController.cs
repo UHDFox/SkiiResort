@@ -51,8 +51,8 @@ public sealed class VisitorActionsController : Controller
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
     public async Task<IActionResult> AddAsync(AddVisitorActionsModel model)
     {
-        await visitorActionsService.AddAsync(model);
-        return Created($"{Request.Path}", model);
+        var id = await visitorActionsService.AddAsync(model);
+        return Created($"{Request.Path}", mapper.Map<VisitorActionsResponse>(await visitorActionsService.GetByIdAsync(id)));
     }
 
     [HttpPut]
