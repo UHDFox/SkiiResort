@@ -12,7 +12,7 @@ internal sealed class SkipassRepository : ISkipassRepository
     {
         this.context = context;
     }
-    
+
     public async Task<IReadOnlyCollection<SkipassRecord>> GetListAsync(int offset, int limit)
     {
         return await context.Skipasses.Skip(offset).Take(limit).ToListAsync();
@@ -31,7 +31,7 @@ internal sealed class SkipassRepository : ISkipassRepository
     {
         var result = await context.Skipasses.AddAsync(data);
         await context.SaveChangesAsync();
-        return result.Entity.Id ;
+        return result.Entity.Id;
     }
 
     public async Task<bool> UpdateAsync(SkipassRecord data)

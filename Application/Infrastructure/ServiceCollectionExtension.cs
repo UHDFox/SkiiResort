@@ -11,11 +11,13 @@ public static class ServiceCollectionExtension
     public static IServiceCollection AddBusinessServices(this IServiceCollection services)
     {
         services.AddTransient<ISkipassService, SkipassService>();
+        
         services.AddTransient<ITariffService, TariffService>();
+        
         services.AddTransient<IVisitorService, VisitorService>();
+        
         services.AddTransient<IVisitorActions, VisitorActionsService>();
 
         return services;
     }
-    
 }

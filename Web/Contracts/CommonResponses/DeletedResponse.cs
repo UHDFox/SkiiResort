@@ -9,6 +9,6 @@ public sealed class DeletedResponse
     }
 
     public Guid Id { get; set; }
-    
+
     public bool IsSuccessful { get; set; }
 }

@@ -10,7 +10,7 @@ namespace Application.Visitor;
 internal sealed class VisitorService : IVisitorService
 {
     private static readonly Regex passportRegex = new(@"\d{4}-\d{6}");
-    
+
     private readonly IMapper mapper;
     private readonly IVisitorRepository repository;
 

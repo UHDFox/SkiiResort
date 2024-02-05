@@ -2,13 +2,12 @@ using Application.Infrastructure;
 using Domain.Infrastructure;
 using Repository.Infrastructure;
 using Web.Infrastructure;
-using ServiceCollectionExtension = Web.Infrastructure.ServiceCollectionExtension;
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 
-MvcServiceCollectionExtensions.AddControllers(builder.Services);
+builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddHotelContext();

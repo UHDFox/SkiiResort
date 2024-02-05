@@ -17,13 +17,13 @@ public sealed class WebProfile : Profile
     public WebProfile()
     {
         CreateMap<GetSkipassModel, SkipassResponse>().ReverseMap();
-        
+
         CreateMap<GetTariffModel, TariffResponse>().ReverseMap();
         CreateMap<AddTariffModel, TariffRecord>().ReverseMap();
         CreateMap<AddTariffModel, TariffResponse>().ReverseMap();
         CreateMap<GetTariffModel, UpdateTariffModel>().ReverseMap();
-        
-        
+
+
         CreateMap<GetVisitorModel, VisitorResponse>().ReverseMap();
         CreateMap<AddVisitorModel, VisitorRecord>().ReverseMap();
         CreateMap<AddVisitorModel, VisitorResponse>().ReverseMap();

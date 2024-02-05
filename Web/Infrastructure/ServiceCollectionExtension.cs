@@ -15,7 +15,7 @@ public static class ServiceCollectionExtension
 
     public static IServiceCollection AddNewTonControllers(this IServiceCollection services)
     {
-        MvcServiceCollectionExtensions.AddControllers(services).AddNewtonsoftJson(opts =>
+        services.AddControllers().AddNewtonsoftJson(opts =>
             opts.SerializerSettings.ReferenceLoopHandling = ReferenceLoopHandling.Ignore);
 
         return services;

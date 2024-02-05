@@ -10,6 +10,7 @@ public sealed class AddSkipassModel
         Status = status;
         IsVip = isVip;
     }
+
     public int Balance { get; set; }
 
     public Guid TariffId { get; set; }
@@ -17,6 +18,6 @@ public sealed class AddSkipassModel
     public Guid VisitorId { get; set; }
 
     public bool Status { get; set; }
-    
+
     public bool IsVip { get; set; }
 }
