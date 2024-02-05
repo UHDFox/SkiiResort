@@ -1,7 +1,3 @@
-using System;
-using Domain.Entities.Tariff;
-using Domain.Entities.Visitor;
-
 namespace Application.Skipass;
 
 public sealed class UpdateSkipassModel

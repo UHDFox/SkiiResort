@@ -1,4 +1,3 @@
-using System;
 using Domain.Entities.Tariff;
 using Domain.Entities.Visitor;
 

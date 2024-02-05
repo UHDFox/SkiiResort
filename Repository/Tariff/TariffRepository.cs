@@ -12,7 +12,6 @@ internal sealed class TariffRepository : ITariffRepository
     
     public async Task<IReadOnlyCollection<TariffRecord>> GetListAsync(int offset, int limit)
     {
-       // context.Tariffs.AsNoTracking().FirstOrDefaultAsync(x => x.Id == id)
         return await context.Tariffs.Skip(offset).Take(limit).ToListAsync();
     }
 

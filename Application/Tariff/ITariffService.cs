@@ -1,8 +1,3 @@
-using System;
-using System.Collections.Generic;
-using System.Threading.Tasks;
-using Domain.Entities.Tariff;
-
 namespace Application.Tariff;
 
 public interface ITariffService
