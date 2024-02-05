@@ -5,13 +5,12 @@ namespace Domain.Entities.VisitorsAction;
 
 public class VisitorActionsRecord
 {
-    public VisitorActionsRecord(Guid skipassId, Place place, DateTime time, int balanceChange, bool isVip)
+    public VisitorActionsRecord(Guid skipassId, Place place, DateTime time, int balanceChange)
     {
         SkipassId = skipassId;
         Place = place;
         Time = time;
         BalanceChange = balanceChange;
-        IsVip = isVip;
     }
 
     
@@ -26,6 +25,4 @@ public class VisitorActionsRecord
     public DateTime Time { get; set; }
     
     public int BalanceChange { get; set; }
-
-    public bool IsVip { get; set; }
 }
