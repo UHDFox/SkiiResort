@@ -29,8 +29,8 @@ public sealed class VisitorController : Controller
     [ProducesResponseType(StatusCodes.Status201Created, Type = typeof(CreatedResponse))]
     public async Task<IActionResult> AddAsync(AddVisitorModel model)
     {
-        await visitorService.AddAsync(model);
-        return Created($"{Request.Path}", model);
+        var id = await visitorService.AddAsync(model);
+        return Created($"{Request.Path}", mapper.Map<VisitorResponse>(await visitorService.GetByIdAsync(id)));
     }
     [HttpGet]
     [ProducesResponseType(StatusCodes.Status404NotFound)]
