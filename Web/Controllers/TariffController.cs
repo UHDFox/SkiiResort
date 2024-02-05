@@ -30,8 +30,8 @@ public class TariffController : Controller
     [ProducesResponseType(StatusCodes.Status400BadRequest, Type = typeof(ValidationProblemDetails))]
     public async Task<IActionResult> AddAsync(AddTariffModel tariffModel)
     {
-        var result = await context.AddAsync(tariffModel);
-        return Created($"{Request.Path}", result);
+        var id = await context.AddAsync(tariffModel);
+        return Created($"{Request.Path}", mapper.Map<TariffResponse>(await context.GetByIdAsync(id)));
     }
 
     [HttpGet("Get tariffs list")]
