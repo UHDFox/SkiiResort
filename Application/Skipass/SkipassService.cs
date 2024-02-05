@@ -1,25 +1,17 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 using Application.Exceptions;
 using AutoMapper;
-using Domain;
 using Domain.Entities.Skipass;
-using Microsoft.EntityFrameworkCore;
 using Repository.Skipass;
 
 namespace Application.Skipass;
 
 internal sealed class SkipassService : ISkipassService
 {
-    private readonly HotelContext context;
     private readonly IMapper mapper;
     private readonly ISkipassRepository repository;
 
-    public SkipassService(HotelContext context, IMapper mapper, ISkipassRepository repository)
+    public SkipassService(IMapper mapper, ISkipassRepository repository)
     {
-        this.context = context;
         this.mapper = mapper;
         this.repository = repository;
     }
@@ -48,7 +40,7 @@ internal sealed class SkipassService : ISkipassService
 
     public async Task DeleteAsync(Guid id)
     {
-        var record = await GetByIdAsync(id);
+        await GetByIdAsync(id);
         await repository.DeleteAsync(id);
     }
 }
