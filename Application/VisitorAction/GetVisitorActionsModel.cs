@@ -15,7 +15,7 @@ public sealed class GetVisitorActionsModel
     }
 
     public Guid Id { get; set; }
-    
+
     public Guid SkipassId { get; set; }
 
     public SkipassRecord? Skipass { get; set; }

@@ -10,14 +10,12 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
-builder.Services.ConfigureDataBase();
-builder.Services.ConfigureSkipassServices();
-builder.Services.ConfigureTariffServices();
-builder.Services.ConfigureVisitorServices();
-builder.Services.ConfigureVisitorActionsServices();
-builder.Services.ConfigureAutomapper();
-builder.Services.ConfigureControllers();
+builder.Services.AddHotelContext();
+builder.Services.AddBusinessServices();
+builder.Services.AddAutomapper();
+builder.Services.AddNewTonControllers();
 builder.Services.AddRepositories();
+
 builder.Services.AddSwaggerGen();
 
 var app = builder.Build();

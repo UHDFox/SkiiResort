@@ -10,6 +10,7 @@ namespace Application.Visitor;
 internal sealed class VisitorService : IVisitorService
 {
     private static readonly Regex passportRegex = new(@"\d{4}-\d{6}");
+    private static readonly Regex phoneNumberRegex = new(@"[+]?\d{12}");
     
     private readonly IMapper mapper;
     private readonly IVisitorRepository repository;
@@ -24,8 +25,15 @@ internal sealed class VisitorService : IVisitorService
     {
         var record = mapper.Map<VisitorRecord>(model);
         if (!passportRegex.IsMatch(record.Passport))
+        {
             throw new ValidationException("Validation error - check passport series and number");
+        }
 
+        if (!phoneNumberRegex.IsMatch(record.Phone))
+        {
+            throw new ValidationException("Validation error - check if phone number's entered correctly");
+        }
+        
         return await repository.AddAsync(record);
     }
 
@@ -42,7 +50,18 @@ internal sealed class VisitorService : IVisitorService
 
     public async Task<bool> UpdateAsync(UpdateVisitorModel model)
     {
-        await GetByIdAsync(model.Id); //to check if such record exists in db
+        await repository.GetByIdAsync(model.Id); //to check if such record exists in db
+        
+        if (!passportRegex.IsMatch(model.Passport))
+        {
+            throw new ValidationException("Validation error - check passport series and number");
+        }
+
+        if (!phoneNumberRegex.IsMatch(model.Phone))
+        {
+            throw new ValidationException("Validation error - check passport series and number");
+        }
+        
         return await repository.UpdateAsync(mapper.Map<VisitorRecord>(model));
     }
 

@@ -6,7 +6,7 @@ using Repository.VisitorActions;
 
 namespace Repository.Infrastructure;
 
-public static class ServiceCollectionExtension 
+public static class ServiceCollectionExtension
 {
     public static IServiceCollection AddRepositories(this IServiceCollection services)
     {

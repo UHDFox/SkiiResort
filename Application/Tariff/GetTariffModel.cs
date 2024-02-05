@@ -14,5 +14,5 @@ public sealed class GetTariffModel
 
     public string? Name { get; set; }
 
-    public ICollection<SkipassRecord> Skipasses { get; set; } = new List<SkipassRecord>();
+    public IReadOnlyList<SkipassRecord> Skipasses { get; set; } = new List<SkipassRecord>();
 }
