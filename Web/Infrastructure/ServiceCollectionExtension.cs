@@ -6,16 +6,16 @@ namespace Web.Infrastructure;
 
 public static class ServiceCollectionExtension
 {
-    public static IServiceCollection ConfigureAutomapper(this IServiceCollection services)
+    public static IServiceCollection AddAutomapper(this IServiceCollection services)
     {
         services.AddAutoMapper(typeof(WebProfile));
         services.AddAutoMapper(typeof(ApplicationProfile));
         return services;
     }
 
-    public static IServiceCollection ConfigureControllers(this IServiceCollection services)
+    public static IServiceCollection AddNewTonControllers(this IServiceCollection services)
     {
-        services.AddControllers().AddNewtonsoftJson(opts =>
+        MvcServiceCollectionExtensions.AddControllers(services).AddNewtonsoftJson(opts =>
             opts.SerializerSettings.ReferenceLoopHandling = ReferenceLoopHandling.Ignore);
 
         return services;

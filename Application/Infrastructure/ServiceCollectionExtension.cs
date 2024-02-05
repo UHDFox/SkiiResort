@@ -8,28 +8,14 @@ namespace Application.Infrastructure;
 
 public static class ServiceCollectionExtension
 {
-    public static IServiceCollection ConfigureSkipassServices(this IServiceCollection services)
+    public static IServiceCollection AddBusinessServices(this IServiceCollection services)
     {
         services.AddTransient<ISkipassService, SkipassService>();
-        return services;
-    }
-
-    public static IServiceCollection ConfigureTariffServices(this IServiceCollection services)
-    {
         services.AddTransient<ITariffService, TariffService>();
-        return services;
-    }
-
-    public static IServiceCollection ConfigureVisitorServices(this IServiceCollection services)
-    {
         services.AddTransient<IVisitorService, VisitorService>();
-        return services;
-    }
-
-    public static IServiceCollection ConfigureVisitorActionsServices(this IServiceCollection services)
-    {
         services.AddTransient<IVisitorActions, VisitorActionsService>();
-        ConfigureSkipassServices(services);
+
         return services;
     }
+    
 }

@@ -6,7 +6,7 @@ namespace Domain.Infrastructure;
 
 public static class ServiceCollectionExtension
 {
-    public static IServiceCollection ConfigureDataBase(this IServiceCollection services)
+    public static IServiceCollection AddHotelContext(this IServiceCollection services)
     {
         services.AddDbContext<HotelContext>((provider, builder) =>
         {
