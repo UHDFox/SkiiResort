@@ -1,57 +1,47 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 using Application.Exceptions;
 using AutoMapper;
-using Domain;
 using Domain.Entities.Tariff;
-using Microsoft.EntityFrameworkCore;
+using Repository.Tariff;
 
 namespace Application.Tariff;
 
 internal sealed class TariffService : ITariffService
 {
-    private readonly HotelContext context;
     private readonly IMapper mapper;
+    private readonly ITariffRepository repository;
 
-    public TariffService(HotelContext context, IMapper mapper)
+    public TariffService(IMapper mapper, ITariffRepository repository)
     {
-        this.context = context;
         this.mapper = mapper;
+        this.repository = repository;
     }
 
     public async Task<GetTariffModel> GetByIdAsync(Guid id)
     {
-        var tariff = await context.Tariffs.AsNoTracking().FirstOrDefaultAsync(x => x.Id == id) ??
-                     throw new NotFoundException();
+        var tariff = await repository.GetByIdAsync(id) ?? throw new NotFoundException();
         return mapper.Map<GetTariffModel>(tariff);
     }
 
     public async Task<IReadOnlyCollection<GetTariffModel>> GetListAsync(int offset, int limit)
     {
-        return mapper.Map<IReadOnlyCollection<GetTariffModel>>(await context.Tariffs.Skip(offset)
-            .Take(limit).ToListAsync());
+        return mapper.Map<IReadOnlyCollection<GetTariffModel>>(await repository.GetListAsync(offset, limit));
     }
 
-    public async Task<TariffRecord> AddAsync(AddTariffModel tariffModel)
+    public async Task<Guid> AddAsync(AddTariffModel tariffModel)
     {
-        var result = await context.Tariffs.AddAsync(mapper.Map<TariffRecord>(tariffModel));
-        await context.SaveChangesAsync();
-        return mapper.Map<TariffRecord>(result.Entity);
+        var result = await repository.AddAsync(mapper.Map<TariffRecord>(tariffModel));
+        return result;
     }
 
     public async Task DeleteAsync(Guid id)
     {
-        var tariff = await GetByIdAsync(id);
-        context.Tariffs.Remove(mapper.Map<TariffRecord>(tariff));
-        await context.SaveChangesAsync();
+        await GetByIdAsync(id);
+        await repository.DeleteAsync(id);
     }
 
-        public async Task<bool> UpdateAsync(UpdateTariffModel tariffModel)
-        {
-            var tariff = await GetByIdAsync(tariffModel.Id);
-            context.Tariffs.Update(mapper.Map<TariffRecord>(tariff));
-            return await context.SaveChangesAsync() > 0;
-        }
+    public async Task<bool> UpdateAsync(UpdateTariffModel tariffModel)
+    {
+        await GetByIdAsync(tariffModel.Id);
+        return await repository.UpdateAsync(mapper.Map<TariffRecord>(tariffModel));
+    }
 }

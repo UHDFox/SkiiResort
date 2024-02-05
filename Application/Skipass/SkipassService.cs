@@ -1,64 +1,47 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 using Application.Exceptions;
 using AutoMapper;
-using Domain;
 using Domain.Entities.Skipass;
-using Microsoft.EntityFrameworkCore;
+using Repository.Skipass;
 
 namespace Application.Skipass;
 
 internal sealed class SkipassService : ISkipassService
 {
-    private readonly HotelContext context;
     private readonly IMapper mapper;
+    private readonly ISkipassRepository repository;
 
-    public SkipassService(HotelContext context, IMapper mapper)
+    public SkipassService(IMapper mapper, ISkipassRepository repository)
     {
-        this.context = context;
         this.mapper = mapper;
+        this.repository = repository;
     }
 
     public async Task<IReadOnlyCollection<GetSkipassModel>> GetListAsync(int offset, int limit)
     {
-        return mapper.Map<IReadOnlyCollection<GetSkipassModel>>(await context.Skipasses.Skip(offset).Take(limit).ToListAsync());
+        return mapper.Map<IReadOnlyCollection<GetSkipassModel>>(await repository.GetListAsync(offset, limit));
     }
 
     public async Task<GetSkipassModel> GetByIdAsync(Guid skipassId)
     {
-        var result = await context.Skipasses
-            .AsNoTracking()
-            .Include(record => record.Tariff)
-            .Include(record => record.Visitor)
-            .FirstOrDefaultAsync(x => x.Id == skipassId);
+        var result = await repository.GetByIdAsync(skipassId) ?? throw new NotFoundException();
         return mapper.Map<GetSkipassModel>(result);
     }
 
-    public async Task<SkipassRecord> AddAsync(AddSkipassModel skipassModel)
+    public async Task<Guid> AddAsync(AddSkipassModel skipassModel)
     {
-        var result = await context.Skipasses.AddAsync(mapper.Map<SkipassRecord>(skipassModel));
-        await context.SaveChangesAsync();
-        return result.Entity;
+        var result = await repository.AddAsync(mapper.Map<SkipassRecord>(skipassModel));
+        return result;
     }
+
     public async Task<bool> UpdateAsync(UpdateSkipassModel skipassModel)
     {
-        var record = await context.Skipasses
-                         .AsNoTracking()
-                         .FirstOrDefaultAsync(record => record.Id == skipassModel.Id)
-                     ?? throw new NotFoundException();
-        mapper.Map(skipassModel, record);
-        context.Skipasses.Update(record);
-        return await context.SaveChangesAsync() > 0;
+        mapper.Map<SkipassRecord>(await GetByIdAsync(skipassModel.Id));
+        return await repository.UpdateAsync(mapper.Map<SkipassRecord>(skipassModel));
     }
 
     public async Task DeleteAsync(Guid id)
     {
-        var record = context.Skipasses.FirstOrDefault(record => record.Id == id) ??
-                     throw new NotFoundException("Skipass not found");
-        context.Skipasses.Remove(record);
-        await context.SaveChangesAsync();
+        await GetByIdAsync(id);
+        await repository.DeleteAsync(id);
     }
 }
-

@@ -1,26 +1,18 @@
-using System;
-using System.Collections.Generic;
-using System.Reflection.Metadata.Ecma335;
-using System.Threading.Tasks;
 using Application.VisitorAction;
 using AutoMapper;
 using Domain.Entities.VisitorsAction;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Web.Contracts.CommonResponses;
-using Web.Contracts.Visitor;
 using Web.Contracts.VisitorActions;
-
 
 namespace Web.Controllers;
 
 [Route("api/[controller]/[action]")]
 [ApiController]
-
 public sealed class VisitorActionsController : Controller
 {
-    private readonly IVisitorActions visitorActionsService;
     private readonly IMapper mapper;
+    private readonly IVisitorActions visitorActionsService;
 
     public VisitorActionsController(IVisitorActions visitorActionsService, IMapper mapper)
     {
@@ -34,7 +26,8 @@ public sealed class VisitorActionsController : Controller
     public async Task<IActionResult> GetAllAsync(int? offset, int? limit)
     {
         var result = await visitorActionsService.GetAllAsync(offset.GetValueOrDefault(0), limit.GetValueOrDefault(15));
-        return Ok(new GetAllResponse<VisitorActionsResponse>(mapper.Map<IReadOnlyCollection<VisitorActionsResponse>>(result), result.Count));
+        return Ok(new GetAllResponse<VisitorActionsResponse>(
+            mapper.Map<IReadOnlyCollection<VisitorActionsResponse>>(result), result.Count));
     }
 
     [HttpGet]
@@ -45,14 +38,15 @@ public sealed class VisitorActionsController : Controller
         var result = await visitorActionsService.GetByIdAsync(id);
         return Ok(mapper.Map<VisitorActionsRecord>(result));
     }
-    
+
     [HttpPost]
     [ProducesResponseType(StatusCodes.Status201Created, Type = typeof(CreatedResponse))]
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
     public async Task<IActionResult> AddAsync(AddVisitorActionsModel model)
     {
-        await visitorActionsService.AddAsync(model);
-        return Created($"{Request.Path}", model);
+        var id = await visitorActionsService.AddAsync(model);
+        return Created($"{Request.Path}",
+            mapper.Map<VisitorActionsResponse>(await visitorActionsService.GetByIdAsync(id)));
     }
 
     [HttpPut]

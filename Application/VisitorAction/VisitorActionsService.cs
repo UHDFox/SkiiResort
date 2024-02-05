@@ -1,59 +1,74 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 using Application.Exceptions;
-using Application.Skipass;
 using AutoMapper;
-using Domain;
-using Domain.Entities.Skipass;
-using Domain.Entities.Tariff;
 using Domain.Entities.VisitorsAction;
-using Microsoft.EntityFrameworkCore;
+using Repository.Skipass;
+using Repository.VisitorActions;
 
 namespace Application.VisitorAction;
 
 internal sealed class VisitorActionsService : IVisitorActions
 {
-    private readonly HotelContext context;
     private readonly IMapper mapper;
+    private readonly ISkipassRepository skipassRepository;
+    private readonly IVisitorActionsRepository visitorActionsRepository;
 
-    public VisitorActionsService(HotelContext context, IMapper mapper)
+    public VisitorActionsService(IMapper mapper, IVisitorActionsRepository visitorActionsRepository,
+        ISkipassRepository skipassRepository)
     {
-        this.context = context;
         this.mapper = mapper;
+        this.visitorActionsRepository = visitorActionsRepository;
+        this.skipassRepository = skipassRepository;
     }
-    
+
     public async Task<IReadOnlyCollection<GetVisitorActionsModel>> GetAllAsync(int offset, int limit)
     {
-        return mapper.Map<IReadOnlyCollection<GetVisitorActionsModel>>(await context.VisitorActions.Skip(offset).Take(limit).ToListAsync());
+        return mapper.Map<IReadOnlyCollection<GetVisitorActionsModel>>(
+            await visitorActionsRepository.GetListAsync(offset, limit));
     }
 
     public async Task<GetVisitorActionsModel> GetByIdAsync(Guid id)
     {
-        var entity = await context.VisitorActions.AsNoTracking()
-            .FirstOrDefaultAsync(x => x.Id == id) ?? throw new NotFoundException();
+        var entity = await visitorActionsRepository.GetByIdAsync(id) ?? throw new NotFoundException();
         return mapper.Map<GetVisitorActionsModel>(entity);
     }
 
-    public async Task<VisitorActionsRecord> AddAsync(AddVisitorActionsModel model)
+    public async Task<Guid> AddAsync(AddVisitorActionsModel model)
     {
-        var result = await context.VisitorActions.AddAsync(mapper.Map<VisitorActionsRecord>(model));
-        await context.SaveChangesAsync();
-        return result.Entity;
+        var skipassRecord = (await skipassRepository.GetByIdAsync(model.SkipassId))!;
+        if (await skipassRepository.GetByIdAsync(skipassRecord.Id) == null) throw new NotFoundException();
+        if (!skipassRecord.Status)
+            throw new SkipassStatusException("Your skipass is inactive. Please, contact administrators");
+
+        if (!skipassRecord.IsVip || (skipassRecord.IsVip && model.BalanceChange >= 0))
+        {
+            skipassRecord.Balance += model.BalanceChange;
+            await skipassRepository.UpdateAsync(skipassRecord);
+        }
+
+        return await visitorActionsRepository.AddAsync(mapper.Map<VisitorActionsRecord>(model));
     }
 
     public async Task<bool> UpdateAsync(UpdateVisitorActionsModel model)
     {
-        await GetByIdAsync(model.Id);
-        context.VisitorActions.Update(        mapper.Map<VisitorActionsRecord>(model));
-        return await context.SaveChangesAsync() > 0;
+        if (await visitorActionsRepository.GetByIdAsync(model.Id) == null) throw new NotFoundException();
+
+        var skipassRecord = (await skipassRepository.GetByIdAsync(model.SkipassId))!;
+
+        if (!skipassRecord.Status)
+            throw new SkipassStatusException("Your skipass is inactive. Please, contact administrators");
+
+        if (!skipassRecord.IsVip || (skipassRecord.IsVip && model.BalanceChange >= 0))
+        {
+            skipassRecord.Balance += model.BalanceChange;
+            await skipassRepository.UpdateAsync(skipassRecord);
+        }
+
+        return await visitorActionsRepository.UpdateAsync(mapper.Map<VisitorActionsRecord>(model));
     }
 
     public async Task DeleteAsync(Guid id)
     {
-        var record = await GetByIdAsync(id);
-        context.VisitorActions.Remove(mapper.Map<VisitorActionsRecord>(record));
-        await context.SaveChangesAsync();
+        await GetByIdAsync(id);
+        await visitorActionsRepository.DeleteAsync(id);
     }
 }

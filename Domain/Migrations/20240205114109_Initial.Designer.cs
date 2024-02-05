@@ -12,7 +12,7 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace Domain.Migrations
 {
     [DbContext(typeof(HotelContext))]
-    [Migration("20240203092652_Initial")]
+    [Migration("20240205114109_Initial")]
     partial class Initial
     {
         /// <inheritdoc />
@@ -34,6 +34,9 @@ namespace Domain.Migrations
 
                     b.Property<int>("Balance")
                         .HasColumnType("integer");
+
+                    b.Property<bool>("IsVip")
+                        .HasColumnType("boolean");
 
                     b.Property<bool>("Status")
                         .HasColumnType("boolean");
@@ -105,9 +108,6 @@ namespace Domain.Migrations
 
                     b.Property<int>("BalanceChange")
                         .HasColumnType("integer");
-
-                    b.Property<bool>("IsVip")
-                        .HasColumnType("boolean");
 
                     b.Property<int>("Place")
                         .HasColumnType("integer");

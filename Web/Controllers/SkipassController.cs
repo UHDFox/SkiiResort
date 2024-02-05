@@ -1,9 +1,5 @@
-using System;
-using System.Collections.Generic;
-using System.Threading.Tasks;
 using Application.Skipass;
 using AutoMapper;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Web.Contracts.CommonResponses;
 using Web.Contracts.Skipass;
@@ -43,13 +39,13 @@ public sealed class SkipassController : Controller
     }
 
     [HttpPost(Name = "Create skipass")]
-    [ProducesResponseType(StatusCodes.Status201Created, Type = typeof(CreatedResponse))]
+    [ProducesResponseType(StatusCodes.Status201Created, Type = typeof(SkipassResponse))]
     [ProducesResponseType(StatusCodes.Status400BadRequest, Type = typeof(ValidationProblemDetails))]
     public async Task<IActionResult> AddAsync(AddSkipassModel skipassModel)
     {
-        var result = await context.AddAsync(skipassModel);
+        var id = await context.AddAsync(skipassModel);
 
-        return Created($"{Request.Path}", result);
+        return Created($"{Request.Path}", mapper.Map<SkipassResponse>(await context.GetByIdAsync(id)));
     }
 
     [HttpPut(Name = "Update record")]
@@ -65,7 +61,7 @@ public sealed class SkipassController : Controller
     [ProducesResponseType(StatusCodes.Status204NoContent, Type = typeof(DeletedResponse))]
     [ProducesResponseType(StatusCodes.Status404NotFound)]
     public async Task<IActionResult> DeleteAsync(Guid id)
-    { 
+    {
         await context.DeleteAsync(id);
         return NoContent();
     }

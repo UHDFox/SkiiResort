@@ -1,63 +1,54 @@
-using System;
-using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
-using System.Linq;
 using System.Text.RegularExpressions;
-using System.Threading.Tasks;
 using Application.Exceptions;
 using AutoMapper;
-using Domain;
 using Domain.Entities.Visitor;
-using Microsoft.EntityFrameworkCore;
+using Repository.Visitor;
 
 namespace Application.Visitor;
 
 internal sealed class VisitorService : IVisitorService
 {
-    private readonly HotelContext context;
-    private readonly IMapper mapper;
+    private static readonly Regex passportRegex = new(@"\d{4}-\d{6}");
     
-    public VisitorService(HotelContext context, IMapper mapper)
+    private readonly IMapper mapper;
+    private readonly IVisitorRepository repository;
+
+    public VisitorService(IMapper mapper, IVisitorRepository repository)
     {
-        this.context = context;
         this.mapper = mapper;
+        this.repository = repository;
     }
 
-    private static Regex passportRegex = new Regex(@"\d{4}-\d{6}");
-    public async Task<VisitorRecord> AddAsync(AddVisitorModel model)
+    public async Task<Guid> AddAsync(AddVisitorModel model)
     {
-        var result = await context.Visitors.AddAsync(mapper.Map<VisitorRecord>(model));
-
-        if (!passportRegex.IsMatch(result.Entity.Passport))
-        {
+        var record = mapper.Map<VisitorRecord>(model);
+        if (!passportRegex.IsMatch(record.Passport))
             throw new ValidationException("Validation error - check passport series and number");
-        }
-        await context.SaveChangesAsync(); 
-        return mapper.Map<VisitorRecord>(result.Entity);
+
+        return await repository.AddAsync(record);
     }
+
     public async Task<IReadOnlyCollection<GetVisitorModel>> GetListAsync(int offset, int limit)
     {
-        var result = await context.Visitors.Skip(offset).Take(limit).ToListAsync();
-        return mapper.Map<IReadOnlyCollection<GetVisitorModel>>(result);
+        return mapper.Map<IReadOnlyCollection<GetVisitorModel>>(await repository.GetListAsync(offset, limit));
     }
 
     public async Task<GetVisitorModel> GetByIdAsync(Guid id)
     {
-        var entity = await context.Visitors.AsNoTracking().FirstOrDefaultAsync(x => x.Id == id) ?? throw new NotFoundException();
+        var entity = await repository.GetByIdAsync(id) ?? throw new NotFoundException();
         return mapper.Map<GetVisitorModel>(entity);
     }
 
     public async Task<bool> UpdateAsync(UpdateVisitorModel model)
     {
         await GetByIdAsync(model.Id); //to check if such record exists in db
-        context.Visitors.Update(mapper.Map<VisitorRecord>(model));
-        return await context.SaveChangesAsync() > 0;
+        return await repository.UpdateAsync(mapper.Map<VisitorRecord>(model));
     }
 
     public async Task DeleteAsync(Guid id)
     {
-        var visitor = await GetByIdAsync(id);
-        context.Visitors.Remove(mapper.Map<VisitorRecord>(visitor));
-        var result = await context.SaveChangesAsync();
+        await GetByIdAsync(id);
+        await repository.DeleteAsync(id);
     }
 }

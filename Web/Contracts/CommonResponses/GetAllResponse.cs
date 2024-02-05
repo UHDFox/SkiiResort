@@ -1,5 +1,3 @@
-using System.Collections.Generic;
-
 namespace Web.Contracts.CommonResponses;
 
 public sealed class GetAllResponse<T>

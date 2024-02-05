@@ -50,7 +50,8 @@ namespace Domain.Migrations
                     Balance = table.Column<int>(type: "integer", nullable: false),
                     TariffId = table.Column<Guid>(type: "uuid", nullable: false),
                     VisitorId = table.Column<Guid>(type: "uuid", nullable: false),
-                    Status = table.Column<bool>(type: "boolean", nullable: false)
+                    Status = table.Column<bool>(type: "boolean", nullable: false),
+                    IsVip = table.Column<bool>(type: "boolean", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -77,8 +78,7 @@ namespace Domain.Migrations
                     SkipassId = table.Column<Guid>(type: "uuid", nullable: false),
                     Place = table.Column<int>(type: "integer", nullable: false),
                     Time = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
-                    BalanceChange = table.Column<int>(type: "integer", nullable: false),
-                    IsVip = table.Column<bool>(type: "boolean", nullable: false)
+                    BalanceChange = table.Column<int>(type: "integer", nullable: false)
                 },
                 constraints: table =>
                 {

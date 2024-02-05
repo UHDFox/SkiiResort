@@ -1,4 +1,3 @@
-using System;
 using Domain.Entities.Tariff;
 using Domain.Entities.Visitor;
 
@@ -27,4 +26,6 @@ public sealed class GetSkipassModel
     public VisitorRecord? Visitor { get; set; }
     
     public bool Status { get; set; }
+    
+    public bool IsVip { get; set; }
 }
