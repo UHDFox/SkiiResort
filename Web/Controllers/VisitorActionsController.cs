@@ -4,6 +4,7 @@ using Domain.Entities.VisitorsAction;
 using Microsoft.AspNetCore.Mvc;
 using Web.Contracts.CommonResponses;
 using Web.Contracts.VisitorActions;
+using Web.Contracts.VisitorActions.Requests;
 
 namespace Web.Controllers;
 
@@ -42,9 +43,9 @@ public sealed class VisitorActionsController : Controller
     [HttpPost]
     [ProducesResponseType(StatusCodes.Status201Created, Type = typeof(CreatedResponse))]
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
-    public async Task<IActionResult> AddAsync(AddVisitorActionsModel model)
+    public async Task<IActionResult> AddAsync(CreateVisitorActionsRequest model)
     {
-        var id = await visitorActionsService.AddAsync(model);
+        var id = await visitorActionsService.AddAsync(mapper.Map<AddVisitorActionsModel>(model));
         return Created($"{Request.Path}",
             mapper.Map<VisitorActionsResponse>(await visitorActionsService.GetByIdAsync(id)));
     }
@@ -52,9 +53,9 @@ public sealed class VisitorActionsController : Controller
     [HttpPut]
     [ProducesResponseType(StatusCodes.Status404NotFound)]
     [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(UpdatedResponse))]
-    public async Task<IActionResult> UpdateAsync(UpdateVisitorActionsModel model)
+    public async Task<IActionResult> UpdateAsync(UpdateVisitorActionsRequest model)
     {
-        var result = await visitorActionsService.UpdateAsync(model);
+        var result = await visitorActionsService.UpdateAsync(mapper.Map<UpdateVisitorActionsModel>(model));
         return Ok(new UpdatedResponse(model.Id, result));
     }
 

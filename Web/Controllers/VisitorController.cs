@@ -22,9 +22,9 @@ public sealed class VisitorController : Controller
     [HttpPost]
     [ProducesResponseType(StatusCodes.Status404NotFound)]
     [ProducesResponseType(StatusCodes.Status201Created, Type = typeof(CreatedResponse))]
-    public async Task<IActionResult> AddAsync(AddVisitorModel model)
+    public async Task<IActionResult> AddAsync(CreateVisitorRequest model)
     {
-        var id = await visitorService.AddAsync(model);
+        var id = await visitorService.AddAsync(mapper.Map<AddVisitorModel>(model));
         return Created($"{Request.Path}", mapper.Map<VisitorResponse>(await visitorService.GetByIdAsync(id)));
     }
 
@@ -50,9 +50,9 @@ public sealed class VisitorController : Controller
     [HttpPut]
     [ProducesResponseType(StatusCodes.Status404NotFound)]
     [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(UpdatedResponse))]
-    public async Task<IActionResult> UpdateAsync(UpdateVisitorModel model)
+    public async Task<IActionResult> UpdateAsync(UpdateVisitorRequest model)
     {
-        var result = await visitorService.UpdateAsync(model);
+        var result = await visitorService.UpdateAsync(mapper.Map<UpdateVisitorModel>(model));
         return Ok(new UpdatedResponse(model.Id, result));
     }
 
