@@ -1,15 +1,11 @@
-using Application.Infrastructure.Automapper;
-using Newtonsoft.Json;
-using Web.Infrastructure.Automapper;
+using System.Reflection;
 
 namespace Web.Infrastructure;
 
 public static class ServiceCollectionExtension
 {
-    public static IServiceCollection AddAutomapper(this IServiceCollection services)
+    private static class ApplicationAssemblyReference
     {
-        services.AddAutoMapper(typeof(WebProfile));
-        services.AddAutoMapper(typeof(ApplicationProfile));
-        return services;
+        public static Assembly Assembly => typeof(ApplicationAssemblyReference).Assembly;
     }
 }

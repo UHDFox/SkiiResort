@@ -1,3 +1,4 @@
+using System.Reflection;
 using Application.Skipass;
 using Application.Tariff;
 using Application.Visitor;
@@ -18,6 +19,13 @@ public static class ServiceCollectionExtension
         
         services.AddTransient<IVisitorActions, VisitorActionsService>();
 
+        services.AddAutoMapper(ApplicationAssemblyReference.Assembly);
+        
         return services;
+    }
+
+    private static class ApplicationAssemblyReference
+    {
+        public static Assembly Assembly => typeof(ApplicationAssemblyReference).Assembly;
     }
 }
