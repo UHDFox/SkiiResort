@@ -12,12 +12,4 @@ public static class ServiceCollectionExtension
         services.AddAutoMapper(typeof(ApplicationProfile));
         return services;
     }
-
-    public static IServiceCollection AddNewTonControllers(this IServiceCollection services)
-    {
-        services.AddControllers().AddNewtonsoftJson(opts =>
-            opts.SerializerSettings.ReferenceLoopHandling = ReferenceLoopHandling.Ignore);
-
-        return services;
-    }
 }

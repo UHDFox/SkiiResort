@@ -13,7 +13,6 @@ builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddHotelContext();
 builder.Services.AddBusinessServices();
 builder.Services.AddAutomapper();
-builder.Services.AddNewTonControllers();
 builder.Services.AddRepositories();
 
 builder.Services.AddSwaggerGen();
