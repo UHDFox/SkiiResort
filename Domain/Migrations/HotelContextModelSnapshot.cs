@@ -50,7 +50,7 @@ namespace Domain.Migrations
 
                     b.HasIndex("VisitorId");
 
-                    b.ToTable("Skipasses");
+                    b.ToTable("Skipasses", (string)null);
                 });
 
             modelBuilder.Entity("Domain.Entities.Tariff.TariffRecord", b =>
@@ -65,7 +65,7 @@ namespace Domain.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Tariffs");
+                    b.ToTable("Tariffs", (string)null);
                 });
 
             modelBuilder.Entity("Domain.Entities.Visitor.VisitorRecord", b =>
@@ -94,7 +94,7 @@ namespace Domain.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Visitors");
+                    b.ToTable("Visitors", (string)null);
                 });
 
             modelBuilder.Entity("Domain.Entities.VisitorsAction.VisitorActionsRecord", b =>
@@ -119,7 +119,7 @@ namespace Domain.Migrations
 
                     b.HasIndex("SkipassId");
 
-                    b.ToTable("VisitorActions");
+                    b.ToTable("VisitorActions", (string)null);
                 });
 
             modelBuilder.Entity("Domain.Entities.Skipass.SkipassRecord", b =>

@@ -4,7 +4,7 @@ namespace Web.Contracts.VisitorActions;
 
 public sealed class VisitorActionsResponse
 {
-    public VisitorActionsResponse(Guid id, Guid skipassId, Place place, DateTime time, int balanceChange)
+    public VisitorActionsResponse(Guid id, Guid skipassId, Place place, DateTimeOffset time, int balanceChange)
     {
         Id = id;
         SkipassId = skipassId;
@@ -19,7 +19,7 @@ public sealed class VisitorActionsResponse
 
     public Place Place { get; set; }
 
-    public DateTime Time { get; set; }
+    public DateTimeOffset Time { get; set; }
 
     public int BalanceChange { get; set; }
 }

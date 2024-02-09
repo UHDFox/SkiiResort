@@ -4,7 +4,7 @@ namespace Web.Contracts.VisitorActions.Requests;
 
 public sealed class CreateVisitorActionsRequest
 {
-    public CreateVisitorActionsRequest(Guid skipassId, Place place, DateTime time, int balanceChange)
+    public CreateVisitorActionsRequest(Guid skipassId, Place place, DateTimeOffset time, int balanceChange)
     {
         SkipassId = skipassId;
         Place = place;
@@ -16,7 +16,7 @@ public sealed class CreateVisitorActionsRequest
 
     public Place Place { get; set; }
 
-    public DateTime Time { get; set; }
+    public DateTimeOffset Time { get; set; }
 
     public int BalanceChange { get; set; }
 }
