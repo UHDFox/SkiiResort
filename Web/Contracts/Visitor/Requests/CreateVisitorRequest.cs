@@ -1,4 +1,4 @@
-namespace Web.Contracts.Visitor;
+namespace Web.Contracts.Visitor.Requests;
 
 public sealed class CreateVisitorRequest
 {

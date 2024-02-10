@@ -3,6 +3,7 @@ using AutoMapper;
 using Microsoft.AspNetCore.Mvc;
 using Web.Contracts.CommonResponses;
 using Web.Contracts.Visitor;
+using Web.Contracts.Visitor.Requests;
 
 namespace Web.Controllers;
 

@@ -20,12 +20,13 @@ public sealed class ApplicationProfile : Profile
 
         CreateMap<TariffRecord, GetTariffModel>().ReverseMap();
         CreateMap<AddTariffModel, TariffRecord>().ReverseMap();
-        CreateMap<UpdateTariffModel, TariffRecord>().ReverseMap(); ;
+        CreateMap<UpdateTariffModel, TariffRecord>().ReverseMap();
+        
 
         CreateMap<VisitorRecord, GetVisitorModel>().ReverseMap();
         CreateMap<AddVisitorModel, VisitorRecord>().ReverseMap();
         CreateMap<UpdateVisitorModel, VisitorRecord>().ReverseMap();
-        
+
         CreateMap<AddVisitorActionsModel, VisitorActionsRecord>();
         CreateMap<GetVisitorActionsModel, VisitorActionsRecord>().ReverseMap();
         CreateMap<UpdateVisitorActionsModel, VisitorActionsRecord>().ReverseMap();

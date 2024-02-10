@@ -1,4 +1,4 @@
-namespace Web.Contracts.Tariff;
+namespace Web.Contracts.Tariff.Requests;
 
 public sealed class UpdateTariffRequest
 {
@@ -6,7 +6,7 @@ public sealed class UpdateTariffRequest
     {
         Id = id;
         Name = name;
-    } 
+    }
 
     public Guid Id { get; set; }
     public string? Name { get; set; }

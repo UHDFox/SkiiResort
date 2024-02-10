@@ -1,4 +1,4 @@
-namespace Web.Contracts.Tariff;
+namespace Web.Contracts.Tariff.Requests;
 
 public sealed class CreateTariffRequest
 {

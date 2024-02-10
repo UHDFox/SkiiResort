@@ -4,11 +4,12 @@ using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
 namespace Domain.EntitiesConfiguration;
 
-public class VisitorActionsConfiguration : IEntityTypeConfiguration<VisitorActionsRecord>
+public sealed class VisitorActionsConfiguration : IEntityTypeConfiguration<VisitorActionsRecord>
 {
     public void Configure(EntityTypeBuilder<VisitorActionsRecord> builder)
     {
         builder.HasKey(va => va.Id);
+        
         builder.HasOne(s => s.Skipass);
     }
 }

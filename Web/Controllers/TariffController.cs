@@ -4,6 +4,7 @@ using Domain.Entities.Tariff;
 using Microsoft.AspNetCore.Mvc;
 using Web.Contracts.CommonResponses;
 using Web.Contracts.Tariff;
+using Web.Contracts.Tariff.Requests;
 
 namespace Web.Controllers;
 

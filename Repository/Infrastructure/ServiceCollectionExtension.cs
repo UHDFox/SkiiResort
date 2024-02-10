@@ -11,9 +11,14 @@ public static class ServiceCollectionExtension
     public static IServiceCollection AddRepositories(this IServiceCollection services)
     {
         services.AddTransient<ISkipassRepository, SkipassRepository>();
+        
         services.AddTransient<ITariffRepository, TariffRepository>();
+        
         services.AddTransient<IVisitorRepository, VisitorRepository>();
+        
         services.AddTransient<IVisitorActionsRepository, VisitorActionsRepository>();
+        
+        
         return services;
     }
 }

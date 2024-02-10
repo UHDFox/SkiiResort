@@ -7,8 +7,8 @@ public sealed class GetAllResponse<T>
         List = list;
         TotalAmount = totalAmount;
     }
-    
+
     public IReadOnlyCollection<T> List { get; set; }
-    
+
     public int TotalAmount { get; set; }
 }

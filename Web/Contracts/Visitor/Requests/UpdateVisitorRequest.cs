@@ -1,4 +1,4 @@
-namespace Web.Contracts.Visitor;
+namespace Web.Contracts.Visitor.Requests;
 
 public sealed class UpdateVisitorRequest
 {
@@ -14,18 +14,13 @@ public sealed class UpdateVisitorRequest
 
     public Guid Id { get; set; }
 
-
     public string? Name { get; set; }
-
 
     public int Age { get; set; }
 
-
     public string Phone { get; set; }
 
-
     public DateTime Birthdate { get; set; }
-
 
     public string Passport { get; set; }
 }

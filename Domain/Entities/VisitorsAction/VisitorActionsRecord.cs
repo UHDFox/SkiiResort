@@ -23,6 +23,6 @@ public sealed class VisitorActionsRecord
     public Place Place { get; set; }
 
     public DateTimeOffset Time { get; set; }
-    
+
     public int BalanceChange { get; set; }
 }
