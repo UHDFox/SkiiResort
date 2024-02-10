@@ -17,20 +17,17 @@ public sealed class HotelContext : DbContext
     public DbSet<VisitorRecord> Visitors => Set<VisitorRecord>();
 
     public DbSet<TariffRecord> Tariffs => Set<TariffRecord>();
+    
     public DbSet<SkipassRecord> Skipasses => Set<SkipassRecord>();
+    
     public DbSet<VisitorActionsRecord> VisitorActions => Set<VisitorActionsRecord>();
-
-    protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
-    {
-    }
+    
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
-        modelBuilder.ApplyConfiguration(new SkipassConfiguration());
-        modelBuilder.ApplyConfiguration(new TariffConfiguration());
-        modelBuilder.ApplyConfiguration(new VisitorConfiguration());
-        modelBuilder.ApplyConfiguration(new VisitorActionsConfiguration());
-
+        base.OnModelCreating(modelBuilder);
+        modelBuilder.ApplyConfigurationsFromAssembly(GetType().Assembly);
+        
         modelBuilder.HasPostgresEnum<Place>();
     }
 }

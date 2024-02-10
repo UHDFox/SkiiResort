@@ -12,14 +12,16 @@ public static class ServiceCollectionExtension
     public static IServiceCollection AddBusinessServices(this IServiceCollection services)
     {
         services.AddTransient<ISkipassService, SkipassService>();
-        
+
         services.AddTransient<ITariffService, TariffService>();
-        
+
         services.AddTransient<IVisitorService, VisitorService>();
-        
+
         services.AddTransient<IVisitorActions, VisitorActionsService>();
 
-        services.AddAutoMapper(ApplicationAssemblyReference.Assembly);
+        
+        services.AddAutoMapper(typeof(ApplicationAssemblyReference).Assembly);
+
         
         return services;
     }
