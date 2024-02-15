@@ -6,13 +6,12 @@ namespace Domain.Entities.Skipass;
 
 public sealed class SkipassRecord
 {
-    public SkipassRecord(int balance, Guid tariffId, Guid visitorId, bool status, bool isVip)
+    public SkipassRecord(int balance, Guid tariffId, Guid visitorId, bool status)
     {
         Balance = balance;
         TariffId = tariffId;
         VisitorId = visitorId;
         Status = status;
-        IsVip = isVip;
     }
 
     public Guid Id { get; set; }
@@ -28,8 +27,6 @@ public sealed class SkipassRecord
     public VisitorRecord? Visitor { get; set; }
 
     public bool Status { get; set; }
-
-    public bool IsVip { get; set; }
 
     public IReadOnlyList<VisitorActionsRecord> VisitorActions { get; set; } = new List<VisitorActionsRecord>();
 }

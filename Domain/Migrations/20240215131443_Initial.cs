@@ -11,15 +11,14 @@ namespace Domain.Migrations
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
         {
-            migrationBuilder.AlterDatabase()
-                .Annotation("Npgsql:Enum:place", "hotel,cp1,cp2,amusement_park");
-
             migrationBuilder.CreateTable(
                 name: "Tariffs",
                 columns: table => new
                 {
                     Id = table.Column<Guid>(type: "uuid", nullable: false),
-                    Name = table.Column<string>(type: "text", nullable: false)
+                    Name = table.Column<string>(type: "text", nullable: false),
+                    PriceModifier = table.Column<double>(type: "double precision", nullable: false),
+                    IsVip = table.Column<bool>(type: "boolean", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -43,6 +42,25 @@ namespace Domain.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "Tariffications",
+                columns: table => new
+                {
+                    Id = table.Column<Guid>(type: "uuid", nullable: false),
+                    Price = table.Column<int>(type: "integer", nullable: false),
+                    TariffId = table.Column<Guid>(type: "uuid", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Tariffications", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_Tariffications_Tariffs_TariffId",
+                        column: x => x.TariffId,
+                        principalTable: "Tariffs",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "Skipasses",
                 columns: table => new
                 {
@@ -50,8 +68,7 @@ namespace Domain.Migrations
                     Balance = table.Column<int>(type: "integer", nullable: false),
                     TariffId = table.Column<Guid>(type: "uuid", nullable: false),
                     VisitorId = table.Column<Guid>(type: "uuid", nullable: false),
-                    Status = table.Column<bool>(type: "boolean", nullable: false),
-                    IsVip = table.Column<bool>(type: "boolean", nullable: false)
+                    Status = table.Column<bool>(type: "boolean", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -71,18 +88,43 @@ namespace Domain.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "Locations",
+                columns: table => new
+                {
+                    Id = table.Column<Guid>(type: "uuid", nullable: false),
+                    Name = table.Column<string>(type: "text", nullable: false),
+                    TarifficationId = table.Column<Guid>(type: "uuid", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Locations", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_Locations_Tariffications_TarifficationId",
+                        column: x => x.TarifficationId,
+                        principalTable: "Tariffications",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "VisitorActions",
                 columns: table => new
                 {
                     Id = table.Column<Guid>(type: "uuid", nullable: false),
                     SkipassId = table.Column<Guid>(type: "uuid", nullable: false),
-                    Place = table.Column<int>(type: "integer", nullable: false),
-                    Time = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
+                    LocationId = table.Column<Guid>(type: "uuid", nullable: false),
+                    Time = table.Column<DateTimeOffset>(type: "timestamp with time zone", nullable: false),
                     BalanceChange = table.Column<int>(type: "integer", nullable: false)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_VisitorActions", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_VisitorActions_Locations_LocationId",
+                        column: x => x.LocationId,
+                        principalTable: "Locations",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
                         name: "FK_VisitorActions_Skipasses_SkipassId",
                         column: x => x.SkipassId,
@@ -90,6 +132,11 @@ namespace Domain.Migrations
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 });
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Locations_TarifficationId",
+                table: "Locations",
+                column: "TarifficationId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Skipasses_TariffId",
@@ -100,6 +147,17 @@ namespace Domain.Migrations
                 name: "IX_Skipasses_VisitorId",
                 table: "Skipasses",
                 column: "VisitorId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Tariffications_TariffId",
+                table: "Tariffications",
+                column: "TariffId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_VisitorActions_LocationId",
+                table: "VisitorActions",
+                column: "LocationId",
+                unique: true);
 
             migrationBuilder.CreateIndex(
                 name: "IX_VisitorActions_SkipassId",
@@ -114,13 +172,19 @@ namespace Domain.Migrations
                 name: "VisitorActions");
 
             migrationBuilder.DropTable(
+                name: "Locations");
+
+            migrationBuilder.DropTable(
                 name: "Skipasses");
 
             migrationBuilder.DropTable(
-                name: "Tariffs");
+                name: "Tariffications");
 
             migrationBuilder.DropTable(
                 name: "Visitors");
+
+            migrationBuilder.DropTable(
+                name: "Tariffs");
         }
     }
 }

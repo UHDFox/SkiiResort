@@ -27,6 +27,4 @@ public sealed class GetSkipassModel
     public VisitorRecord? Visitor { get; set; }
 
     public bool Status { get; set; }
-
-    public bool IsVip { get; set; }
 }
