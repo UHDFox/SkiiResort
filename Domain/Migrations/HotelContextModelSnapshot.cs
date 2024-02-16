@@ -32,12 +32,7 @@ namespace Domain.Migrations
                         .IsRequired()
                         .HasColumnType("text");
 
-                    b.Property<Guid>("TarifficationId")
-                        .HasColumnType("uuid");
-
                     b.HasKey("Id");
-
-                    b.HasIndex("TarifficationId");
 
                     b.ToTable("Locations");
                 });
@@ -96,6 +91,9 @@ namespace Domain.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uuid");
 
+                    b.Property<Guid>("LocationId")
+                        .HasColumnType("uuid");
+
                     b.Property<int>("Price")
                         .HasColumnType("integer");
 
@@ -103,6 +101,8 @@ namespace Domain.Migrations
                         .HasColumnType("uuid");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("LocationId");
 
                     b.HasIndex("TariffId");
 
@@ -158,23 +158,11 @@ namespace Domain.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("LocationId")
-                        .IsUnique();
+                    b.HasIndex("LocationId");
 
                     b.HasIndex("SkipassId");
 
                     b.ToTable("VisitorActions");
-                });
-
-            modelBuilder.Entity("Domain.Entities.Location.LocationRecord", b =>
-                {
-                    b.HasOne("Domain.Entities.Tariffication.TarifficationRecord", "Tariffication")
-                        .WithMany("Locations")
-                        .HasForeignKey("TarifficationId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Tariffication");
                 });
 
             modelBuilder.Entity("Domain.Entities.Skipass.SkipassRecord", b =>
@@ -198,11 +186,19 @@ namespace Domain.Migrations
 
             modelBuilder.Entity("Domain.Entities.Tariffication.TarifficationRecord", b =>
                 {
+                    b.HasOne("Domain.Entities.Location.LocationRecord", "Location")
+                        .WithMany("Tariffications")
+                        .HasForeignKey("LocationId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
                     b.HasOne("Domain.Entities.Tariff.TariffRecord", "Tariff")
                         .WithMany("Tariffications")
                         .HasForeignKey("TariffId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+
+                    b.Navigation("Location");
 
                     b.Navigation("Tariff");
                 });
@@ -210,8 +206,8 @@ namespace Domain.Migrations
             modelBuilder.Entity("Domain.Entities.VisitorsAction.VisitorActionsRecord", b =>
                 {
                     b.HasOne("Domain.Entities.Location.LocationRecord", "Location")
-                        .WithOne("VisitorActions")
-                        .HasForeignKey("Domain.Entities.VisitorsAction.VisitorActionsRecord", "LocationId")
+                        .WithMany()
+                        .HasForeignKey("LocationId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
@@ -228,7 +224,7 @@ namespace Domain.Migrations
 
             modelBuilder.Entity("Domain.Entities.Location.LocationRecord", b =>
                 {
-                    b.Navigation("VisitorActions");
+                    b.Navigation("Tariffications");
                 });
 
             modelBuilder.Entity("Domain.Entities.Skipass.SkipassRecord", b =>
@@ -241,11 +237,6 @@ namespace Domain.Migrations
                     b.Navigation("Skipasses");
 
                     b.Navigation("Tariffications");
-                });
-
-            modelBuilder.Entity("Domain.Entities.Tariffication.TarifficationRecord", b =>
-                {
-                    b.Navigation("Locations");
                 });
 
             modelBuilder.Entity("Domain.Entities.Visitor.VisitorRecord", b =>
