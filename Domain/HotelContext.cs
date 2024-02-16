@@ -1,5 +1,7 @@
+using Domain.Entities.Location;
 using Domain.Entities.Skipass;
 using Domain.Entities.Tariff;
+using Domain.Entities.Tariffication;
 using Domain.Entities.Visitor;
 using Domain.Entities.VisitorsAction;
 using Domain.EntitiesConfiguration;
@@ -14,6 +16,7 @@ public sealed class HotelContext : DbContext
     {
     }
 
+    
     public DbSet<VisitorRecord> Visitors => Set<VisitorRecord>();
 
     public DbSet<TariffRecord> Tariffs => Set<TariffRecord>();
@@ -21,13 +24,15 @@ public sealed class HotelContext : DbContext
     public DbSet<SkipassRecord> Skipasses => Set<SkipassRecord>();
     
     public DbSet<VisitorActionsRecord> VisitorActions => Set<VisitorActionsRecord>();
-    
 
+    public DbSet<TarifficationRecord> Tariffications => Set<TarifficationRecord>();
+
+    public DbSet<LocationRecord> Locations => Set<LocationRecord>();
+
+    
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
         base.OnModelCreating(modelBuilder);
         modelBuilder.ApplyConfigurationsFromAssembly(GetType().Assembly);
-        
-        modelBuilder.HasPostgresEnum<Place>();
     }
 }
