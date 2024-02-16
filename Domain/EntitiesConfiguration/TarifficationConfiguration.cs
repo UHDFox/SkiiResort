@@ -11,7 +11,5 @@ public class TarifficationConfiguration : IEntityTypeConfiguration<Tariffication
         builder.HasKey(e => e.Id);
 
         builder.HasOne(e => e.Tariff).WithMany(e => e.Tariffications);
-        
-        //builder.HasMany(e => e.)
     }
 }

@@ -4,8 +4,6 @@ using Domain.Entities.Tariff;
 using Domain.Entities.Tariffication;
 using Domain.Entities.Visitor;
 using Domain.Entities.VisitorsAction;
-using Domain.EntitiesConfiguration;
-using Domain.Enums;
 using Microsoft.EntityFrameworkCore;
 
 namespace Domain;

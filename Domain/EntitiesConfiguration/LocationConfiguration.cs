@@ -11,8 +11,5 @@ public sealed class LocationConfiguration : IEntityTypeConfiguration<LocationRec
         builder.HasKey(x => x.Id);
 
         builder.HasOne(e => e.Tariffication).WithMany(x => x.Locations);
-        
-        //builder.HasOne(e => e.VisitorsAction).WithOne(e => e.Location);
-       // builder.HasOne(e => e.VisitorActions).WithOne(l => l.Location);
     }
 }

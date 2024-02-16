@@ -20,6 +20,4 @@ public sealed class UpdateSkipassModel
     public Guid VisitorId { get; set; }
 
     public bool Status { get; set; }
-
-    public bool IsVip { get; set; }
 }
