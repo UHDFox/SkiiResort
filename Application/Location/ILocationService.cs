@@ -1,4 +1,4 @@
-using Domain.Entities.Location;
+using Application.Location.Models;
 
 namespace Application.Location;
 

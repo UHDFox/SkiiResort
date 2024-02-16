@@ -1,4 +1,3 @@
-
 namespace Application.VisitorAction;
 
 public sealed class UpdateVisitorActionsModel

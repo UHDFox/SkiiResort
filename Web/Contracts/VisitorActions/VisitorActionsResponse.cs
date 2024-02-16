@@ -1,4 +1,3 @@
-
 namespace Web.Contracts.VisitorActions;
 
 public sealed class VisitorActionsResponse
