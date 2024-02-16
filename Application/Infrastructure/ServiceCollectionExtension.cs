@@ -1,6 +1,8 @@
 using System.Reflection;
+using Application.Location;
 using Application.Skipass;
 using Application.Tariff;
+using Application.Tariffication;
 using Application.Visitor;
 using Application.VisitorAction;
 using Microsoft.Extensions.DependencyInjection;
@@ -19,6 +21,9 @@ public static class ServiceCollectionExtension
 
         services.AddTransient<IVisitorActions, VisitorActionsService>();
 
+        services.AddTransient<ILocationService, LocationService>();
+
+        services.AddTransient<ITarifficationService, TarifficationService>();
         
         services.AddAutoMapper(typeof(ApplicationAssemblyReference).Assembly);
 

@@ -1,6 +1,8 @@
 using Microsoft.Extensions.DependencyInjection;
+using Repository.Location;
 using Repository.Skipass;
 using Repository.Tariff;
+using Repository.Tariffication;
 using Repository.Visitor;
 using Repository.VisitorActions;
 
@@ -17,6 +19,10 @@ public static class ServiceCollectionExtension
         services.AddTransient<IVisitorRepository, VisitorRepository>();
         
         services.AddTransient<IVisitorActionsRepository, VisitorActionsRepository>();
+
+        services.AddTransient<ILocationRepository, LocationRepository>();
+        
+        services.AddTransient<ITarifficationRepository, TarifficationRepository>();
         
         
         return services;

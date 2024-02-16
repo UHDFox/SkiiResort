@@ -12,6 +12,18 @@ namespace Domain.Migrations
         protected override void Up(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.CreateTable(
+                name: "Locations",
+                columns: table => new
+                {
+                    Id = table.Column<Guid>(type: "uuid", nullable: false),
+                    Name = table.Column<string>(type: "text", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Locations", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "Tariffs",
                 columns: table => new
                 {
@@ -47,11 +59,18 @@ namespace Domain.Migrations
                 {
                     Id = table.Column<Guid>(type: "uuid", nullable: false),
                     Price = table.Column<int>(type: "integer", nullable: false),
-                    TariffId = table.Column<Guid>(type: "uuid", nullable: false)
+                    TariffId = table.Column<Guid>(type: "uuid", nullable: false),
+                    LocationId = table.Column<Guid>(type: "uuid", nullable: false)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Tariffications", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_Tariffications_Locations_LocationId",
+                        column: x => x.LocationId,
+                        principalTable: "Locations",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
                         name: "FK_Tariffications_Tariffs_TariffId",
                         column: x => x.TariffId,
@@ -88,25 +107,6 @@ namespace Domain.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "Locations",
-                columns: table => new
-                {
-                    Id = table.Column<Guid>(type: "uuid", nullable: false),
-                    Name = table.Column<string>(type: "text", nullable: false),
-                    TarifficationId = table.Column<Guid>(type: "uuid", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Locations", x => x.Id);
-                    table.ForeignKey(
-                        name: "FK_Locations_Tariffications_TarifficationId",
-                        column: x => x.TarifficationId,
-                        principalTable: "Tariffications",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
-                });
-
-            migrationBuilder.CreateTable(
                 name: "VisitorActions",
                 columns: table => new
                 {
@@ -134,11 +134,6 @@ namespace Domain.Migrations
                 });
 
             migrationBuilder.CreateIndex(
-                name: "IX_Locations_TarifficationId",
-                table: "Locations",
-                column: "TarifficationId");
-
-            migrationBuilder.CreateIndex(
                 name: "IX_Skipasses_TariffId",
                 table: "Skipasses",
                 column: "TariffId");
@@ -149,6 +144,11 @@ namespace Domain.Migrations
                 column: "VisitorId");
 
             migrationBuilder.CreateIndex(
+                name: "IX_Tariffications_LocationId",
+                table: "Tariffications",
+                column: "LocationId");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_Tariffications_TariffId",
                 table: "Tariffications",
                 column: "TariffId");
@@ -156,8 +156,7 @@ namespace Domain.Migrations
             migrationBuilder.CreateIndex(
                 name: "IX_VisitorActions_LocationId",
                 table: "VisitorActions",
-                column: "LocationId",
-                unique: true);
+                column: "LocationId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_VisitorActions_SkipassId",
@@ -169,6 +168,9 @@ namespace Domain.Migrations
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropTable(
+                name: "Tariffications");
+
+            migrationBuilder.DropTable(
                 name: "VisitorActions");
 
             migrationBuilder.DropTable(
@@ -178,13 +180,10 @@ namespace Domain.Migrations
                 name: "Skipasses");
 
             migrationBuilder.DropTable(
-                name: "Tariffications");
+                name: "Tariffs");
 
             migrationBuilder.DropTable(
                 name: "Visitors");
-
-            migrationBuilder.DropTable(
-                name: "Tariffs");
         }
     }
 }

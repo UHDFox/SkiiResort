@@ -1,10 +1,15 @@
+using Application.Location;
+using Application.Location.Models;
 using Application.Skipass;
 using Application.Tariff;
+using Application.Tariffication.Models;
 using Application.Visitor;
 using Application.VisitorAction;
 using AutoMapper;
+using Domain.Entities.Location;
 using Domain.Entities.Skipass;
 using Domain.Entities.Tariff;
+using Domain.Entities.Tariffication;
 using Domain.Entities.Visitor;
 using Domain.Entities.VisitorsAction;
 
@@ -30,5 +35,13 @@ public sealed class ApplicationProfile : Profile
         CreateMap<AddVisitorActionsModel, VisitorActionsRecord>();
         CreateMap<GetVisitorActionsModel, VisitorActionsRecord>().ReverseMap();
         CreateMap<UpdateVisitorActionsModel, VisitorActionsRecord>().ReverseMap();
+
+        CreateMap<GetLocationModel, LocationRecord>().ReverseMap();
+        CreateMap<AddLocationModel, LocationRecord>().ReverseMap();
+        CreateMap<UpdateLocationModel, LocationRecord>().ReverseMap();
+
+        CreateMap<GetTarifficationModel, TarifficationRecord>().ReverseMap();
+        CreateMap<AddTarifficationModel, TarifficationRecord>().ReverseMap();
+        CreateMap<UpdateTarifficationModel, TarifficationRecord>().ReverseMap();
     }
 }
