@@ -39,11 +39,11 @@ internal sealed class VisitorActionsService : IVisitorActions
         if (!skipassRecord.Status)
             throw new SkipassStatusException("Your skipass is inactive. Please, contact administrators");
 
-        if (!skipassRecord.IsVip || (skipassRecord.IsVip && model.BalanceChange >= 0))
+        /*if (!skipassRecord.IsVip || (skipassRecord.IsVip && model.BalanceChange >= 0))
         {
             skipassRecord.Balance += model.BalanceChange;
             await skipassRepository.UpdateAsync(skipassRecord);
-        }
+        }*/
 
         return await visitorActionsRepository.AddAsync(mapper.Map<VisitorActionsRecord>(model));
     }
@@ -57,11 +57,11 @@ internal sealed class VisitorActionsService : IVisitorActions
         if (!skipassRecord.Status)
             throw new SkipassStatusException("Your skipass is inactive. Please, contact administrators");
 
-        if (!skipassRecord.IsVip || (skipassRecord.IsVip && model.BalanceChange >= 0))
+        /*if (!skipassRecord.IsVip || (skipassRecord.IsVip && model.BalanceChange >= 0))
         {
             skipassRecord.Balance += model.BalanceChange;
             await skipassRepository.UpdateAsync(skipassRecord);
-        }
+        }*/
 
         return await visitorActionsRepository.UpdateAsync(mapper.Map<VisitorActionsRecord>(model));
     }

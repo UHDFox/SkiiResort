@@ -10,6 +10,9 @@ public sealed class VisitorActionsConfiguration : IEntityTypeConfiguration<Visit
     {
         builder.HasKey(va => va.Id);
         
-        builder.HasOne(s => s.Skipass);
+        builder.HasOne(s => s.Skipass).WithMany(va => va.VisitorActions);
+
+        builder.HasOne(e => e.Location).WithOne(e => e.VisitorActions)
+            .HasForeignKey<VisitorActionsRecord>(e => e.LocationId);
     }
 }
