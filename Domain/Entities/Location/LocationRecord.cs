@@ -5,11 +5,11 @@ namespace Domain.Entities.Location;
 
 public sealed class LocationRecord
 {
-    public LocationRecord(string name, Guid tarifficationId, Guid visitorActionsId)
+    public LocationRecord(Guid id, string name, Guid tarifficationId)
     {
+        Id = id;
         Name = name;
         TarifficationId = tarifficationId;
-        VisitorActionsId = visitorActionsId;
     }
     
     public Guid Id { get; set; }
@@ -19,8 +19,6 @@ public sealed class LocationRecord
     public Guid TarifficationId { get; set; }
     
     public TarifficationRecord? Tariffication { get; set; }
-    
-    public Guid VisitorActionsId { get; set; }
     
     public VisitorActionsRecord? VisitorActions { get; set; }
 }
