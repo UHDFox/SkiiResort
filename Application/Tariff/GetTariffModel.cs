@@ -1,4 +1,5 @@
 using Domain.Entities.Skipass;
+using Domain.Entities.Tariffication;
 
 namespace Application.Tariff;
 
@@ -22,5 +23,5 @@ public sealed class GetTariffModel
 
     public IReadOnlyList<SkipassRecord> Skipasses { get; set; } = new List<SkipassRecord>();
     
-    public IReadOnlyList<SkipassRecord> Tariffications { get; set; } = new List<SkipassRecord>();
+    public IReadOnlyList<TarifficationRecord> Tariffications { get; set; } = new List<TarifficationRecord>();
 }

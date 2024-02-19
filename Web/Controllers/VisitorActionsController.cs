@@ -2,6 +2,7 @@ using Application.VisitorAction;
 using AutoMapper;
 using Domain.Entities.VisitorsAction;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using Web.Contracts.CommonResponses;
 using Web.Contracts.VisitorActions;
 using Web.Contracts.VisitorActions.Requests;
@@ -45,7 +46,7 @@ public sealed class VisitorActionsController : Controller
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
     public async Task<IActionResult> AddAsync(CreateVisitorActionsRequest model)
     {
-        var id = await visitorActionsService.AddAsync(mapper.Map<AddVisitorActionsModel>(model));
+       var id = await visitorActionsService.AddAsync(mapper.Map<AddVisitorActionsModel>(model));
         return Created($"{Request.Path}",
             mapper.Map<VisitorActionsResponse>(await visitorActionsService.GetByIdAsync(id)));
     }

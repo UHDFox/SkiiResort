@@ -47,7 +47,7 @@ public sealed class LocationController : Controller
     public async Task<IActionResult> AddAsync(CreateLocationRequest data)
     {
         var result = await locationService.AddAsync(mapper.Map<AddLocationModel>(data));
-        return Created(Request.Path, await locationService.GetByIdAsync(result));
+        return Created($"{Request.Path}", mapper.Map<LocationResponse>(await locationService.GetByIdAsync(result)));
     }
 
     [HttpPut]
