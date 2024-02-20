@@ -4,6 +4,7 @@ using Domain.Entities.Tariff;
 using Domain.Entities.Tariffication;
 using Domain.Entities.Visitor;
 using Domain.Entities.VisitorsAction;
+using Domain.Enums;
 using Microsoft.EntityFrameworkCore;
 
 namespace Domain;
@@ -30,6 +31,8 @@ public sealed class HotelContext : DbContext
     
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
+        modelBuilder.HasPostgresEnum<OperationType>();
+        
         base.OnModelCreating(modelBuilder);
         modelBuilder.ApplyConfigurationsFromAssembly(GetType().Assembly);
     }
