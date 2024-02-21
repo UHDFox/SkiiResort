@@ -2,7 +2,7 @@ namespace Web.Contracts.Tariffication.Requests;
 
 public class UpdateTarifficationRequest
 {
-    public UpdateTarifficationRequest(int price, Guid tariffId, Guid locationId)
+    public UpdateTarifficationRequest(double price, Guid tariffId, Guid locationId)
     {
         Price = price;
         TariffId = tariffId;
@@ -11,7 +11,7 @@ public class UpdateTarifficationRequest
     
     public Guid Id { get; set; }
     
-    public int Price { get; set; }
+    public double Price { get; set; }
     
     public Guid TariffId { get; set; }
     

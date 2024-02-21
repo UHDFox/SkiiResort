@@ -5,7 +5,7 @@ namespace Application.Tariffication.Models;
 
 public sealed class GetTarifficationModel
 {
-    public GetTarifficationModel(Guid id, int price, Guid tariffId, Guid locationId)
+    public GetTarifficationModel(Guid id, double price, Guid tariffId, Guid locationId)
     {
         Id = id;
         Price = price;
@@ -15,7 +15,7 @@ public sealed class GetTarifficationModel
 
     public Guid Id { get; set; }
 
-    public int Price { get; set; }
+    public double Price { get; set; }
 
     public Guid TariffId { get; set; }
 

@@ -44,8 +44,8 @@ namespace Domain.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uuid");
 
-                    b.Property<int>("Balance")
-                        .HasColumnType("integer");
+                    b.Property<double>("Balance")
+                        .HasColumnType("double precision");
 
                     b.Property<bool>("Status")
                         .HasColumnType("boolean");
@@ -95,8 +95,8 @@ namespace Domain.Migrations
                     b.Property<Guid>("LocationId")
                         .HasColumnType("uuid");
 
-                    b.Property<int>("Price")
-                        .HasColumnType("integer");
+                    b.Property<double>("Price")
+                        .HasColumnType("double precision");
 
                     b.Property<Guid>("TariffId")
                         .HasColumnType("uuid");

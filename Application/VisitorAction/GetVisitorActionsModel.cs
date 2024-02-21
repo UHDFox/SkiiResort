@@ -28,7 +28,7 @@ public sealed class GetVisitorActionsModel
 
     public DateTimeOffset Time { get; set; }
 
-    public int BalanceChange { get; set; }
+    public double BalanceChange { get; set; }
     
     public OperationType TransactionType { get; set; }
 }

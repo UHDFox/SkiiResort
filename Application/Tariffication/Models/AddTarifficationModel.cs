@@ -2,14 +2,14 @@ namespace Application.Tariffication.Models;
 
 public sealed class AddTarifficationModel
 {
-    public AddTarifficationModel(int price, Guid tariffId, Guid locationId)
+    public AddTarifficationModel(double price, Guid tariffId, Guid locationId)
     {
         Price = price;
         TariffId = tariffId;
         LocationId = locationId;
     }
 
-    public int Price { get; set; }
+    public double Price { get; set; }
 
     public Guid TariffId { get; set; }
     

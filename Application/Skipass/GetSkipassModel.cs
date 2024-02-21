@@ -5,7 +5,7 @@ namespace Application.Skipass;
 
 public sealed class GetSkipassModel
 {
-    public GetSkipassModel(Guid id, int balance, Guid tariffId, Guid visitorId, bool status)
+    public GetSkipassModel(Guid id, double balance, Guid tariffId, Guid visitorId, bool status)
     {
         Id = id;
         Balance = balance;
@@ -16,7 +16,7 @@ public sealed class GetSkipassModel
 
     public Guid Id { get; set; }
 
-    public int Balance { get; set; }
+    public double Balance { get; set; }
 
     public Guid TariffId { get; set; }
 

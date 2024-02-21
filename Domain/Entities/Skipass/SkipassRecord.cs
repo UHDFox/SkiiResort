@@ -6,7 +6,7 @@ namespace Domain.Entities.Skipass;
 
 public sealed class SkipassRecord
 {
-    public SkipassRecord(int balance, Guid tariffId, Guid visitorId, bool status)
+    public SkipassRecord(double balance, Guid tariffId, Guid visitorId, bool status)
     {
         Balance = balance;
         TariffId = tariffId;
@@ -16,7 +16,7 @@ public sealed class SkipassRecord
 
     public Guid Id { get; set; }
 
-    public int Balance { get; set; }
+    public double Balance { get; set; }
 
     public Guid TariffId { get; set; }
 

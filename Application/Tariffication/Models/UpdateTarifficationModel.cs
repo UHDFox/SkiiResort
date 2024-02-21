@@ -2,7 +2,7 @@ namespace Application.Tariffication.Models;
 
 public class UpdateTarifficationModel
 {
-    public UpdateTarifficationModel(Guid id, int price, Guid tariffId, Guid locationId)
+    public UpdateTarifficationModel(Guid id, double price, Guid tariffId, Guid locationId)
     {
         Id = id;
         Price = price;
@@ -12,7 +12,7 @@ public class UpdateTarifficationModel
 
     public Guid Id { get; set; }
 
-    public int Price { get; set; }
+    public double Price { get; set; }
 
     public Guid TariffId { get; set; }
     

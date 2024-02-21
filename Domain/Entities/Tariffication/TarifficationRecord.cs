@@ -5,7 +5,7 @@ namespace Domain.Entities.Tariffication;
 
 public sealed class TarifficationRecord
 {
-    public TarifficationRecord(int price, Guid tariffId, Guid locationId)
+    public TarifficationRecord(double price, Guid tariffId, Guid locationId)
     {
         Price = price;
         TariffId = tariffId;
@@ -14,7 +14,7 @@ public sealed class TarifficationRecord
     
     public Guid Id { get; set; }
     
-    public int Price { get; set; }
+    public double Price { get; set; }
     
     public Guid TariffId { get; set; }
     
