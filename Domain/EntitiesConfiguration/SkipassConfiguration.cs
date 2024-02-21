@@ -9,8 +9,6 @@ public sealed class SkipassConfiguration : IEntityTypeConfiguration<SkipassRecor
     public void Configure(EntityTypeBuilder<SkipassRecord> builder)
     {
         builder.HasKey(e => e.Id);
-        
-        //builder.HasOne(t => t.Tariff).WithMany(s => s.Skipasses);
 
         builder.HasOne(v => v.Visitor).WithMany(s => s.Skipasses);
         

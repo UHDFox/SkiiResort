@@ -9,7 +9,5 @@ public class TarifficationConfiguration : IEntityTypeConfiguration<Tariffication
     public void Configure(EntityTypeBuilder<TarifficationRecord> builder)
     {
         builder.HasKey(e => e.Id);
-
-        //builder.HasOne(e => e.Tariff).WithMany(e => e.Tariffications);
     }
 }
