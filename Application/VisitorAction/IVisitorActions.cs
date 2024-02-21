@@ -8,6 +8,8 @@ public interface IVisitorActions
 
     Task<Guid> AddAsync(AddVisitorActionsModel model);
 
+    Task<Guid> TapSkipass(AddVisitorActionsModel model);
+
     Task<bool> UpdateAsync(UpdateVisitorActionsModel model);
 
     Task DeleteAsync(Guid id);

@@ -4,6 +4,7 @@ using Domain.Entities.VisitorsAction;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Web.Contracts.CommonResponses;
+using Web.Contracts.Skipass.Requests;
 using Web.Contracts.VisitorActions;
 using Web.Contracts.VisitorActions.Requests;
 
@@ -38,7 +39,7 @@ public sealed class VisitorActionsController : Controller
     public async Task<IActionResult> GetByIdAsync(Guid id)
     {
         var result = await visitorActionsService.GetByIdAsync(id);
-        return Ok(mapper.Map<VisitorActionsRecord>(result));
+        return Ok(mapper.Map<VisitorActionsResponse>(result));
     }
 
     [HttpPost]
@@ -51,6 +52,16 @@ public sealed class VisitorActionsController : Controller
             mapper.Map<VisitorActionsResponse>(await visitorActionsService.GetByIdAsync(id)));
     }
 
+    [HttpPost]
+    [ProducesResponseType(StatusCodes.Status201Created, Type = typeof(CreatedResponse))]
+    [ProducesResponseType(StatusCodes.Status400BadRequest)]
+    public async Task<IActionResult> TapCard(TapSkipassRequest request)
+    {
+        var id = await visitorActionsService.TapSkipass(mapper.Map<AddVisitorActionsModel>(request));
+        return Created($"{Request.Path}",
+            mapper.Map<VisitorActionsResponse>(await visitorActionsService.GetByIdAsync(id)));
+    }
+    
     [HttpPut]
     [ProducesResponseType(StatusCodes.Status404NotFound)]
     [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(UpdatedResponse))]

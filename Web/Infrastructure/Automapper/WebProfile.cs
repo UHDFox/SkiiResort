@@ -47,5 +47,6 @@ public sealed class WebProfile : Profile
         CreateMap<GetTarifficationModel, TarifficationResponse>().ReverseMap();
         CreateMap<CreateTarifficationRequest, AddTarifficationModel>().ReverseMap();
         CreateMap<UpdateTarifficationRequest, UpdateTarifficationModel>().ReverseMap();
+        CreateMap<TapSkipassRequest, AddVisitorActionsModel>().ReverseMap();
     }
 }
