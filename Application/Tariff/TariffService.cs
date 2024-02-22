@@ -33,10 +33,10 @@ internal sealed class TariffService : ITariffService
         return result;
     }
 
-    public async Task DeleteAsync(Guid id)
+    public async Task<bool> DeleteAsync(Guid id)
     {
         await GetByIdAsync(id);
-        await repository.DeleteAsync(id);
+        return await repository.DeleteAsync(id);
     }
 
     public async Task<bool> UpdateAsync(UpdateTariffModel tariffModel)

@@ -57,9 +57,9 @@ internal sealed class VisitorService : IVisitorService
         return await repository.UpdateAsync(mapper.Map<VisitorRecord>(model));
     }
 
-    public async Task DeleteAsync(Guid id)
+    public async Task<bool> DeleteAsync(Guid id)
     {
         await GetByIdAsync(id);
-        await repository.DeleteAsync(id);
+        return await repository.DeleteAsync(id);
     }
 }

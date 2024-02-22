@@ -12,5 +12,5 @@ public interface ILocationService
 
     Task<bool> UpdateAsync(UpdateLocationModel model);
 
-    Task DeleteAsync(Guid id);
+    Task<bool> DeleteAsync(Guid id);
 }

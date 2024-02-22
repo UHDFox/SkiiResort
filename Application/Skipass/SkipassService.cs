@@ -39,9 +39,9 @@ internal sealed class SkipassService : ISkipassService
         return await repository.UpdateAsync(mapper.Map<SkipassRecord>(skipassModel));
     }
 
-    public async Task DeleteAsync(Guid id)
+    public async Task<bool> DeleteAsync(Guid id)
     {
         await GetByIdAsync(id);
-        await repository.DeleteAsync(id);
+        return await repository.DeleteAsync(id);
     }
 }

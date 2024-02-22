@@ -59,11 +59,11 @@ public sealed class SkipassController : Controller
     }
 
     [HttpDelete(Name = "Delete skipass record")]
-    [ProducesResponseType(StatusCodes.Status204NoContent, Type = typeof(DeletedResponse))]
+    [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(DeletedResponse))]
     [ProducesResponseType(StatusCodes.Status404NotFound)]
     public async Task<IActionResult> DeleteAsync(Guid id)
     {
-        await context.DeleteAsync(id);
-        return NoContent();
+        var result = await context.DeleteAsync(id);
+        return Ok(new DeletedResponse(id, result));
     }
 }

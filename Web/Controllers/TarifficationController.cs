@@ -1,6 +1,7 @@
 using Application.Tariffication;
 using Application.Tariffication.Models;
 using AutoMapper;
+using Microsoft.AspNetCore.Http.HttpResults;
 using Microsoft.AspNetCore.Mvc;
 using Web.Contracts.CommonResponses;
 using Web.Contracts.Tariffication;
@@ -60,11 +61,11 @@ public sealed class TarifficationController : Controller
     }
 
     [HttpDelete]
-    [ProducesResponseType(StatusCodes.Status204NoContent)]
+    [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(DeletedResponse))]
     [ProducesResponseType(StatusCodes.Status404NotFound)]
     public async Task<IActionResult> DeleteAsync(Guid id)
     {
-        await tarifficationService.DeleteAsync(id);
-        return NoContent();
+        var result = await tarifficationService.DeleteAsync(id);
+        return Ok(new DeletedResponse(id, result));
     }
 }

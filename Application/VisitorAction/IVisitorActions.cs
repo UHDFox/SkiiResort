@@ -12,5 +12,5 @@ public interface IVisitorActions
 
     Task<bool> UpdateAsync(UpdateVisitorActionsModel model);
 
-    Task DeleteAsync(Guid id);
+    Task<bool> DeleteAsync(Guid id);
 }

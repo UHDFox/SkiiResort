@@ -37,10 +37,10 @@ internal sealed class LocationRepository : ILocationRepository
         return await context.SaveChangesAsync() > 0;
     }
 
-    public async Task DeleteAsync(Guid id)
+    public async Task<bool> DeleteAsync(Guid id)
     {
         var record = await GetByIdAsync(id);
         context.Locations.Remove(record!);
-        await context.SaveChangesAsync();
+        return await context.SaveChangesAsync() > 0;
     }
 }

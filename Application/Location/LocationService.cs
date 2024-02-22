@@ -40,9 +40,9 @@ internal sealed class LocationService : ILocationService
         return await repository.UpdateAsync(mapper.Map<LocationRecord>(model));
     }
 
-    public async Task DeleteAsync(Guid id)
+    public async Task<bool> DeleteAsync(Guid id)
     {
         await repository.GetByIdAsync(id); //to check if such an entity exists
-        await repository.DeleteAsync(id);
+        return await repository.DeleteAsync(id);
     }
 }

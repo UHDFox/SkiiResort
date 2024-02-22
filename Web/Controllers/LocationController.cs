@@ -60,11 +60,11 @@ public sealed class LocationController : Controller
     }
 
     [HttpDelete]
-    [ProducesResponseType(StatusCodes.Status204NoContent)]
+    [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(DeletedResponse))]
     [ProducesResponseType(StatusCodes.Status404NotFound)]
     public async Task<IActionResult> DeleteAsync(Guid id)
     {
-        await locationService.DeleteAsync(id);
-        return NoContent();
+        var result = await locationService.DeleteAsync(id);
+        return Ok(new DeletedResponse(id, result));
     }
 }

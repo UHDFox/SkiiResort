@@ -50,15 +50,6 @@ public sealed class TariffController : Controller
         return Ok(mapper.Map<TariffRecord>(result));
     }
 
-    [HttpDelete]
-    [ProducesResponseType(StatusCodes.Status404NotFound)]
-    [ProducesResponseType(StatusCodes.Status204NoContent, Type = typeof(DeletedResponse))]
-    public async Task<IActionResult> DeleteAsync(Guid id)
-    {
-        await context.DeleteAsync(id);
-        return NoContent();
-    }
-
     [HttpPut("Update tariff")]
     [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(UpdatedResponse))]
     [ProducesResponseType(StatusCodes.Status404NotFound)]
@@ -66,5 +57,14 @@ public sealed class TariffController : Controller
     {
         var result = await context.UpdateAsync(mapper.Map<UpdateTariffModel>(tariffModel));
         return Ok(new UpdatedResponse(tariffModel.Id, result));
+    }
+    
+    [HttpDelete]
+    [ProducesResponseType(StatusCodes.Status404NotFound)]
+    [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(DeletedResponse))]
+    public async Task<IActionResult> DeleteAsync(Guid id)
+    {
+        var result = await context.DeleteAsync(id);
+        return Ok(new DeletedResponse(id, result));
     }
 }

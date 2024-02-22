@@ -58,11 +58,11 @@ public sealed class VisitorController : Controller
     }
 
     [HttpDelete]
-    [ProducesResponseType(StatusCodes.Status404NotFound)]
-    [ProducesResponseType(StatusCodes.Status204NoContent)]
+    [ProducesResponseType(StatusCodes.Status200OK,Type = typeof(DeletedResponse))]
+    [ProducesResponseType(StatusCodes.Status204NoContent, Type = typeof(DeletedResponse))]
     public async Task<IActionResult> DeleteAsync(Guid id)
     {
-        await visitorService.DeleteAsync(id);
-        return NoContent();
+        var result = await visitorService.DeleteAsync(id);
+        return Ok(new DeletedResponse(id, result));
     }
 }

@@ -36,9 +36,9 @@ internal sealed class TariffRepository : ITariffRepository
         return await context.SaveChangesAsync() > 0;
     }
 
-    public async Task DeleteAsync(Guid id)
+    public async Task<bool> DeleteAsync(Guid id)
     {
         context.Tariffs.Remove((await GetByIdAsync(id))!);
-        await context.SaveChangesAsync();
+        return await context.SaveChangesAsync() > 0;
     }
 }

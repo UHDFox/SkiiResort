@@ -5,6 +5,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Web.Contracts.CommonResponses;
 using Web.Contracts.Skipass.Requests;
+using Web.Contracts.Skipass.TapSkipass;
 using Web.Contracts.VisitorActions;
 using Web.Contracts.VisitorActions.Requests;
 
@@ -72,11 +73,11 @@ public sealed class VisitorActionsController : Controller
     }
 
     [HttpDelete]
-    [ProducesResponseType(StatusCodes.Status204NoContent)]
+    [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(DeletedResponse))]
     [ProducesResponseType(StatusCodes.Status404NotFound)]
     public async Task<IActionResult> DeleteAsync(Guid id)
     {
-        await visitorActionsService.DeleteAsync(id);
-        return NoContent();
+        var result = await visitorActionsService.DeleteAsync(id);
+        return Ok(new DeletedResponse(id, result));
     }
 }

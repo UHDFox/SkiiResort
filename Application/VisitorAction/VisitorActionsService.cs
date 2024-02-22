@@ -137,7 +137,7 @@ internal sealed class VisitorActionsService : IVisitorActions
         return await visitorActionsRepository.UpdateAsync(mapper.Map<VisitorActionsRecord>(model));
     }
 
-    public async Task DeleteAsync(Guid id)
+    public async Task<bool> DeleteAsync(Guid id)
     {
         var visitorsAction = mapper.Map<VisitorActionsRecord>(await GetByIdAsync(id));
         var skipassRecord = (await skipassRepository.GetByIdAsync(visitorsAction.SkipassId))
@@ -153,6 +153,6 @@ internal sealed class VisitorActionsService : IVisitorActions
         }
         
         await skipassRepository.UpdateAsync(skipassRecord);
-        await visitorActionsRepository.DeleteAsync(id);
+        return await visitorActionsRepository.DeleteAsync(id);
     }
 }
