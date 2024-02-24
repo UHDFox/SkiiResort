@@ -2,7 +2,7 @@ namespace Application.Skipass;
 
 public sealed class UpdateSkipassModel
 {
-    public UpdateSkipassModel(Guid id, int balance, Guid tariffId, Guid visitorId, bool status)
+    public UpdateSkipassModel(Guid id, double balance, Guid tariffId, Guid visitorId, bool status)
     {
         Id = id;
         Balance = balance;
@@ -13,13 +13,11 @@ public sealed class UpdateSkipassModel
 
     public Guid Id { get; set; }
 
-    public int Balance { get; set; }
+    public double Balance { get; set; }
 
     public Guid TariffId { get; set; }
 
     public Guid VisitorId { get; set; }
 
     public bool Status { get; set; }
-
-    public bool IsVip { get; set; }
 }

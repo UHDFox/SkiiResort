@@ -1,3 +1,4 @@
+using Domain.Entities.Location;
 using Domain.Entities.Skipass;
 using Domain.Enums;
 
@@ -5,13 +6,14 @@ namespace Application.VisitorAction;
 
 public sealed class GetVisitorActionsModel
 {
-    public GetVisitorActionsModel(Guid id, Guid skipassId, Place place, DateTime time, int balanceChange)
+    public GetVisitorActionsModel(Guid id, Guid skipassId,Guid locationId, DateTimeOffset time, int balanceChange, OperationType transactionType)
     {
         Id = id;
         SkipassId = skipassId;
-        Place = place;
+        LocationId = locationId;
         Time = time;
         BalanceChange = balanceChange;
+        TransactionType = transactionType;
     }
 
     public Guid Id { get; set; }
@@ -19,10 +21,14 @@ public sealed class GetVisitorActionsModel
     public Guid SkipassId { get; set; }
 
     public SkipassRecord? Skipass { get; set; }
+    
+    public Guid LocationId { get; set; }
 
-    public Place Place { get; set; }
+    public LocationRecord? Location { get; set; }
 
-    public DateTime Time { get; set; }
+    public DateTimeOffset Time { get; set; }
 
-    public int BalanceChange { get; set; }
+    public double BalanceChange { get; set; }
+    
+    public OperationType TransactionType { get; set; }
 }

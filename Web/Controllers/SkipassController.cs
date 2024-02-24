@@ -3,6 +3,7 @@ using AutoMapper;
 using Microsoft.AspNetCore.Mvc;
 using Web.Contracts.CommonResponses;
 using Web.Contracts.Skipass;
+using Web.Contracts.Skipass.Requests;
 
 namespace Web.Controllers;
 
@@ -41,9 +42,9 @@ public sealed class SkipassController : Controller
     [HttpPost(Name = "Create skipass")]
     [ProducesResponseType(StatusCodes.Status201Created, Type = typeof(SkipassResponse))]
     [ProducesResponseType(StatusCodes.Status400BadRequest, Type = typeof(ValidationProblemDetails))]
-    public async Task<IActionResult> AddAsync(AddSkipassModel skipassModel)
+    public async Task<IActionResult> AddAsync(CreateSkipassRequest skipassModel)
     {
-        var id = await context.AddAsync(skipassModel);
+        var id = await context.AddAsync(mapper.Map<AddSkipassModel>(skipassModel));
 
         return Created($"{Request.Path}", mapper.Map<SkipassResponse>(await context.GetByIdAsync(id)));
     }
@@ -51,18 +52,18 @@ public sealed class SkipassController : Controller
     [HttpPut(Name = "Update record")]
     [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(UpdatedResponse))]
     [ProducesResponseType(StatusCodes.Status404NotFound)]
-    public async Task<IActionResult> UpdateAsync(UpdateSkipassModel skipassModel)
+    public async Task<IActionResult> UpdateAsync(UpdateSkipassRequest skipassModel)
     {
-        var result = await context.UpdateAsync(skipassModel);
+        var result = await context.UpdateAsync(mapper.Map<UpdateSkipassModel>(skipassModel));
         return Ok(new UpdatedResponse(skipassModel.Id, result));
     }
 
     [HttpDelete(Name = "Delete skipass record")]
-    [ProducesResponseType(StatusCodes.Status204NoContent, Type = typeof(DeletedResponse))]
+    [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(DeletedResponse))]
     [ProducesResponseType(StatusCodes.Status404NotFound)]
     public async Task<IActionResult> DeleteAsync(Guid id)
     {
-        await context.DeleteAsync(id);
-        return NoContent();
+        var result = await context.DeleteAsync(id);
+        return Ok(new DeletedResponse(id, result));
     }
 }

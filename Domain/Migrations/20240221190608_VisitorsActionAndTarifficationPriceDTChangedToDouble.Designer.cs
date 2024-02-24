@@ -12,8 +12,8 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace Domain.Migrations
 {
     [DbContext(typeof(HotelContext))]
-    [Migration("20240205114109_Initial")]
-    partial class Initial
+    [Migration("20240221190608_VisitorsActionAndTarifficationPriceDTChangedToDouble")]
+    partial class VisitorsActionAndTarifficationPriceDTChangedToDouble
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -23,8 +23,23 @@ namespace Domain.Migrations
                 .HasAnnotation("ProductVersion", "7.0.11")
                 .HasAnnotation("Relational:MaxIdentifierLength", 63);
 
-            NpgsqlModelBuilderExtensions.HasPostgresEnum(modelBuilder, "place", new[] { "hotel", "cp1", "cp2", "amusement_park" });
+            NpgsqlModelBuilderExtensions.HasPostgresEnum(modelBuilder, "operation_type", new[] { "positive", "negative" });
             NpgsqlModelBuilderExtensions.UseIdentityByDefaultColumns(modelBuilder);
+
+            modelBuilder.Entity("Domain.Entities.Location.LocationRecord", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uuid");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Locations");
+                });
 
             modelBuilder.Entity("Domain.Entities.Skipass.SkipassRecord", b =>
                 {
@@ -32,11 +47,8 @@ namespace Domain.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uuid");
 
-                    b.Property<int>("Balance")
-                        .HasColumnType("integer");
-
-                    b.Property<bool>("IsVip")
-                        .HasColumnType("boolean");
+                    b.Property<double>("Balance")
+                        .HasColumnType("double precision");
 
                     b.Property<bool>("Status")
                         .HasColumnType("boolean");
@@ -62,13 +74,43 @@ namespace Domain.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uuid");
 
+                    b.Property<bool>("IsVip")
+                        .HasColumnType("boolean");
+
                     b.Property<string>("Name")
                         .IsRequired()
                         .HasColumnType("text");
 
+                    b.Property<double>("PriceModifier")
+                        .HasColumnType("double precision");
+
                     b.HasKey("Id");
 
                     b.ToTable("Tariffs");
+                });
+
+            modelBuilder.Entity("Domain.Entities.Tariffication.TarifficationRecord", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uuid");
+
+                    b.Property<Guid>("LocationId")
+                        .HasColumnType("uuid");
+
+                    b.Property<double>("Price")
+                        .HasColumnType("double precision");
+
+                    b.Property<Guid>("TariffId")
+                        .HasColumnType("uuid");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("LocationId");
+
+                    b.HasIndex("TariffId");
+
+                    b.ToTable("Tariffications");
                 });
 
             modelBuilder.Entity("Domain.Entities.Visitor.VisitorRecord", b =>
@@ -109,16 +151,21 @@ namespace Domain.Migrations
                     b.Property<int>("BalanceChange")
                         .HasColumnType("integer");
 
-                    b.Property<int>("Place")
-                        .HasColumnType("integer");
+                    b.Property<Guid>("LocationId")
+                        .HasColumnType("uuid");
 
                     b.Property<Guid>("SkipassId")
                         .HasColumnType("uuid");
 
-                    b.Property<DateTime>("Time")
+                    b.Property<DateTimeOffset>("Time")
                         .HasColumnType("timestamp with time zone");
 
+                    b.Property<int>("TransactionType")
+                        .HasColumnType("integer");
+
                     b.HasKey("Id");
+
+                    b.HasIndex("LocationId");
 
                     b.HasIndex("SkipassId");
 
@@ -144,15 +191,47 @@ namespace Domain.Migrations
                     b.Navigation("Visitor");
                 });
 
+            modelBuilder.Entity("Domain.Entities.Tariffication.TarifficationRecord", b =>
+                {
+                    b.HasOne("Domain.Entities.Location.LocationRecord", "Location")
+                        .WithMany("Tariffications")
+                        .HasForeignKey("LocationId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("Domain.Entities.Tariff.TariffRecord", "Tariff")
+                        .WithMany("Tariffications")
+                        .HasForeignKey("TariffId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Location");
+
+                    b.Navigation("Tariff");
+                });
+
             modelBuilder.Entity("Domain.Entities.VisitorsAction.VisitorActionsRecord", b =>
                 {
+                    b.HasOne("Domain.Entities.Location.LocationRecord", "Location")
+                        .WithMany()
+                        .HasForeignKey("LocationId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
                     b.HasOne("Domain.Entities.Skipass.SkipassRecord", "Skipass")
                         .WithMany("VisitorActions")
                         .HasForeignKey("SkipassId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
+                    b.Navigation("Location");
+
                     b.Navigation("Skipass");
+                });
+
+            modelBuilder.Entity("Domain.Entities.Location.LocationRecord", b =>
+                {
+                    b.Navigation("Tariffications");
                 });
 
             modelBuilder.Entity("Domain.Entities.Skipass.SkipassRecord", b =>
@@ -163,6 +242,8 @@ namespace Domain.Migrations
             modelBuilder.Entity("Domain.Entities.Tariff.TariffRecord", b =>
                 {
                     b.Navigation("Skipasses");
+
+                    b.Navigation("Tariffications");
                 });
 
             modelBuilder.Entity("Domain.Entities.Visitor.VisitorRecord", b =>

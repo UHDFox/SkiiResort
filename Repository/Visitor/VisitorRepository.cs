@@ -36,9 +36,9 @@ internal sealed class VisitorRepository : IVisitorRepository
         return await context.SaveChangesAsync() > 0;
     }
 
-    public async Task DeleteAsync(Guid id)
+    public async Task<bool> DeleteAsync(Guid id)
     {
         context.Visitors.Remove((await GetByIdAsync(id))!);
-        var result = await context.SaveChangesAsync();
+        return await context.SaveChangesAsync() > 0;
     }
 }

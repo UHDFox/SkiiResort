@@ -4,11 +4,14 @@ using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
 namespace Domain.EntitiesConfiguration;
 
-public class TariffConfiguration : IEntityTypeConfiguration<TariffRecord>
+public sealed class TariffConfiguration : IEntityTypeConfiguration<TariffRecord>
 {
     public void Configure(EntityTypeBuilder<TariffRecord> builder)
     {
         builder.HasKey(e => e.Id);
+        
         builder.HasMany(s => s.Skipasses).WithOne(t => t.Tariff);
+
+        builder.HasMany(tr => tr.Tariffications).WithOne(t => t.Tariff);
     }
 }

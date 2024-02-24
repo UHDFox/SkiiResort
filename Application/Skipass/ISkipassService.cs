@@ -10,5 +10,5 @@ public interface ISkipassService
 
     Task<bool> UpdateAsync(UpdateSkipassModel skipassModel);
 
-    Task DeleteAsync(Guid id);
+    Task<bool> DeleteAsync(Guid id);
 }

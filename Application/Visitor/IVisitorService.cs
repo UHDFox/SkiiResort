@@ -10,5 +10,5 @@ public interface IVisitorService
 
     Task<bool> UpdateAsync(UpdateVisitorModel model);
 
-    Task DeleteAsync(Guid id);
+    Task<bool> DeleteAsync(Guid id);
 }

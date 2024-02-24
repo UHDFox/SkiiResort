@@ -4,6 +4,7 @@ using Domain.Entities.Tariff;
 using Microsoft.AspNetCore.Mvc;
 using Web.Contracts.CommonResponses;
 using Web.Contracts.Tariff;
+using Web.Contracts.Tariff.Requests;
 
 namespace Web.Controllers;
 
@@ -23,9 +24,9 @@ public sealed class TariffController : Controller
     [HttpPost("Create tariff")]
     [ProducesResponseType(StatusCodes.Status201Created, Type = typeof(CreatedResponse))]
     [ProducesResponseType(StatusCodes.Status400BadRequest, Type = typeof(ValidationProblemDetails))]
-    public async Task<IActionResult> AddAsync(AddTariffModel tariffModel)
+    public async Task<IActionResult> AddAsync(CreateTariffRequest tariffModel)
     {
-        var id = await context.AddAsync(tariffModel);
+        var id = await context.AddAsync(mapper.Map<AddTariffModel>(tariffModel));
         return Created($"{Request.Path}", mapper.Map<TariffResponse>(await context.GetByIdAsync(id)));
     }
 
@@ -49,21 +50,21 @@ public sealed class TariffController : Controller
         return Ok(mapper.Map<TariffRecord>(result));
     }
 
-    [HttpDelete]
-    [ProducesResponseType(StatusCodes.Status404NotFound)]
-    [ProducesResponseType(StatusCodes.Status204NoContent, Type = typeof(DeletedResponse))]
-    public async Task<IActionResult> DeleteAsync(Guid id)
-    {
-        await context.DeleteAsync(id);
-        return NoContent();
-    }
-
     [HttpPut("Update tariff")]
     [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(UpdatedResponse))]
     [ProducesResponseType(StatusCodes.Status404NotFound)]
-    public async Task<IActionResult> UpdateAsync(UpdateTariffModel tariffModel)
+    public async Task<IActionResult> UpdateAsync(UpdateTariffRequest tariffModel)
     {
-        var result = await context.UpdateAsync(tariffModel);
+        var result = await context.UpdateAsync(mapper.Map<UpdateTariffModel>(tariffModel));
         return Ok(new UpdatedResponse(tariffModel.Id, result));
+    }
+    
+    [HttpDelete]
+    [ProducesResponseType(StatusCodes.Status404NotFound)]
+    [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(DeletedResponse))]
+    public async Task<IActionResult> DeleteAsync(Guid id)
+    {
+        var result = await context.DeleteAsync(id);
+        return Ok(new DeletedResponse(id, result));
     }
 }

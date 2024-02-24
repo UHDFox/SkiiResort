@@ -3,6 +3,7 @@ using AutoMapper;
 using Microsoft.AspNetCore.Mvc;
 using Web.Contracts.CommonResponses;
 using Web.Contracts.Visitor;
+using Web.Contracts.Visitor.Requests;
 
 namespace Web.Controllers;
 
@@ -22,9 +23,9 @@ public sealed class VisitorController : Controller
     [HttpPost]
     [ProducesResponseType(StatusCodes.Status404NotFound)]
     [ProducesResponseType(StatusCodes.Status201Created, Type = typeof(CreatedResponse))]
-    public async Task<IActionResult> AddAsync(AddVisitorModel model)
+    public async Task<IActionResult> AddAsync(CreateVisitorRequest model)
     {
-        var id = await visitorService.AddAsync(model);
+        var id = await visitorService.AddAsync(mapper.Map<AddVisitorModel>(model));
         return Created($"{Request.Path}", mapper.Map<VisitorResponse>(await visitorService.GetByIdAsync(id)));
     }
 
@@ -50,18 +51,18 @@ public sealed class VisitorController : Controller
     [HttpPut]
     [ProducesResponseType(StatusCodes.Status404NotFound)]
     [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(UpdatedResponse))]
-    public async Task<IActionResult> UpdateAsync(UpdateVisitorModel model)
+    public async Task<IActionResult> UpdateAsync(UpdateVisitorRequest model)
     {
-        var result = await visitorService.UpdateAsync(model);
+        var result = await visitorService.UpdateAsync(mapper.Map<UpdateVisitorModel>(model));
         return Ok(new UpdatedResponse(model.Id, result));
     }
 
     [HttpDelete]
-    [ProducesResponseType(StatusCodes.Status404NotFound)]
-    [ProducesResponseType(StatusCodes.Status204NoContent)]
+    [ProducesResponseType(StatusCodes.Status200OK,Type = typeof(DeletedResponse))]
+    [ProducesResponseType(StatusCodes.Status204NoContent, Type = typeof(DeletedResponse))]
     public async Task<IActionResult> DeleteAsync(Guid id)
     {
-        await visitorService.DeleteAsync(id);
-        return NoContent();
+        var result = await visitorService.DeleteAsync(id);
+        return Ok(new DeletedResponse(id, result));
     }
 }

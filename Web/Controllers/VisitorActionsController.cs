@@ -2,8 +2,12 @@ using Application.VisitorAction;
 using AutoMapper;
 using Domain.Entities.VisitorsAction;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using Web.Contracts.CommonResponses;
+using Web.Contracts.Skipass.Requests;
+using Web.Contracts.Skipass.TapSkipass;
 using Web.Contracts.VisitorActions;
+using Web.Contracts.VisitorActions.Requests;
 
 namespace Web.Controllers;
 
@@ -36,34 +40,44 @@ public sealed class VisitorActionsController : Controller
     public async Task<IActionResult> GetByIdAsync(Guid id)
     {
         var result = await visitorActionsService.GetByIdAsync(id);
-        return Ok(mapper.Map<VisitorActionsRecord>(result));
+        return Ok(mapper.Map<VisitorActionsResponse>(result));
     }
 
     [HttpPost]
     [ProducesResponseType(StatusCodes.Status201Created, Type = typeof(CreatedResponse))]
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
-    public async Task<IActionResult> AddAsync(AddVisitorActionsModel model)
+    public async Task<IActionResult> AddAsync(CreateVisitorActionsRequest model)
     {
-        var id = await visitorActionsService.AddAsync(model);
+       var id = await visitorActionsService.AddAsync(mapper.Map<AddVisitorActionsModel>(model));
         return Created($"{Request.Path}",
             mapper.Map<VisitorActionsResponse>(await visitorActionsService.GetByIdAsync(id)));
     }
 
+    [HttpPost]
+    [ProducesResponseType(StatusCodes.Status201Created, Type = typeof(CreatedResponse))]
+    [ProducesResponseType(StatusCodes.Status400BadRequest)]
+    public async Task<IActionResult> TapCard(TapSkipassRequest request)
+    {
+        var id = await visitorActionsService.TapSkipass(mapper.Map<AddVisitorActionsModel>(request));
+        return Created($"{Request.Path}",
+            mapper.Map<VisitorActionsResponse>(await visitorActionsService.GetByIdAsync(id)));
+    }
+    
     [HttpPut]
     [ProducesResponseType(StatusCodes.Status404NotFound)]
     [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(UpdatedResponse))]
-    public async Task<IActionResult> UpdateAsync(UpdateVisitorActionsModel model)
+    public async Task<IActionResult> UpdateAsync(UpdateVisitorActionsRequest model)
     {
-        var result = await visitorActionsService.UpdateAsync(model);
+        var result = await visitorActionsService.UpdateAsync(mapper.Map<UpdateVisitorActionsModel>(model));
         return Ok(new UpdatedResponse(model.Id, result));
     }
 
     [HttpDelete]
-    [ProducesResponseType(StatusCodes.Status204NoContent)]
+    [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(DeletedResponse))]
     [ProducesResponseType(StatusCodes.Status404NotFound)]
     public async Task<IActionResult> DeleteAsync(Guid id)
     {
-        await visitorActionsService.DeleteAsync(id);
-        return NoContent();
+        var result = await visitorActionsService.DeleteAsync(id);
+        return Ok(new DeletedResponse(id, result));
     }
 }

@@ -4,19 +4,19 @@ namespace Application.VisitorAction;
 
 public sealed class AddVisitorActionsModel
 {
-    public AddVisitorActionsModel(Guid skipassId, Place place, DateTime time, int balanceChange)
+    public AddVisitorActionsModel(Guid skipassId, Guid locationId)
     {
         SkipassId = skipassId;
-        Place = place;
-        Time = time;
-        BalanceChange = balanceChange;
+        LocationId = locationId;
     }
 
     public Guid SkipassId { get; set; }
+    
+    public Guid LocationId { get; set; }
 
-    public Place Place { get; set; }
+    public DateTimeOffset? Time { get; set; } = DateTimeOffset.UtcNow;
 
-    public DateTime Time { get; set; }
+    public double? BalanceChange { get; set; }
 
-    public int BalanceChange { get; set; }
+    public OperationType? TransactionType { get; set; }
 }
