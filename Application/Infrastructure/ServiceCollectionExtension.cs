@@ -25,7 +25,7 @@ public static class ServiceCollectionExtension
 
         services.AddTransient<ITarifficationService, TarifficationService>();
         
-        services.AddAutoMapper(typeof(ApplicationAssemblyReference).Assembly);
+        services.AddAutoMapper(ApplicationAssemblyReference.Assembly);
 
         
         return services;
