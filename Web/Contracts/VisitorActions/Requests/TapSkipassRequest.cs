@@ -1,4 +1,4 @@
-namespace Web.Contracts.Skipass.Requests;
+namespace Web.Contracts.VisitorActions.Requests;
 
 public sealed class TapSkipassRequest
 {
