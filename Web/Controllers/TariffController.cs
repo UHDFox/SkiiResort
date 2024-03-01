@@ -8,7 +8,7 @@ using Web.Contracts.Tariff.Requests;
 
 namespace Web.Controllers;
 
-[Route("api/[action]")]
+[Route("api/v1/[controller]/[action]")]
 [ApiController]
 public sealed class TariffController : Controller
 {
