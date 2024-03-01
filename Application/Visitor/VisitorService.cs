@@ -9,8 +9,8 @@ namespace Application.Visitor;
 
 internal sealed class VisitorService : IVisitorService
 {
-    private static readonly Regex passportRegex = new(@"\d{4}-\d{6}");
-    private static readonly Regex phoneNumberRegex = new(@"^\d{9,11}$");
+    private static readonly Regex passportRegex = new(@"\d{4}-\d{6}", RegexOptions.IgnoreCase | RegexOptions.Compiled);
+    private static readonly Regex phoneNumberRegex = new(@"^\d{9,11}$", RegexOptions.IgnoreCase | RegexOptions.Compiled);
 
     private readonly IMapper mapper;
     private readonly IVisitorRepository repository;
