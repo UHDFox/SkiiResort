@@ -1,49 +1,51 @@
 using Domain;
 using Domain.Entities.Tariff;
 using Microsoft.EntityFrameworkCore;
+using Repository.DbContextRepository;
 
 namespace Repository.Tariff;
 
 internal sealed class TariffRepository : ITariffRepository
 {
-    private readonly HotelContext context;
+    private readonly IDbContextRepository<HotelContext> dbContextRepository;
 
-    public TariffRepository(HotelContext context)
+
+    public TariffRepository(IDbContextRepository<HotelContext> dbContextRepository)
     {
-        this.context = context;
+        this.dbContextRepository = dbContextRepository;
     }
 
     public async Task<IReadOnlyCollection<TariffRecord>> GetListAsync(int offset, int limit)
     {
-        return await context.Tariffs.Skip(offset).Take(limit).ToListAsync();
+        return await dbContextRepository.GetDbContext().Tariffs.Skip(offset).Take(limit).ToListAsync();
     }
 
     public async Task<TariffRecord?> GetByIdAsync(Guid id)
     {
-        return await context.Tariffs.AsNoTracking().FirstOrDefaultAsync(record => record.Id == id);
+        return await dbContextRepository.GetDbContext().Tariffs.AsNoTracking().FirstOrDefaultAsync(record => record.Id == id);
     }
 
     public async Task<Guid> AddAsync(TariffRecord data)
     {
-        await context.Tariffs.AddAsync(data);
+        await dbContextRepository.GetDbContext().Tariffs.AddAsync(data);
         await SaveChangesAsync();
         return data.Id;
     }
 
     public async Task<bool> UpdateAsync(TariffRecord data)
     {
-        context.Tariffs.Update(data);
+        dbContextRepository.GetDbContext().Tariffs.Update(data);
         return await SaveChangesAsync() > 0;
     }
 
     public async Task<bool> DeleteAsync(Guid id)
     {
-        context.Tariffs.Remove((await GetByIdAsync(id))!);
+        dbContextRepository.GetDbContext().Tariffs.Remove((await GetByIdAsync(id))!);
         return await SaveChangesAsync() > 0;
     }
 
     public async Task<int> SaveChangesAsync()
     {
-        return await context.SaveChangesAsync();
+        return await dbContextRepository.GetDbContext().SaveChangesAsync();
     }
 }
