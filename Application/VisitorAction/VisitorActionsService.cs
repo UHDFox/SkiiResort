@@ -6,6 +6,7 @@ using Repository.VisitorActions;
 using Domain;
 using Domain.Enums;
 using Microsoft.EntityFrameworkCore;
+using Repository.DbContextRepository;
 
 
 namespace Application.VisitorAction;
@@ -15,16 +16,15 @@ internal sealed class VisitorActionsService : IVisitorActions
     private readonly IMapper mapper;
     private readonly ISkipassRepository skipassRepository;
     private readonly IVisitorActionsRepository visitorActionsRepository;
-    private readonly HotelContext context;
-
-    //TODO: Инкапсулировать контекст в фабрику, которая агрегирует контексты черех интерфейс
+    private readonly IDbContextRepository<HotelContext> dbContextRepository;
+    
     public VisitorActionsService(IMapper mapper, IVisitorActionsRepository visitorActionsRepository,
-        ISkipassRepository skipassRepository, HotelContext context)
+        ISkipassRepository skipassRepository, IDbContextRepository<HotelContext> dbContextRepository)
     {
         this.mapper = mapper;
         this.visitorActionsRepository = visitorActionsRepository;
         this.skipassRepository = skipassRepository;
-        this.context = context;
+        this.dbContextRepository = dbContextRepository;
     }
 
     public async Task<IReadOnlyCollection<GetVisitorActionsModel>> GetAllAsync(int offset, int limit)
@@ -43,7 +43,7 @@ internal sealed class VisitorActionsService : IVisitorActions
     {
         Guid result;
         
-        using (var dbContextTransaction = await context.Database.BeginTransactionAsync())
+        await using (var dbContextTransaction = await visitorActionsRepository.BeginTransaction())
         {
             var skipassRecord = await skipassRepository.GetByIdAsync(model.SkipassId)
             ?? throw new NotFoundException("Skipass not found");
@@ -51,7 +51,7 @@ internal sealed class VisitorActionsService : IVisitorActions
             if (!skipassRecord.Status)
                 throw new SkipassStatusException("Your skipass is inactive. Please, contact administrators");
 
-            var tariff = await context.Tariffs
+            var tariff = await dbContextRepository.GetDbContext().Tariffs
                              .Include(tr => tr.Tariffications)
                              .ThenInclude(e => e.Location)
                              .AsNoTracking()
@@ -106,44 +106,50 @@ internal sealed class VisitorActionsService : IVisitorActions
 
     public async Task<bool> UpdateAsync(UpdateVisitorActionsModel model)
     {
-        if (await visitorActionsRepository.GetByIdAsync(model.Id) == null) throw new NotFoundException();
-
-        var skipassRecord = await skipassRepository.GetByIdAsync(model.SkipassId)
-            ?? throw new NotFoundException();
-
-        if (!skipassRecord.Status)
-            throw new SkipassStatusException("Your skipass is inactive. Please, contact administrators");
-
-        var tariff = await context.Tariffs
-                         .Include(tr => tr.Tariffications)
-                         .ThenInclude(e => e.Location)
-                         .AsNoTracking()
-                         .FirstOrDefaultAsync(e => e.Id == skipassRecord.TariffId)
-                     ?? throw new NotFoundException("tariffication not found");
-
-        model.BalanceChange ??= tariff.Tariffications
-            .OrderByDescending(t => t.Price)
-            .First(location => location.LocationId == model.LocationId).Price;
-            
-
-        switch (model.TransactionType)
+        await using (var dbContextTransaction = await visitorActionsRepository.BeginTransaction())
         {
-            case OperationType.Positive:
-                skipassRecord.Balance -= (double)model.BalanceChange;
-                break;
-            
-            case OperationType.Negative:
-                skipassRecord.Balance += (double)model.BalanceChange;
-                break;
-            
-            default:
-                throw new ArgumentOutOfRangeException(nameof(model.TransactionType));
-        }
-        
-        await skipassRepository.UpdateAsync(skipassRecord);
+            if (await visitorActionsRepository.GetByIdAsync(model.Id) == null) throw new NotFoundException();
 
-        
-        return await visitorActionsRepository.UpdateAsync(mapper.Map<VisitorActionsRecord>(model));
+            var skipassRecord = await skipassRepository.GetByIdAsync(model.SkipassId)
+                                ?? throw new NotFoundException("skipass not found");
+
+            if (!skipassRecord.Status)
+                throw new SkipassStatusException("Your skipass is inactive. Please, contact administrators");
+
+            var tariff = await dbContextRepository.GetDbContext().Tariffs
+                             .Include(tr => tr.Tariffications)
+                             .ThenInclude(e => e.Location)
+                             .AsNoTracking()
+                             .FirstOrDefaultAsync(e => e.Id == skipassRecord.TariffId)
+                         ?? throw new NotFoundException("tariffication not found");
+
+            model.BalanceChange ??= tariff.Tariffications
+                .OrderByDescending(t => t.Price)
+                .First(location => location.LocationId == model.LocationId).Price;
+
+
+            switch (model.TransactionType)
+            {
+                case OperationType.Positive:
+                    skipassRecord.Balance -= (double)model.BalanceChange;
+                    break;
+
+                case OperationType.Negative:
+                    skipassRecord.Balance += (double)model.BalanceChange;
+                    break;
+
+                default:
+                    throw new ArgumentOutOfRangeException(nameof(model.TransactionType));
+            }
+
+            await skipassRepository.UpdateAsync(skipassRecord);
+
+            var result = await visitorActionsRepository.UpdateAsync(mapper.Map<VisitorActionsRecord>(model));
+            
+            await dbContextTransaction.CommitAsync();
+
+            return result;
+        }
     }
 
     public async Task<bool> DeleteAsync(Guid id)
@@ -151,22 +157,30 @@ internal sealed class VisitorActionsService : IVisitorActions
         var visitorsAction = mapper.Map<VisitorActionsRecord>(await GetByIdAsync(id));
         var skipassRecord = await skipassRepository.GetByIdAsync(visitorsAction.SkipassId)
                             ?? throw new NotFoundException("Skipass not found");
-
-        switch (visitorsAction.TransactionType)
+        bool result;
+        await using (var dbContextTransaction =
+                     await dbContextRepository.GetDbContext().Database.BeginTransactionAsync())
         {
-            case OperationType.Positive:
-                skipassRecord.Balance -= visitorsAction.BalanceChange;
-                break;
+            switch (visitorsAction.TransactionType)
+            {
+                case OperationType.Positive:
+                    skipassRecord.Balance -= visitorsAction.BalanceChange;
+                    break;
             
-            case OperationType.Negative:
-                skipassRecord.Balance += visitorsAction.BalanceChange;
-                break;
+                case OperationType.Negative:
+                    skipassRecord.Balance += visitorsAction.BalanceChange;
+                    break;
             
-            default:
-                throw new ArgumentOutOfRangeException(nameof(visitorsAction.TransactionType));
-        }
+                default:
+                    throw new ArgumentOutOfRangeException(nameof(visitorsAction.TransactionType));
+            }
         
-        await skipassRepository.UpdateAsync(skipassRecord);
-        return await visitorActionsRepository.DeleteAsync(id);
+            await skipassRepository.UpdateAsync(skipassRecord);
+            result =  await visitorActionsRepository.DeleteAsync(id);
+            await dbContextTransaction.CommitAsync();
+            
+        }
+        return result;
     }
 }
+
