@@ -26,19 +26,24 @@ internal sealed class TariffRepository : ITariffRepository
     public async Task<Guid> AddAsync(TariffRecord data)
     {
         await context.Tariffs.AddAsync(data);
-        await context.SaveChangesAsync();
+        await SaveChangesAsync();
         return data.Id;
     }
 
     public async Task<bool> UpdateAsync(TariffRecord data)
     {
         context.Tariffs.Update(data);
-        return await context.SaveChangesAsync() > 0;
+        return await SaveChangesAsync() > 0;
     }
 
     public async Task<bool> DeleteAsync(Guid id)
     {
         context.Tariffs.Remove((await GetByIdAsync(id))!);
-        return await context.SaveChangesAsync() > 0;
+        return await SaveChangesAsync() > 0;
+    }
+
+    public async Task<int> SaveChangesAsync()
+    {
+        return await context.SaveChangesAsync();
     }
 }

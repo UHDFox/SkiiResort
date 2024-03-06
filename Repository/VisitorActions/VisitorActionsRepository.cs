@@ -1,6 +1,7 @@
 using Domain;
 using Domain.Entities.VisitorsAction;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Storage;
 
 namespace Repository.VisitorActions;
 
@@ -26,19 +27,29 @@ internal sealed class VisitorActionsRepository : IVisitorActionsRepository
     public async Task<Guid> AddAsync(VisitorActionsRecord data)
     {
         await context.VisitorActions.AddAsync(data);
-        await context.SaveChangesAsync();
+        await SaveChangesAsync();
         return data.Id;
     }
 
     public async Task<bool> UpdateAsync(VisitorActionsRecord data)
     {
         context.VisitorActions.Update(data);
-        return await context.SaveChangesAsync() > 0;
+        return await SaveChangesAsync() > 0;
     }
 
     public async Task<bool> DeleteAsync(Guid id)
     {
         context.VisitorActions.Remove((await GetByIdAsync(id))!);
-        return await context.SaveChangesAsync() > 0;
+        return await SaveChangesAsync() > 0;
+    }
+
+    public async Task<int> SaveChangesAsync()
+    {
+        return await context.SaveChangesAsync();
+    }
+
+    public async Task<IDbContextTransaction> BeginTransaction()
+    {
+        return await context.Database.BeginTransactionAsync();
     }
 }

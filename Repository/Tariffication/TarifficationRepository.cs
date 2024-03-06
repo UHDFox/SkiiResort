@@ -30,19 +30,24 @@ internal sealed class TarifficationRepository : ITarifficationRepository
     public async Task<Guid> AddAsync(TarifficationRecord data)
     {
         var result = await context.Tariffications.AddAsync(data);
-        await context.SaveChangesAsync();
+        await SaveChangesAsync();
         return result.Entity.Id;
     }
 
     public async Task<bool> UpdateAsync(TarifficationRecord data)
     {
         context.Tariffications.Update(data);
-        return await context.SaveChangesAsync() > 0;
+        return await SaveChangesAsync() > 0;
     }
 
     public async Task<bool> DeleteAsync(Guid id)
     {
         context.Tariffications.Remove((await GetByIdAsync(id))!);
-        return await context.SaveChangesAsync() > 0;
+        return await SaveChangesAsync() > 0;
+    }
+
+    public async Task<int> SaveChangesAsync()
+    {
+        return await context.SaveChangesAsync();
     }
 }

@@ -27,20 +27,25 @@ internal sealed class LocationRepository : ILocationRepository
     public async Task<Guid> AddAsync(LocationRecord data)
     {
         var result = await context.Locations.AddAsync(data);
-        await context.SaveChangesAsync();
+        await SaveChangesAsync();
         return result.Entity.Id;
     }
 
     public async Task<bool> UpdateAsync(LocationRecord data)
     {
         context.Locations.Update(data);
-        return await context.SaveChangesAsync() > 0;
+        return await SaveChangesAsync() > 0;
     }
 
     public async Task<bool> DeleteAsync(Guid id)
     {
         var record = await GetByIdAsync(id);
         context.Locations.Remove(record!);
-        return await context.SaveChangesAsync() > 0;
+        return await SaveChangesAsync() > 0;
+    }
+
+    public async Task<int> SaveChangesAsync()
+    {
+        return await context.SaveChangesAsync();
     }
 }
