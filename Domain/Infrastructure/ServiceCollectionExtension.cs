@@ -6,9 +6,9 @@ namespace Domain.Infrastructure;
 
 public static class ServiceCollectionExtension
 {
-    public static IServiceCollection AddHotelContext(this IServiceCollection services)
+    public static IServiceCollection AddSkiiResortContext(this IServiceCollection services)
     {
-        services.AddDbContext<HotelContext>((provider, builder) =>
+        services.AddDbContext<SkiiResortContext>((provider, builder) =>
         {
             var connectionString = provider.GetRequiredService<IConfiguration>().GetConnectionString("Psql");
             builder.UseNpgsql(connectionString);

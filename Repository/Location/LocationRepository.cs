@@ -7,9 +7,9 @@ namespace Repository.Location;
 
 internal sealed class LocationRepository : ILocationRepository
 {
-    private readonly IDbContextRepository<HotelContext> dbContextRepository;
+    private readonly IDbContextRepository<SkiiResortContext> dbContextRepository;
 
-    public LocationRepository(IDbContextRepository<HotelContext> dbContextRepository)
+    public LocationRepository(IDbContextRepository<SkiiResortContext> dbContextRepository)
     {
         this.dbContextRepository = dbContextRepository;
     }

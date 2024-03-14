@@ -9,9 +9,9 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Domain;
 
-public sealed class HotelContext : DbContext
+public sealed class SkiiResortContext : DbContext
 {
-    public HotelContext(DbContextOptions opts) : base(opts)
+    public SkiiResortContext(DbContextOptions opts) : base(opts)
     {
     }
 

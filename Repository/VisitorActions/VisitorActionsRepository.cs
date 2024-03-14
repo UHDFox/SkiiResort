@@ -8,9 +8,9 @@ namespace Repository.VisitorActions;
 
 internal sealed class VisitorActionsRepository : IVisitorActionsRepository
 {
-    private readonly IDbContextRepository<HotelContext> dbContextRepository;
+    private readonly IDbContextRepository<SkiiResortContext> dbContextRepository;
 
-    public VisitorActionsRepository(IDbContextRepository<HotelContext> dbContextRepository)
+    public VisitorActionsRepository(IDbContextRepository<SkiiResortContext> dbContextRepository)
     {
         this.dbContextRepository = dbContextRepository;
     }

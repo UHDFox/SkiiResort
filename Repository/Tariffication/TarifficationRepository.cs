@@ -7,10 +7,10 @@ namespace Repository.Tariffication;
 
 internal sealed class TarifficationRepository : ITarifficationRepository
 {
-    private readonly IDbContextRepository<HotelContext> dbContextRepository;
+    private readonly IDbContextRepository<SkiiResortContext> dbContextRepository;
 
 
-    public TarifficationRepository(IDbContextRepository<HotelContext> dbContextRepository)
+    public TarifficationRepository(IDbContextRepository<SkiiResortContext> dbContextRepository)
     {
         this.dbContextRepository = dbContextRepository;
     }

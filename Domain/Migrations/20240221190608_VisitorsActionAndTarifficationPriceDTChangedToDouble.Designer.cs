@@ -11,7 +11,7 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
 namespace Domain.Migrations
 {
-    [DbContext(typeof(HotelContext))]
+    [DbContext(typeof(SkiiResortContext))]
     [Migration("20240221190608_VisitorsActionAndTarifficationPriceDTChangedToDouble")]
     partial class VisitorsActionAndTarifficationPriceDTChangedToDouble
     {

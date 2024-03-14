@@ -16,10 +16,10 @@ internal sealed class VisitorActionsService : IVisitorActions
     private readonly IMapper mapper;
     private readonly ISkipassRepository skipassRepository;
     private readonly IVisitorActionsRepository visitorActionsRepository;
-    private readonly IDbContextRepository<HotelContext> dbContextRepository;
+    private readonly IDbContextRepository<SkiiResortContext> dbContextRepository;
     
     public VisitorActionsService(IMapper mapper, IVisitorActionsRepository visitorActionsRepository,
-        ISkipassRepository skipassRepository, IDbContextRepository<HotelContext> dbContextRepository)
+        ISkipassRepository skipassRepository, IDbContextRepository<SkiiResortContext> dbContextRepository)
     {
         this.mapper = mapper;
         this.visitorActionsRepository = visitorActionsRepository;

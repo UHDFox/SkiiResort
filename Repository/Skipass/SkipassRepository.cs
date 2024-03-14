@@ -7,10 +7,10 @@ namespace Repository.Skipass;
 
 internal sealed class SkipassRepository : ISkipassRepository
 {
-    private readonly IDbContextRepository<HotelContext> dbContextRepository;
+    private readonly IDbContextRepository<SkiiResortContext> dbContextRepository;
 
 
-    public SkipassRepository(IDbContextRepository<HotelContext> dbContextRepository)
+    public SkipassRepository(IDbContextRepository<SkiiResortContext> dbContextRepository)
     {
         this.dbContextRepository = dbContextRepository;
     }
