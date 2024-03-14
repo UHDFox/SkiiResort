@@ -8,7 +8,7 @@ public interface IRepository<TEntity>
     
     Task<Guid> AddAsync(TEntity data);
     
-    Task<bool> UpdateAsync(TEntity data);
+    void UpdateAsync(TEntity data);
     
     Task<bool> DeleteAsync(Guid id);
 

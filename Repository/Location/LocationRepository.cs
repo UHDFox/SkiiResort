@@ -1,52 +1,50 @@
 using Domain;
 using Domain.Entities.Location;
 using Microsoft.EntityFrameworkCore;
-using Repository.DbContextRepository;
 
 namespace Repository.Location;
 
 internal sealed class LocationRepository : ILocationRepository
 {
-    private readonly IDbContextRepository<SkiiResortContext> dbContextRepository;
+    private readonly SkiiResortContext _context;
 
-    public LocationRepository(IDbContextRepository<SkiiResortContext> dbContextRepository)
+    public LocationRepository(SkiiResortContext context)
     {
-        this.dbContextRepository = dbContextRepository;
+        this._context = context;
     }
     public async Task<IReadOnlyCollection<LocationRecord>> GetListAsync(int offset, int limit)
     {
-        return await dbContextRepository.GetDbContext().Locations.Skip(offset).Take(limit).ToListAsync();
+        return await _context.Locations.Skip(offset).Take(limit).ToListAsync();
     }
 
     public async Task<LocationRecord?> GetByIdAsync(Guid id)
     {
-        return await dbContextRepository.GetDbContext().Locations
+        return await _context.Locations
             .AsNoTracking()
             .FirstOrDefaultAsync(x => x.Id == id);
     }
 
     public async Task<Guid> AddAsync(LocationRecord data)
     {
-        var result = await dbContextRepository.GetDbContext().Locations.AddAsync(data);
+        var result = await _context.Locations.AddAsync(data);
         await SaveChangesAsync();
         return result.Entity.Id;
     }
 
-    public async Task<bool> UpdateAsync(LocationRecord data)
+    public async void UpdateAsync(LocationRecord data)
     {
-        dbContextRepository.GetDbContext().Locations.Update(data);
-        return await SaveChangesAsync() > 0;
+        _context.Locations.Update(data);
     }
 
     public async Task<bool> DeleteAsync(Guid id)
     {
         var record = await GetByIdAsync(id);
-        dbContextRepository.GetDbContext().Locations.Remove(record!);
+        _context.Locations.Remove(record!);
         return await SaveChangesAsync() > 0;
     }
 
     public async Task<int> SaveChangesAsync()
     {
-        return await dbContextRepository.GetDbContext().SaveChangesAsync();
+        return await _context.SaveChangesAsync();
     }
 }

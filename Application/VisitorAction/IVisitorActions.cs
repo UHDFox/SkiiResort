@@ -12,7 +12,7 @@ public interface IVisitorActions
 
     Task<Guid> DepositSkipassBalance(AddVisitorActionsModel model);
 
-    Task<bool> UpdateAsync(UpdateVisitorActionsModel model);
+    Task<UpdateVisitorActionsModel> UpdateAsync(UpdateVisitorActionsModel model);
 
     Task<bool> DeleteAsync(Guid id);
 }

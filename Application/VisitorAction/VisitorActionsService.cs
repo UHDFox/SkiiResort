@@ -6,7 +6,6 @@ using Repository.VisitorActions;
 using Domain;
 using Domain.Enums;
 using Microsoft.EntityFrameworkCore;
-using Repository.DbContextRepository;
 
 
 namespace Application.VisitorAction;
@@ -16,15 +15,15 @@ internal sealed class VisitorActionsService : IVisitorActions
     private readonly IMapper mapper;
     private readonly ISkipassRepository skipassRepository;
     private readonly IVisitorActionsRepository visitorActionsRepository;
-    private readonly IDbContextRepository<SkiiResortContext> dbContextRepository;
+    private readonly SkiiResortContext dbContext;
     
     public VisitorActionsService(IMapper mapper, IVisitorActionsRepository visitorActionsRepository,
-        ISkipassRepository skipassRepository, IDbContextRepository<SkiiResortContext> dbContextRepository)
+        ISkipassRepository skipassRepository, SkiiResortContext dbContext)
     {
         this.mapper = mapper;
         this.visitorActionsRepository = visitorActionsRepository;
         this.skipassRepository = skipassRepository;
-        this.dbContextRepository = dbContextRepository;
+        this.dbContext = dbContext;
     }
 
     public async Task<IReadOnlyCollection<GetVisitorActionsModel>> GetAllAsync(int offset, int limit)
@@ -51,7 +50,7 @@ internal sealed class VisitorActionsService : IVisitorActions
             if (!skipassRecord.Status)
                 throw new SkipassStatusException("Your skipass is inactive. Please, contact administrators");
 
-            var tariff = await dbContextRepository.GetDbContext().Tariffs
+            var tariff = await dbContext.Tariffs
                              .Include(tr => tr.Tariffications)
                              .ThenInclude(e => e.Location)
                              .AsNoTracking()
@@ -82,8 +81,10 @@ internal sealed class VisitorActionsService : IVisitorActions
                 skipassRecord.Balance += (int)model.BalanceChange;
             }
         
-            await skipassRepository.UpdateAsync(skipassRecord);
+            skipassRepository.UpdateAsync(skipassRecord);
+            
             result = await visitorActionsRepository.AddAsync(mapper.Map<VisitorActionsRecord>(model));
+            await visitorActionsRepository.SaveChangesAsync();
             await dbContextTransaction.CommitAsync();
         }
         
@@ -104,10 +105,12 @@ internal sealed class VisitorActionsService : IVisitorActions
         return await AddAsync(model);
     }
 
-    public async Task<bool> UpdateAsync(UpdateVisitorActionsModel model)
+    public async Task<UpdateVisitorActionsModel> UpdateAsync(UpdateVisitorActionsModel model)
     {
         await using (var dbContextTransaction = await visitorActionsRepository.BeginTransaction())
         {
+            var entity = await visitorActionsRepository.GetByIdAsync(model.Id)
+                         ?? throw new NotFoundException("Visitors action not found");
             if (await visitorActionsRepository.GetByIdAsync(model.Id) == null) throw new NotFoundException();
 
             var skipassRecord = await skipassRepository.GetByIdAsync(model.SkipassId)
@@ -116,7 +119,7 @@ internal sealed class VisitorActionsService : IVisitorActions
             if (!skipassRecord.Status)
                 throw new SkipassStatusException("Your skipass is inactive. Please, contact administrators");
 
-            var tariff = await dbContextRepository.GetDbContext().Tariffs
+            var tariff = await dbContext.Tariffs
                              .Include(tr => tr.Tariffications)
                              .ThenInclude(e => e.Location)
                              .AsNoTracking()
@@ -142,14 +145,18 @@ internal sealed class VisitorActionsService : IVisitorActions
                     throw new ArgumentOutOfRangeException(nameof(model.TransactionType));
             }
 
-            await skipassRepository.UpdateAsync(skipassRecord);
+            skipassRepository.UpdateAsync(skipassRecord);
 
-            var result = await visitorActionsRepository.UpdateAsync(mapper.Map<VisitorActionsRecord>(model));
+            
+            mapper.Map(model, entity);
+            visitorActionsRepository.UpdateAsync(entity);
+            await visitorActionsRepository.SaveChangesAsync();
             
             await dbContextTransaction.CommitAsync();
 
-            return result;
+            
         }
+        return model;
     }
 
     public async Task<bool> DeleteAsync(Guid id)
@@ -159,7 +166,7 @@ internal sealed class VisitorActionsService : IVisitorActions
                             ?? throw new NotFoundException("Skipass not found");
         bool result;
         await using (var dbContextTransaction =
-                     await dbContextRepository.GetDbContext().Database.BeginTransactionAsync())
+                     await dbContext.Database.BeginTransactionAsync())
         {
             switch (visitorsAction.TransactionType)
             {
@@ -175,7 +182,7 @@ internal sealed class VisitorActionsService : IVisitorActions
                     throw new ArgumentOutOfRangeException(nameof(visitorsAction.TransactionType));
             }
         
-            await skipassRepository.UpdateAsync(skipassRecord);
+            skipassRepository.UpdateAsync(skipassRecord);
             result =  await visitorActionsRepository.DeleteAsync(id);
             await dbContextTransaction.CommitAsync();
             

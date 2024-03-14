@@ -1,6 +1,7 @@
 using Application.VisitorAction;
 using AutoMapper;
 using Microsoft.AspNetCore.Mvc;
+using Web.Contracts;
 using Web.Contracts.CommonResponses;
 using Web.Contracts.VisitorActions;
 using Web.Contracts.VisitorActions.Requests;
@@ -75,8 +76,8 @@ public sealed class VisitorActionsController : Controller
     [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(UpdatedResponse))]
     public async Task<IActionResult> UpdateAsync(UpdateVisitorActionsRequest model)
     {
-        var result = await visitorActionsService.UpdateAsync(mapper.Map<UpdateVisitorActionsModel>(model));
-        return Ok(new UpdatedResponse(model.Id, result));
+        await visitorActionsService.UpdateAsync(mapper.Map<UpdateVisitorActionsModel>(model));
+        return Ok(new UpdatedResponse(model.Id));
     }
 
     [HttpDelete]

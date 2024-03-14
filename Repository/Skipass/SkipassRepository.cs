@@ -1,28 +1,27 @@
 using Domain;
 using Domain.Entities.Skipass;
 using Microsoft.EntityFrameworkCore;
-using Repository.DbContextRepository;
 
 namespace Repository.Skipass;
 
 internal sealed class SkipassRepository : ISkipassRepository
 {
-    private readonly IDbContextRepository<SkiiResortContext> dbContextRepository;
+    private readonly SkiiResortContext context;
 
 
-    public SkipassRepository(IDbContextRepository<SkiiResortContext> dbContextRepository)
+    public SkipassRepository(SkiiResortContext context)
     {
-        this.dbContextRepository = dbContextRepository;
+        this.context = context;
     }
 
     public async Task<IReadOnlyCollection<SkipassRecord>> GetListAsync(int offset, int limit)
     {
-        return await dbContextRepository.GetDbContext().Skipasses.Skip(offset).Take(limit).ToListAsync();
+        return await context.Skipasses.Skip(offset).Take(limit).ToListAsync();
     }
 
     public async Task<SkipassRecord?> GetByIdAsync(Guid skipassId)
     {
-        return await dbContextRepository.GetDbContext().Skipasses
+        return await context.Skipasses
             .AsNoTracking()
             .Include(record => record.Tariff)
             .Include(record => record.Visitor)
@@ -31,25 +30,24 @@ internal sealed class SkipassRepository : ISkipassRepository
 
     public async Task<Guid> AddAsync(SkipassRecord data)
     {
-        var result = await dbContextRepository.GetDbContext().Skipasses.AddAsync(data);
+        var result = await context.Skipasses.AddAsync(data);
         await SaveChangesAsync();
         return result.Entity.Id;
     }
 
-    public async Task<bool> UpdateAsync(SkipassRecord data)
+    public void UpdateAsync(SkipassRecord data)
     {
-        dbContextRepository.GetDbContext().Skipasses.Update(data);
-        return await SaveChangesAsync() > 0;
+        context.Skipasses.Update(data);
     }
 
     public async Task<bool> DeleteAsync(Guid id)
     {
-        dbContextRepository.GetDbContext().Skipasses.Remove((await GetByIdAsync(id))!);
+        context.Skipasses.Remove((await GetByIdAsync(id))!);
         return await SaveChangesAsync() > 0;
     }
 
     public async Task<int> SaveChangesAsync()
     {
-        return await dbContextRepository.GetDbContext().SaveChangesAsync();
+        return await context.SaveChangesAsync();
     }
 }

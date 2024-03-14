@@ -8,7 +8,7 @@ public interface IVisitorService
 
     Task<GetVisitorModel> GetByIdAsync(Guid id);
 
-    Task<bool> UpdateAsync(UpdateVisitorModel model);
+    Task<UpdateVisitorModel> UpdateAsync(UpdateVisitorModel model);
 
     Task<bool> DeleteAsync(Guid id);
 }

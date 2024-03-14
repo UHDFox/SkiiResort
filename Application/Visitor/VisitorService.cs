@@ -1,11 +1,13 @@
 using System.ComponentModel.DataAnnotations;
 using System.Text.RegularExpressions;
 using Application.Exceptions;
+using Application.VisitorAction;
 using AutoMapper;
 using Domain.Entities.Visitor;
 using Repository.Visitor;
 
 namespace Application.Visitor;
+
 
 internal sealed class VisitorService : IVisitorService
 {
@@ -44,9 +46,10 @@ internal sealed class VisitorService : IVisitorService
         return mapper.Map<GetVisitorModel>(entity);
     }
 
-    public async Task<bool> UpdateAsync(UpdateVisitorModel model)
+    public async Task<UpdateVisitorModel> UpdateAsync(UpdateVisitorModel model)
     {
-        await repository.GetByIdAsync(model.Id); //to check if such record exists in db
+        var entity = await repository.GetByIdAsync(model.Id)
+                     ?? throw new NotFoundException("visitor entity not found");
 
         if (!passportRegex.IsMatch(model.Passport))
             throw new ValidationException("Validation error - check passport series and number");
@@ -54,7 +57,12 @@ internal sealed class VisitorService : IVisitorService
         if (!phoneNumberRegex.IsMatch(model.Phone))
             throw new ValidationException("Validation error - check passport series and number");
 
-        return await repository.UpdateAsync(mapper.Map<VisitorRecord>(model));
+
+        mapper.Map(model, entity);
+        repository.UpdateAsync(entity);
+        await repository.SaveChangesAsync();
+        
+        return model;
     }
 
     public async Task<bool> DeleteAsync(Guid id)

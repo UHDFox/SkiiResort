@@ -1,6 +1,8 @@
 using Application.Exceptions;
+using Application.Visitor;
 using AutoMapper;
 using Domain.Entities.Skipass;
+using Microsoft.EntityFrameworkCore;
 using Repository.Skipass;
 
 namespace Application.Skipass;
@@ -33,10 +35,17 @@ internal sealed class SkipassService : ISkipassService
         return result;
     }
 
-    public async Task<bool> UpdateAsync(UpdateSkipassModel skipassModel)
+    public async Task<UpdateSkipassModel> UpdateAsync(UpdateSkipassModel skipassModel)
     {
-        mapper.Map<SkipassRecord>(await GetByIdAsync(skipassModel.Id));
-        return await repository.UpdateAsync(mapper.Map<SkipassRecord>(skipassModel));
+        var entity = await repository.GetByIdAsync(skipassModel.Id)
+                     ?? throw new NotFoundException();
+
+        mapper.Map(skipassModel, entity);
+        
+        repository.UpdateAsync(entity);
+        await repository.SaveChangesAsync();
+        
+        return skipassModel;
     }
 
     public async Task<bool> DeleteAsync(Guid id)

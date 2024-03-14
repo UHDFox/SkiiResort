@@ -1,14 +1,11 @@
-namespace Web.Contracts.CommonResponses;
+namespace Web.Contracts;
 
-public sealed class UpdatedResponse
+public class UpdatedResponse
 {
-    public UpdatedResponse(Guid id, bool isSuccessful)
-    {
-        Id = id;
-        IsSuccessful = isSuccessful;
-    }
-
     public Guid Id { get; set; }
 
-    public bool IsSuccessful { get; set; }
+    public UpdatedResponse(Guid id)
+    {
+        Id = id;
+    }
 }
