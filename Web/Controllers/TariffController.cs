@@ -2,13 +2,14 @@ using Application.Tariff;
 using AutoMapper;
 using Domain.Entities.Tariff;
 using Microsoft.AspNetCore.Mvc;
+using Web.Contracts;
 using Web.Contracts.CommonResponses;
 using Web.Contracts.Tariff;
 using Web.Contracts.Tariff.Requests;
 
 namespace Web.Controllers;
 
-[Route("api/[action]")]
+[Route("api/v1/[controller]/[action]")]
 [ApiController]
 public sealed class TariffController : Controller
 {
@@ -47,7 +48,7 @@ public sealed class TariffController : Controller
     public async Task<IActionResult> GetByIdAsync(Guid id)
     {
         var result = await context.GetByIdAsync(id);
-        return Ok(mapper.Map<TariffRecord>(result));
+        return Ok(mapper.Map<TariffResponse>(result));
     }
 
     [HttpPut("Update tariff")]
@@ -55,8 +56,8 @@ public sealed class TariffController : Controller
     [ProducesResponseType(StatusCodes.Status404NotFound)]
     public async Task<IActionResult> UpdateAsync(UpdateTariffRequest tariffModel)
     {
-        var result = await context.UpdateAsync(mapper.Map<UpdateTariffModel>(tariffModel));
-        return Ok(new UpdatedResponse(tariffModel.Id, result));
+        await context.UpdateAsync(mapper.Map<UpdateTariffModel>(tariffModel));
+        return Ok(new UpdatedResponse(tariffModel.Id));
     }
     
     [HttpDelete]

@@ -8,7 +8,7 @@ public interface ISkipassService
 
     Task<Guid> AddAsync(AddSkipassModel skipassModel);
 
-    Task<bool> UpdateAsync(UpdateSkipassModel skipassModel);
+    Task<UpdateSkipassModel> UpdateAsync(UpdateSkipassModel skipassModel);
 
     Task<bool> DeleteAsync(Guid id);
 }

@@ -34,10 +34,18 @@ internal sealed class LocationService : ILocationService
         return id;
     }
 
-    public async Task<bool> UpdateAsync(UpdateLocationModel model)
+    public async Task<UpdateLocationModel> UpdateAsync(UpdateLocationModel model)
     {
-        await repository.GetByIdAsync(model.Id);
-        return await repository.UpdateAsync(mapper.Map<LocationRecord>(model));
+        var entity = await repository.GetByIdAsync(model.Id)
+                     ?? throw new NotFoundException("location entity not found");
+
+        mapper.Map(model, entity);
+        
+        repository.UpdateAsync(entity);
+        
+        await repository.SaveChangesAsync();
+        
+        return model;
     }
 
     public async Task<bool> DeleteAsync(Guid id)

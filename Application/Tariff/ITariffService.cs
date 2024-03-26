@@ -10,5 +10,5 @@ public interface ITariffService
 
     Task<bool> DeleteAsync(Guid id);
 
-    Task<bool> UpdateAsync(UpdateTariffModel tariffModel);
+    Task<UpdateTariffModel> UpdateAsync(UpdateTariffModel tariffModel);
 }

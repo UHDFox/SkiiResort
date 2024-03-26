@@ -1,6 +1,7 @@
 using Application.Skipass;
 using AutoMapper;
 using Microsoft.AspNetCore.Mvc;
+using Web.Contracts;
 using Web.Contracts.CommonResponses;
 using Web.Contracts.Skipass;
 using Web.Contracts.Skipass.Requests;
@@ -54,8 +55,8 @@ public sealed class SkipassController : Controller
     [ProducesResponseType(StatusCodes.Status404NotFound)]
     public async Task<IActionResult> UpdateAsync(UpdateSkipassRequest skipassModel)
     {
-        var result = await context.UpdateAsync(mapper.Map<UpdateSkipassModel>(skipassModel));
-        return Ok(new UpdatedResponse(skipassModel.Id, result));
+        await context.UpdateAsync(mapper.Map<UpdateSkipassModel>(skipassModel));
+        return Ok(new UpdatedResponse(skipassModel.Id));
     }
 
     [HttpDelete(Name = "Delete skipass record")]

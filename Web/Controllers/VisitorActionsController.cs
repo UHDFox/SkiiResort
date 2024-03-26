@@ -1,11 +1,8 @@
 using Application.VisitorAction;
 using AutoMapper;
-using Domain.Entities.VisitorsAction;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
+using Web.Contracts;
 using Web.Contracts.CommonResponses;
-using Web.Contracts.Skipass.Requests;
-using Web.Contracts.Skipass.TapSkipass;
 using Web.Contracts.VisitorActions;
 using Web.Contracts.VisitorActions.Requests;
 
@@ -56,9 +53,20 @@ public sealed class VisitorActionsController : Controller
     [HttpPost]
     [ProducesResponseType(StatusCodes.Status201Created, Type = typeof(CreatedResponse))]
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
-    public async Task<IActionResult> TapCard(TapSkipassRequest request)
+    public async Task<IActionResult> TapSkipass(TapSkipassRequest request)
     {
         var id = await visitorActionsService.TapSkipass(mapper.Map<AddVisitorActionsModel>(request));
+        return Created($"{Request.Path}",
+            mapper.Map<VisitorActionsResponse>(await visitorActionsService.GetByIdAsync(id)));
+    }
+    
+
+    [HttpPost]
+    [ProducesResponseType(StatusCodes.Status201Created, Type = typeof(CreatedResponse))]
+    [ProducesResponseType(StatusCodes.Status400BadRequest)]
+    public async Task<IActionResult> DepositSkipassBalance(DepositSkipassBalanceRequest request)
+    {
+        var id = await visitorActionsService.DepositSkipassBalance(mapper.Map<AddVisitorActionsModel>(request));
         return Created($"{Request.Path}",
             mapper.Map<VisitorActionsResponse>(await visitorActionsService.GetByIdAsync(id)));
     }
@@ -68,8 +76,8 @@ public sealed class VisitorActionsController : Controller
     [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(UpdatedResponse))]
     public async Task<IActionResult> UpdateAsync(UpdateVisitorActionsRequest model)
     {
-        var result = await visitorActionsService.UpdateAsync(mapper.Map<UpdateVisitorActionsModel>(model));
-        return Ok(new UpdatedResponse(model.Id, result));
+        await visitorActionsService.UpdateAsync(mapper.Map<UpdateVisitorActionsModel>(model));
+        return Ok(new UpdatedResponse(model.Id));
     }
 
     [HttpDelete]

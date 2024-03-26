@@ -6,9 +6,9 @@ namespace Repository.Visitor;
 
 internal sealed class VisitorRepository : IVisitorRepository
 {
-    private readonly HotelContext context;
-
-    public VisitorRepository(HotelContext context)
+    private readonly SkiiResortContext context;
+    
+    public VisitorRepository(SkiiResortContext context)
     {
         this.context = context;
     }
@@ -26,19 +26,23 @@ internal sealed class VisitorRepository : IVisitorRepository
     public async Task<Guid> AddAsync(VisitorRecord data)
     {
         await context.Visitors.AddAsync(data);
-        await context.SaveChangesAsync();
+        await SaveChangesAsync();
         return data.Id;
     }
 
-    public async Task<bool> UpdateAsync(VisitorRecord data)
+    public void UpdateAsync(VisitorRecord data)
     {
         context.Visitors.Update(data);
-        return await context.SaveChangesAsync() > 0;
     }
 
     public async Task<bool> DeleteAsync(Guid id)
     {
         context.Visitors.Remove((await GetByIdAsync(id))!);
-        return await context.SaveChangesAsync() > 0;
+        return await SaveChangesAsync() > 0;
+    }
+
+    public async Task<int> SaveChangesAsync()
+    {
+        return await context.SaveChangesAsync();
     }
 }

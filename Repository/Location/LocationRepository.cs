@@ -6,41 +6,45 @@ namespace Repository.Location;
 
 internal sealed class LocationRepository : ILocationRepository
 {
-    private readonly HotelContext context;
+    private readonly SkiiResortContext _context;
 
-    public LocationRepository(HotelContext context)
+    public LocationRepository(SkiiResortContext context)
     {
-        this.context = context;
+        this._context = context;
     }
     public async Task<IReadOnlyCollection<LocationRecord>> GetListAsync(int offset, int limit)
     {
-        return await context.Locations.Skip(offset).Take(limit).ToListAsync();
+        return await _context.Locations.Skip(offset).Take(limit).ToListAsync();
     }
 
     public async Task<LocationRecord?> GetByIdAsync(Guid id)
     {
-        return await context.Locations
+        return await _context.Locations
             .AsNoTracking()
             .FirstOrDefaultAsync(x => x.Id == id);
     }
 
     public async Task<Guid> AddAsync(LocationRecord data)
     {
-        var result = await context.Locations.AddAsync(data);
-        await context.SaveChangesAsync();
+        var result = await _context.Locations.AddAsync(data);
+        await SaveChangesAsync();
         return result.Entity.Id;
     }
 
-    public async Task<bool> UpdateAsync(LocationRecord data)
+    public async void UpdateAsync(LocationRecord data)
     {
-        context.Locations.Update(data);
-        return await context.SaveChangesAsync() > 0;
+        _context.Locations.Update(data);
     }
 
     public async Task<bool> DeleteAsync(Guid id)
     {
         var record = await GetByIdAsync(id);
-        context.Locations.Remove(record!);
-        return await context.SaveChangesAsync() > 0;
+        _context.Locations.Remove(record!);
+        return await SaveChangesAsync() > 0;
+    }
+
+    public async Task<int> SaveChangesAsync()
+    {
+        return await _context.SaveChangesAsync();
     }
 }

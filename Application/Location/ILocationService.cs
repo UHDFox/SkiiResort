@@ -10,7 +10,7 @@ public interface ILocationService
 
     Task<Guid> AddAsync(AddLocationModel model);
 
-    Task<bool> UpdateAsync(UpdateLocationModel model);
+    Task<UpdateLocationModel> UpdateAsync(UpdateLocationModel model);
 
     Task<bool> DeleteAsync(Guid id);
 }

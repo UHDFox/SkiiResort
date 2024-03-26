@@ -3,6 +3,7 @@ using Application.Tariffication.Models;
 using AutoMapper;
 using Microsoft.AspNetCore.Http.HttpResults;
 using Microsoft.AspNetCore.Mvc;
+using Web.Contracts;
 using Web.Contracts.CommonResponses;
 using Web.Contracts.Tariffication;
 using Web.Contracts.Tariffication.Requests;
@@ -56,8 +57,8 @@ public sealed class TarifficationController : Controller
     [ProducesResponseType(StatusCodes.Status404NotFound)]
     public async Task<IActionResult> UpdateAsync(UpdateTarifficationRequest request)
     {
-        var result = await tarifficationService.UpdateAsync(mapper.Map<UpdateTarifficationModel>(request));
-        return Ok(new UpdatedResponse(request.Id, result));
+        await tarifficationService.UpdateAsync(mapper.Map<UpdateTarifficationModel>(request));
+        return Ok(new UpdatedResponse(request.Id));
     }
 
     [HttpDelete]

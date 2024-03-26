@@ -33,10 +33,17 @@ public sealed class TarifficationService : ITarifficationService
         return await repository.AddAsync(mapper.Map<TarifficationRecord>(model));
     }
 
-    public async Task<bool> UpdateAsync(UpdateTarifficationModel model)
+    public async Task<UpdateTarifficationModel> UpdateAsync(UpdateTarifficationModel model)
     {
-        await repository.GetByIdAsync(model.Id);
-        return await repository.UpdateAsync(mapper.Map<TarifficationRecord>(model));
+        var entity = await repository.GetByIdAsync(model.Id) 
+            ?? throw new NotFoundException("tariffication record not found");
+        
+        mapper.Map(model, entity);
+        
+        repository.UpdateAsync(entity);
+        await repository.SaveChangesAsync();
+
+        return model;
     }
 
     public async Task<bool> DeleteAsync(Guid id)

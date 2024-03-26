@@ -3,6 +3,8 @@ using Application.Location.Models;
 using AutoMapper;
 using Domain.Entities.Location;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
+using Web.Contracts;
 using Web.Contracts.CommonResponses;
 using Web.Contracts.Location;
 using Web.Contracts.Location.Requests;
@@ -55,8 +57,8 @@ public sealed class LocationController : Controller
     [ProducesResponseType(StatusCodes.Status404NotFound)]
     public async Task<IActionResult> UpdateAsync(UpdateLocationRequest data)
     {
-        var result = await locationService.UpdateAsync(mapper.Map<UpdateLocationModel>(data));
-        return Ok(new UpdatedResponse(data.Id, result));
+        await locationService.UpdateAsync(mapper.Map<UpdateLocationModel>(data));
+        return Ok(new UpdatedResponse(data.Id));
     }
 
     [HttpDelete]

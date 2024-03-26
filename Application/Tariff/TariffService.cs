@@ -1,6 +1,7 @@
 using Application.Exceptions;
 using AutoMapper;
 using Domain.Entities.Tariff;
+using Microsoft.EntityFrameworkCore;
 using Repository.Tariff;
 
 namespace Application.Tariff;
@@ -39,9 +40,16 @@ internal sealed class TariffService : ITariffService
         return await repository.DeleteAsync(id);
     }
 
-    public async Task<bool> UpdateAsync(UpdateTariffModel tariffModel)
+    public async Task<UpdateTariffModel> UpdateAsync(UpdateTariffModel tariffModel)
     {
-        await GetByIdAsync(tariffModel.Id);
-        return await repository.UpdateAsync(mapper.Map<TariffRecord>(tariffModel));
+        var entity = await repository.GetByIdAsync(tariffModel.Id)
+                     ?? throw new NotFoundException("tariff entity not found");
+        
+        mapper.Map(tariffModel, entity);
+        
+        repository.UpdateAsync(entity);
+        await repository.SaveChangesAsync();
+        
+        return tariffModel;
     }
 }
