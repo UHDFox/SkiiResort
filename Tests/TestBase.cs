@@ -1,10 +1,10 @@
+using Application.Infrastructure.Automapper;
 using AutoFixture;
 using AutoFixture.AutoMoq;
 using AutoMapper;
 using Moq;
 using Repository.Tariff;
 using Repository.Visitor;
-using Tests.AutomapperProfiles;
 
 namespace Tests;
 
@@ -29,11 +29,10 @@ public abstract class TestBase
         
         Mapper = new MapperConfiguration(c =>
         {
-            c.AddProfile(new TestMapperProfile());
+            c.AddProfile(new ApplicationProfile());
         }).CreateMapper();
         
         FixtureGenerator.Register(() => Mapper);
         FixtureGenerator.Register(() => VisitorsRepositoryMock);
-
     }
 }
