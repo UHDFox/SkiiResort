@@ -4,6 +4,7 @@ using Application.Visitor;
 using AutoFixture;
 using AutoFixture.Xunit2;
 using Domain.Entities.Visitor;
+using FluentAssertions;
 using Moq;
 
 
@@ -17,10 +18,10 @@ public sealed class VisitorsServicesTest : TestBase
     {
         VisitorService = FixtureGenerator.Create<VisitorService>();
     }
-
+    
     [Theory]
     [AutoData]
-    public void GetListAsync_ValidInput_VisitorRecordList(int offset, int limit)
+    public async void GetListAsync_ValidInput_VisitorRecordList(int offset, int limit)
     {
         //Arrange
 
@@ -31,56 +32,61 @@ public sealed class VisitorsServicesTest : TestBase
         }
         
         VisitorsRepositoryMock.Setup(method => method
-            .GetListAsync(It.IsAny<int>(), It.IsAny<int>())).ReturnsAsync(sampleList);
+            .GetListAsync(offset, limit)).ReturnsAsync(sampleList);
         
         //Act
-        var result = VisitorService.GetListAsync(offset, limit).Result;
+        var result = await VisitorService.GetListAsync(offset, limit);
         
         //Assert
         Assert.Equal(limit, result.Count);
     }
 
     [Fact]
-    public void GetByIdAsync_ValidInput_ShouldReturnGetModel()
+    public async void GetByIdAsync_ValidInput_ShouldReturnGetModel()
     {
         //Arrange
         var sampleVisitor = FixtureGenerator.Create<VisitorRecord>();
+        
         VisitorsRepositoryMock.Setup(method => method
-            .GetByIdAsync(It.IsAny<Guid>())).ReturnsAsync(sampleVisitor);
+            .GetByIdAsync(sampleVisitor.Id)).ReturnsAsync(sampleVisitor);
         
         //Act
-        var entity = VisitorService.GetByIdAsync(new Guid()).Result;
+        var entity = await VisitorService.GetByIdAsync(sampleVisitor.Id);
         
         //Assert
-        Assert.IsType<GetVisitorModel>(entity);
+        entity.Should().BeEquivalentTo(Mapper.Map<GetVisitorModel>(sampleVisitor), 
+            x => x.IgnoringCyclicReferences());
     }
 
     [Fact]
-    public void GetByIdAsync_NoneInput_ShouldReturnNotFoundException()
+    public async void GetByIdAsync_NoneInput_ShouldReturnNotFoundException()
     {
         //Arrange
         VisitorsRepositoryMock.Setup(m => m.GetByIdAsync(It.IsAny<Guid>()))
             .ThrowsAsync(new NotFoundException());
 
         //Act
-        var exception = Assert.ThrowsAsync<NotFoundException>(async () => await VisitorService.GetByIdAsync(new Guid())).Result;
+        var exception = async () => await VisitorService.GetByIdAsync(new Guid());
         
         //Assert
-        Assert.IsType<NotFoundException>(exception);
+        await Assert.ThrowsAsync<NotFoundException>(exception);
     }
 
     [Fact]
-    public void AddAsync_ValidRequest_ShouldReturnGuid()
+    public async void AddAsync_ValidRequest_ShouldReturnGuid()
     {
         //Arrange
+        var controlId = new Guid();
+
         AddVisitorModel createDto = new AddVisitorModel("capy", 15, "12345678954", "1234-567895");
-        VisitorsRepositoryMock.Setup(m => m.AddAsync(It.IsAny<VisitorRecord>())).ReturnsAsync(new Guid());
+        VisitorsRepositoryMock.Setup(m => m.AddAsync(Mapper.Map<VisitorRecord>(createDto)))
+            .ReturnsAsync(controlId);
         
         //Act
-        var resultId = VisitorService.AddAsync(createDto).Result;
+        var resultId = await VisitorService.AddAsync(createDto);
         
         //Assert
-        Assert.IsType<Guid>(resultId);
+        resultId.Should().Be(controlId);
     }
 
     [Theory]
@@ -92,14 +98,14 @@ public sealed class VisitorsServicesTest : TestBase
     {
         //Arrange
         AddVisitorModel createDto = new AddVisitorModel("capy", 15, "12345678954", passport);
-        VisitorsRepositoryMock.Setup(m => m.AddAsync(It.IsAny<VisitorRecord>()))
+        VisitorsRepositoryMock.Setup(m => m.AddAsync(Mapper.Map<VisitorRecord>(createDto)))
             .Throws(new ValidationException());
         
         //Act
-        var exception = VisitorService.AddAsync(createDto).Exception!.InnerException;
+        var exception = () => VisitorService.AddAsync(createDto);
 
         //Assert
-        Assert.IsType<ValidationException>(exception);
+        Assert.ThrowsAsync<ValidationException>(exception);
     }
     
     [Theory]
@@ -110,33 +116,33 @@ public sealed class VisitorsServicesTest : TestBase
     {
         //Arrange
         AddVisitorModel createDto = new AddVisitorModel("capy", 15, phone, "1234-123456");
-        VisitorsRepositoryMock.Setup(m => m.AddAsync(It.IsAny<VisitorRecord>()))
-            .Throws(new ValidationException());
+        VisitorsRepositoryMock.Setup(m => m.AddAsync(Mapper.Map<VisitorRecord>(createDto)))
+            .ThrowsAsync(new ValidationException());
         
         //Act
-        var exception = VisitorService.AddAsync(createDto).Exception!.InnerException;
+        var exception = () => VisitorService.AddAsync(createDto);
 
         //Assert
-        Assert.IsType<ValidationException>(exception);
+        Assert.ThrowsAsync<ValidationException>(exception);
     }
 
     [Fact]
-    public void UpdateAsync_ValidInput_UpdateVisitorModel()
+    public async void UpdateAsync_ValidInput_UpdateVisitorModel()
     {
         //Arrange
         
         var updateModel = new UpdateVisitorModel(new Guid(), "name", 10, "123456789",
             new DateTime(2000, 1, 1), "1234-123456");
-        var sampleModel = FixtureGenerator.Create<VisitorRecord>();
         
-        VisitorsRepositoryMock.Setup(m => m.UpdateAsync(It.IsAny<VisitorRecord>()));
-        VisitorsRepositoryMock.Setup(m => m.GetByIdAsync(It.IsAny<Guid>())).ReturnsAsync(sampleModel);
+        VisitorsRepositoryMock.Setup(m => m.UpdateAsync(Mapper.Map<VisitorRecord>(updateModel)));
+        VisitorsRepositoryMock.Setup(m => m.GetByIdAsync(updateModel.Id))
+            .ReturnsAsync(Mapper.Map<VisitorRecord>(updateModel));
         
         //Act
-        var result = VisitorService.UpdateAsync(updateModel).Result;
+        var result = await VisitorService.UpdateAsync(Mapper.Map<UpdateVisitorModel>(updateModel));
         
         //Assert
-        Assert.IsType<UpdateVisitorModel>(result);
+        result.Should().BeEquivalentTo(result);
     }
 
     [Theory]
@@ -150,13 +156,13 @@ public sealed class VisitorsServicesTest : TestBase
         var updateModel = new UpdateVisitorModel(new Guid(), "name", 10, "123456789",
             new DateTime(2000, 1, 1), passport);
         
-        VisitorsRepositoryMock.Setup(m => m.GetByIdAsync(It.IsAny<Guid>())).ThrowsAsync(new ValidationException());
+        VisitorsRepositoryMock.Setup(m => m.GetByIdAsync(updateModel.Id)).ThrowsAsync(new ValidationException());
         
         //Act
-        var exception = VisitorService.UpdateAsync(updateModel).Exception!.InnerException;
+        var exception = () => VisitorService.UpdateAsync(updateModel);
         
         //Assert
-        Assert.IsType<ValidationException>(exception);
+        Assert.ThrowsAsync<ValidationException>(exception);
     }
     
     [Theory]
@@ -169,14 +175,13 @@ public sealed class VisitorsServicesTest : TestBase
         var updateModel = new UpdateVisitorModel(new Guid(), "name", 10, phone,
             new DateTime(2000, 1, 1), "1234-123456");
         
-        
-        VisitorsRepositoryMock.Setup(m => m.GetByIdAsync(It.IsAny<Guid>())).ThrowsAsync(new ValidationException());
+        VisitorsRepositoryMock.Setup(m => m.GetByIdAsync(updateModel.Id)).ThrowsAsync(new ValidationException());
         
         //Act
-        var exception = VisitorService.UpdateAsync(updateModel).Exception!.InnerException;
+        var exception = () => VisitorService.UpdateAsync(updateModel);
 
         //Assert
-        Assert.IsType<ValidationException>(exception);
+        Assert.ThrowsAsync<ValidationException>(exception);
     }
 
     [Fact]
@@ -184,7 +189,7 @@ public sealed class VisitorsServicesTest : TestBase
     {
         //Arrange
         var sampleModel = FixtureGenerator.Create<VisitorRecord>();
-        VisitorsRepositoryMock.Setup(m => m.GetByIdAsync(It.IsAny<Guid>())).ReturnsAsync(sampleModel);
+        VisitorsRepositoryMock.Setup(m => m.GetByIdAsync(sampleModel.Id)).ReturnsAsync(sampleModel);
         VisitorsRepositoryMock.Setup(m => m.DeleteAsync(sampleModel.Id))
             .ReturnsAsync(() => true);
         
@@ -194,7 +199,7 @@ public sealed class VisitorsServicesTest : TestBase
         //Assert
         Assert.True(result);
     }
-    
+
     [Theory]
     [AutoData]
     public void DeleteAsync_InvalidInput_ShouldThrowNotFoundException(Guid id)
@@ -202,14 +207,12 @@ public sealed class VisitorsServicesTest : TestBase
         //Arrange
         VisitorsRepositoryMock.Setup(m => m.GetByIdAsync(It.IsAny<Guid>())).ThrowsAsync(new NotFoundException());
         VisitorsRepositoryMock.Setup(m => m.DeleteAsync(id))
-            .ReturnsAsync(() => true);
-        
+            .ReturnsAsync(true);
+
         //Act
-        var exception = VisitorService.DeleteAsync(id).Exception!.InnerException;
-        
+        var exception = () => VisitorService.DeleteAsync(id);
+
         //Assert
-        Assert.IsType<NotFoundException>(exception);
+        Assert.ThrowsAsync<ValidationException>(exception);
     }
-   
-    
 }
