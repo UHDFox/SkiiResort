@@ -3,6 +3,7 @@ using AutoFixture;
 using AutoFixture.AutoMoq;
 using AutoMapper;
 using Moq;
+using Repository.Location;
 using Repository.Tariff;
 using Repository.Visitor;
 
@@ -13,6 +14,8 @@ public abstract class TestBase
     protected internal Mock<IVisitorRepository> VisitorsRepositoryMock;
     
     protected internal Mock<ITariffRepository> TariffsRepositoryMock;
+
+    protected internal Mock<ILocationRepository> LocationRepositoryMock;
     
     protected internal  IMapper Mapper;
 
@@ -24,6 +27,7 @@ public abstract class TestBase
         FixtureGenerator.Behaviors.Remove(new ThrowingRecursionBehavior());
         FixtureGenerator.Behaviors.Add(new OmitOnRecursionBehavior());
 
+        LocationRepositoryMock = FixtureGenerator.Freeze<Mock<ILocationRepository>>();
         VisitorsRepositoryMock = FixtureGenerator.Freeze<Mock<IVisitorRepository>>();
         TariffsRepositoryMock = FixtureGenerator.Freeze<Mock<ITariffRepository>>();
         
@@ -34,5 +38,7 @@ public abstract class TestBase
         
         FixtureGenerator.Register(() => Mapper);
         FixtureGenerator.Register(() => VisitorsRepositoryMock);
+        FixtureGenerator.Register(() => LocationRepositoryMock);
+        FixtureGenerator.Register(() => TariffsRepositoryMock);
     }
 }
