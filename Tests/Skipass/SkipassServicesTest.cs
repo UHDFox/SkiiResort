@@ -1,4 +1,3 @@
-using System.ComponentModel.DataAnnotations;
 using Application.Exceptions;
 using Application.Skipass;
 using AutoFixture;
@@ -88,39 +87,6 @@ public sealed class SkipasservicesTest : TestBase
         resultId.Should().NotBeEmpty();
     }
 
-    [Theory]
-    [InlineData("1234-1")]
-    [InlineData("1234-12345")]
-    [InlineData("123-123456")]
-    [InlineData("1234 123456")]
-    public void AddAsync_InputWithInvalidPassportField_ShouldReturnValidationException(string passport)
-    {
-        //Arrange
-        AddSkipassModel createDto = new AddSkipassModel(1000, Guid.NewGuid(), Guid.NewGuid(), true);
-
-        //Act
-        var action = () => Skipasservice.AddAsync(createDto);
-
-        //Assert
-        action.Should().ThrowAsync<ValidationException>();
-    }
-    
-    [Theory]
-    [InlineData("12345678")]
-    [InlineData("1234567890123")]
-    [InlineData("1-234-123-47-97")]
-    public void AddAsync_InputWithInvalidPhoneNumberField_ShouldReturnValidationError(string phone)
-    {
-        //Arrange
-        AddSkipassModel createDto = new AddSkipassModel(1000, Guid.NewGuid(), Guid.NewGuid(), true);
-        
-        //Act
-        var action = () => Skipasservice.AddAsync(createDto);
-
-        //Assert
-        action.Should().ThrowAsync<ValidationException>();
-    }
-
     [Fact]
     public async void UpdateAsync_ValidInput_UpdateSkipassModel()
     {
@@ -138,42 +104,7 @@ public sealed class SkipasservicesTest : TestBase
         //Assert
         result.Should().Be(updateModel);
     }
-
-    [Theory]
-    [InlineData("1234-1")]
-    [InlineData("1234-12345")]
-    [InlineData("123-123456")]
-    [InlineData("1234 123456")]
-    public void UpdateAsync_InputWithInvalidPassportField_ShouldReturnValidationError(string passport)
-    {
-        //Arrange
-        var updateModel = new UpdateSkipassModel(Guid.NewGuid(), 1000, Guid.NewGuid(),
-            Guid.NewGuid(), true);
-        
-        //Act
-        var action = () => Skipasservice.UpdateAsync(updateModel);
-        
-        //Assert
-        action.Should().ThrowAsync<NotFoundException>();
-    }
     
-    [Theory]
-    [InlineData("12345678")]
-    [InlineData("1234567890123")]
-    [InlineData("1-234-123-47-97")]
-    public void UpdateAsync_InputWithInvalidPhoneNumberField_ShouldReturnValidationError(string phone)
-    {
-        //Arrange
-        var updateModel = new UpdateSkipassModel(Guid.NewGuid(), 1000, Guid.NewGuid(),
-            Guid.NewGuid(), true);
-        
-        //Act
-        var action = () => Skipasservice.UpdateAsync(updateModel);
-
-        //Assert
-        action.Should().ThrowAsync<NotFoundException>();
-    }
-
     [Fact]
     public async void DeleteAsync_ValidInput_ShouldReturnBooleanTrue()
     {
