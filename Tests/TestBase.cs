@@ -8,6 +8,7 @@ using Repository.Skipass;
 using Repository.Tariff;
 using Repository.Tariffication;
 using Repository.Visitor;
+using Repository.VisitorActions;
 
 namespace Tests;
 
@@ -22,6 +23,8 @@ public abstract class TestBase
     protected internal Mock<ISkipassRepository> SkipassRepositoryMock;
 
     protected internal Mock<ITarifficationRepository> TarifficationRepositoryMock;
+
+    protected internal Mock<IVisitorActionsRepository> VisitorActionsRepositoryMock;
     
     protected internal  IMapper Mapper;
 
@@ -38,7 +41,7 @@ public abstract class TestBase
         TariffsRepositoryMock = FixtureGenerator.Freeze<Mock<ITariffRepository>>();
         SkipassRepositoryMock = FixtureGenerator.Freeze<Mock<ISkipassRepository>>();
         TarifficationRepositoryMock = FixtureGenerator.Freeze<Mock<ITarifficationRepository>>();
-        
+        VisitorActionsRepositoryMock = FixtureGenerator.Freeze<Mock<IVisitorActionsRepository>>();
         
         Mapper = new MapperConfiguration(c =>
         {
@@ -51,5 +54,6 @@ public abstract class TestBase
         FixtureGenerator.Register(() => TariffsRepositoryMock);
         FixtureGenerator.Register(() => SkipassRepositoryMock);
         FixtureGenerator.Register(() => TarifficationRepositoryMock);
+        FixtureGenerator.Register(() => VisitorActionsRepositoryMock);
     }
 }
