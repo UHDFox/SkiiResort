@@ -1,7 +1,6 @@
 using Application.Exceptions;
 using AutoMapper;
 using Domain.Entities.Tariff;
-using Microsoft.EntityFrameworkCore;
 using Repository.Tariff;
 
 namespace Application.Tariff;
