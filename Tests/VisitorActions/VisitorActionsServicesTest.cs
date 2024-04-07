@@ -152,7 +152,7 @@ public sealed class VisitorActionsServicesTest : TestBase
     }
 
     [Fact]
-    public async Task AddAsync_RelatedSkipassHasInvalidTariffId_ThrowsNotFoundException()
+    public async Task AddAsync_RelatedToVisitorActionSkipassHasInvalidTariffId_ThrowsNotFoundException()
     {
         //Arrange
         var sampleSkipassRecord = new SkipassRecord(1000, Guid.NewGuid(), Guid.NewGuid(), true);
@@ -240,5 +240,65 @@ public sealed class VisitorActionsServicesTest : TestBase
         //Assert
         await action.Should()
             .ThrowAsync<NotFoundException>("couldn't find tariffication related to such tariff and location");
+    }
+
+    [Fact]
+    public void UpdateASync_ValidInput_UpdatesVisitorActionAndSkipassEntities()
+    {
+        //Arrange
+        var tariffEntity = new TariffRecord("name", 1, true);
+        tariffEntity.Id = Guid.NewGuid();
+
+        var skipassEntity = new SkipassRecord(1000, tariffEntity.Id, Guid.NewGuid(), true);
+
+        var locationEntity = FixtureGenerator.Create<LocationRecord>();
+        locationEntity.Id = Guid.NewGuid();
+
+        var updateVisitorsActionModel =
+            new UpdateVisitorActionsModel(Guid.NewGuid(), skipassEntity.Id, locationEntity.Id);
+
+        var tarifficationEntity = new TarifficationRecord(100, tariffEntity.Id, locationEntity.Id);
+
+        VisitorActionsRepositoryMock.Setup(m => m.GetByIdAsync(It.IsAny<Guid>()))
+            .ReturnsAsync(updateVisitorsActionModel.ToEntity);
+        
+        SkipassRepositoryMock.Setup(m => m.GetByIdAsync(It.IsAny<Guid>()))
+            .ReturnsAsync(skipassEntity);
+        
+        
+    }
+
+    [Fact]
+    public async Task UpdateAsync_RequestWithInvalidVisitorsActionId_NotFoundException()
+    {
+        //Arrange
+        var updateModel = FixtureGenerator.Create<UpdateVisitorActionsModel>();
+        VisitorsRepositoryMock.Setup(m => m.GetByIdAsync(It.IsAny<Guid>()))
+            .ThrowsAsync(new NotFoundException("Visitors action not found"));
+        
+        //Act
+        var action = () => VisitorActionsService.UpdateAsync(updateModel);
+        
+        //Assert
+        VisitorActionsRepositoryMock.Verify(m => m.GetByIdAsync(It.Is<Guid>(v => 
+            v.Equals(updateModel.Id))));
+        
+        await action.Should().ThrowAsync<NotFoundException>("Visitors action not found");
+    }
+    
+    [Fact]
+    public async Task UpdateAsync_ModelWithInvalidSkipassId_ThrowsNotFoundException()
+    {
+        //Arrange
+        SkipassRepositoryMock.Setup(m => m.GetByIdAsync(It.IsAny<Guid>()))
+            .ThrowsAsync(new NotFoundException("Skipass not found"));
+
+        var visitorActionsModelModel = FixtureGenerator.Create<AddVisitorActionsModel>();
+        
+        //Act
+        var action = () => VisitorActionsService.AddAsync(visitorActionsModelModel);
+        
+        //Assert
+        await action.Should().ThrowAsync<NotFoundException>();
     }
 }
