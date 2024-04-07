@@ -6,7 +6,7 @@ namespace Domain.Entities.VisitorsAction;
 
 public sealed class VisitorActionsRecord
 {
-    public VisitorActionsRecord(Guid skipassId, Guid locationId, DateTimeOffset time, int balanceChange, OperationType transactionType)
+    public VisitorActionsRecord(Guid skipassId, Guid locationId, DateTimeOffset time, double balanceChange, OperationType transactionType)
     {
         SkipassId = skipassId;
         LocationId = locationId;
@@ -28,7 +28,7 @@ public sealed class VisitorActionsRecord
 
     public DateTimeOffset Time { get; set; }
 
-    public int BalanceChange { get; set; }
+    public double BalanceChange { get; set; }
 
     public OperationType TransactionType { get; set; }
 }

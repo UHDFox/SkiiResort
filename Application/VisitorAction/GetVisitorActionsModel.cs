@@ -6,7 +6,7 @@ namespace Application.VisitorAction;
 
 public sealed class GetVisitorActionsModel
 {
-    public GetVisitorActionsModel(Guid id, Guid skipassId,Guid locationId, DateTimeOffset time, int balanceChange, OperationType transactionType)
+    public GetVisitorActionsModel(Guid id, Guid skipassId,Guid locationId, DateTimeOffset time, double balanceChange, OperationType transactionType)
     {
         Id = id;
         SkipassId = skipassId;
