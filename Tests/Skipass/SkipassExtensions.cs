@@ -37,6 +37,20 @@ public static class SkipassExtensions
         return true;
     }
     
+    public static bool VerifyBy(this SkipassRecord record, SkipassRecord model)
+    {
+        using (var scope = new AssertionScope())
+        {
+            record.Balance.Should().Be(model.Balance);
+            record.TariffId.Should().Be(model.TariffId);
+            record.VisitorId.Should().Be(model.VisitorId);
+            record.Status.Should().Be(model.Status);
+            
+            if (scope.HasFailures()) return false;
+        }
+
+        return true;
+    }
     
     public static AddSkipassModel ToAddModel(this SkipassRecord record) => 
         new AddSkipassModel(record.Balance, record.TariffId, record.VisitorId, record.Status);
