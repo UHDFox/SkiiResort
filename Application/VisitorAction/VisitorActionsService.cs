@@ -5,7 +5,9 @@ using Repository.Skipass;
 using Repository.VisitorActions;
 using Domain;
 using Domain.Enums;
-using Microsoft.EntityFrameworkCore;
+using Repository.Location;
+using Repository.Tariff;
+using Repository.Tariffication;
 
 
 namespace Application.VisitorAction;
@@ -15,15 +17,20 @@ internal sealed class VisitorActionsService : IVisitorActions
     private readonly IMapper mapper;
     private readonly ISkipassRepository skipassRepository;
     private readonly IVisitorActionsRepository visitorActionsRepository;
-    private readonly SkiiResortContext dbContext;
+    private readonly ITariffRepository tariffRepository;
+    private readonly ILocationRepository locationRepository;
+    private readonly ITarifficationRepository tarifficationRepository;
     
     public VisitorActionsService(IMapper mapper, IVisitorActionsRepository visitorActionsRepository,
-        ISkipassRepository skipassRepository, SkiiResortContext dbContext)
+        ISkipassRepository skipassRepository, ITariffRepository tariffRepository,
+        ILocationRepository locationRepository, ITarifficationRepository tarifficationRepository)
     {
         this.mapper = mapper;
         this.visitorActionsRepository = visitorActionsRepository;
         this.skipassRepository = skipassRepository;
-        this.dbContext = dbContext;
+        this.tariffRepository = tariffRepository;
+        this.locationRepository = locationRepository;
+        this.tarifficationRepository = tarifficationRepository;
     }
 
     public async Task<IReadOnlyCollection<GetVisitorActionsModel>> GetAllAsync(int offset, int limit)
@@ -48,18 +55,18 @@ internal sealed class VisitorActionsService : IVisitorActions
             ?? throw new NotFoundException("Skipass not found");
 
             if (!skipassRecord.Status)
-                throw new SkipassStatusException("Your skipass is inactive. Please, contact administrators");
-
-            var tariff = await dbContext.Tariffs
-                             .Include(tr => tr.Tariffications)
-                             .ThenInclude(e => e.Location)
-                             .AsNoTracking()
-                             .FirstOrDefaultAsync(e => e.Id == skipassRecord.TariffId)
-                         ?? throw new NotFoundException("tariffication not found");
+                throw new SkipassStatusException("Your skipass is inactive. Please, contact administrators"); 
             
-            model.BalanceChange ??= tariff.Tariffications
-                .OrderByDescending(t => t.Price)
-                .First(location => location.LocationId == model.LocationId).Price;
+            var tariff = await tariffRepository.GetByIdAsync(skipassRecord.TariffId)
+                         ?? throw new NotFoundException("couldn't find tariff related to the current skipass");
+            
+            var location = await locationRepository.GetByIdAsync(model.LocationId)
+                           ?? throw new NotFoundException("current tariff doesn't set the price for that location");
+            
+            model.BalanceChange ??=
+               (await tarifficationRepository.GetByLocationAndTariffIdsAsync(skipassRecord.TariffId, location.Id) 
+                ?? throw new NotFoundException("couldn't find tariffication related to such tariff and location")).Price;
+            
             
             if (model.TransactionType == OperationType.Negative)
             {
@@ -73,12 +80,11 @@ internal sealed class VisitorActionsService : IVisitorActions
                     throw new SkipassStatusException("Not enough balance");
                 }
                 
-                skipassRecord.Balance -= (int)model.BalanceChange * tariff.PriceModifier;
+                skipassRecord.Balance -= (double)model.BalanceChange * tariff.PriceModifier;
             }
-            
             else
             {
-                skipassRecord.Balance += (int)model.BalanceChange;
+                skipassRecord.Balance += (double)model.BalanceChange;
             }
         
             skipassRepository.UpdateAsync(skipassRecord);
@@ -111,7 +117,6 @@ internal sealed class VisitorActionsService : IVisitorActions
         {
             var entity = await visitorActionsRepository.GetByIdAsync(model.Id)
                          ?? throw new NotFoundException("Visitors action not found");
-            if (await visitorActionsRepository.GetByIdAsync(model.Id) == null) throw new NotFoundException();
 
             var skipassRecord = await skipassRepository.GetByIdAsync(model.SkipassId)
                                 ?? throw new NotFoundException("skipass not found");
@@ -119,31 +124,34 @@ internal sealed class VisitorActionsService : IVisitorActions
             if (!skipassRecord.Status)
                 throw new SkipassStatusException("Your skipass is inactive. Please, contact administrators");
 
-            var tariff = await dbContext.Tariffs
-                             .Include(tr => tr.Tariffications)
-                             .ThenInclude(e => e.Location)
-                             .AsNoTracking()
-                             .FirstOrDefaultAsync(e => e.Id == skipassRecord.TariffId)
-                         ?? throw new NotFoundException("tariffication not found");
+            var tariff = await tariffRepository.GetByIdAsync(skipassRecord.TariffId)
+                         ?? throw new NotFoundException("couldn't find tariff related to the current skipass");
+            
+            var location = await locationRepository.GetByIdAsync(model.LocationId)
+                           ?? throw new NotFoundException("current tariff doesn't set the price for that location");
+            
+            model.BalanceChange ??=
+                (await tarifficationRepository.GetByLocationAndTariffIdsAsync(skipassRecord.TariffId, location.Id) 
+                 ?? throw new NotFoundException("couldn't find tariffication related to such tariff and location")).Price;
 
-            model.BalanceChange ??= tariff.Tariffications
-                .OrderByDescending(t => t.Price)
-                .First(location => location.LocationId == model.LocationId).Price;
 
-
-            switch (model.TransactionType)
+            if (model.BalanceChange != entity.BalanceChange || model.TransactionType != entity.TransactionType)
             {
-                case OperationType.Positive:
-                    skipassRecord.Balance -= (double)model.BalanceChange;
-                    break;
+                switch (model.TransactionType)
+                {
+                    case OperationType.Positive:
+                        skipassRecord.Balance += (double)model.BalanceChange;
+                        break;
 
-                case OperationType.Negative:
-                    skipassRecord.Balance += (double)model.BalanceChange;
-                    break;
+                    case OperationType.Negative:
+                        skipassRecord.Balance -= (double)model.BalanceChange;
+                        break;
 
-                default:
-                    throw new ArgumentOutOfRangeException(nameof(model.TransactionType));
+                    default:
+                        throw new ArgumentOutOfRangeException(nameof(model.TransactionType));
+                }
             }
+            
 
             skipassRepository.UpdateAsync(skipassRecord);
 
@@ -166,7 +174,7 @@ internal sealed class VisitorActionsService : IVisitorActions
                             ?? throw new NotFoundException("Skipass not found");
         bool result;
         await using (var dbContextTransaction =
-                     await dbContext.Database.BeginTransactionAsync())
+                     await visitorActionsRepository.BeginTransaction())
         {
             switch (visitorsAction.TransactionType)
             {
