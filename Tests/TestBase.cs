@@ -14,44 +14,44 @@ namespace Tests;
 
 public abstract class TestBase
 {
-    protected internal Mock<IVisitorRepository> VisitorsRepositoryMock;
-    
-    protected internal Mock<ITariffRepository> TariffsRepositoryMock;
+    protected Mock<IVisitorRepository> VisitorsRepositoryMock;
 
-    protected internal Mock<ILocationRepository> LocationRepositoryMock;
+    protected Mock<ITariffRepository> TariffRepositoryMock;
 
-    protected internal Mock<ISkipassRepository> SkipassRepositoryMock;
+    protected Mock<ILocationRepository> LocationRepositoryMock;
 
-    protected internal Mock<ITarifficationRepository> TarifficationRepositoryMock;
+    protected Mock<ISkipassRepository> SkipassRepositoryMock;
 
-    protected internal Mock<IVisitorActionsRepository> VisitorActionsRepositoryMock;
-    
-    protected internal  IMapper Mapper;
+    protected Mock<ITarifficationRepository> TarifficationRepositoryMock;
 
-    protected internal readonly IFixture FixtureGenerator;
+    protected Mock<IVisitorActionsRepository> VisitorActionsRepositoryMock;
+
+    protected IMapper Mapper;
+
+    protected readonly IFixture FixtureGenerator;
 
     protected TestBase()
     {
         FixtureGenerator = new Fixture().Customize(new AutoMoqCustomization());
         FixtureGenerator.Behaviors.Remove(new ThrowingRecursionBehavior());
         FixtureGenerator.Behaviors.Add(new OmitOnRecursionBehavior());
-        
+
         LocationRepositoryMock = FixtureGenerator.Freeze<Mock<ILocationRepository>>();
         VisitorsRepositoryMock = FixtureGenerator.Freeze<Mock<IVisitorRepository>>();
-        TariffsRepositoryMock = FixtureGenerator.Freeze<Mock<ITariffRepository>>();
+        TariffRepositoryMock = FixtureGenerator.Freeze<Mock<ITariffRepository>>();
         SkipassRepositoryMock = FixtureGenerator.Freeze<Mock<ISkipassRepository>>();
         TarifficationRepositoryMock = FixtureGenerator.Freeze<Mock<ITarifficationRepository>>();
         VisitorActionsRepositoryMock = FixtureGenerator.Freeze<Mock<IVisitorActionsRepository>>();
-        
+
         Mapper = new MapperConfiguration(c =>
         {
             c.AddProfile(new ApplicationProfile());
         }).CreateMapper();
-        
+
         FixtureGenerator.Register(() => Mapper);
         FixtureGenerator.Register(() => VisitorsRepositoryMock);
         FixtureGenerator.Register(() => LocationRepositoryMock);
-        FixtureGenerator.Register(() => TariffsRepositoryMock);
+        FixtureGenerator.Register(() => TariffRepositoryMock);
         FixtureGenerator.Register(() => SkipassRepositoryMock);
         FixtureGenerator.Register(() => TarifficationRepositoryMock);
         FixtureGenerator.Register(() => VisitorActionsRepositoryMock);
