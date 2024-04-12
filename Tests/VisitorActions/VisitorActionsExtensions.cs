@@ -21,19 +21,19 @@ public static class VisitorActionsExtensions
 
         return true;
     }
-    
-    public static AddVisitorActionsModel ToAddModel(this VisitorActionsRecord record) => 
+
+    public static AddVisitorActionsModel ToAddModel(this VisitorActionsRecord record) =>
         new AddVisitorActionsModel(record.SkipassId, record.LocationId);
-    
+
     public static VisitorActionsRecord ToEntity(this AddVisitorActionsModel model) =>
-        new VisitorActionsRecord(model.SkipassId, model.LocationId, (DateTimeOffset)model.Time!, 
+        new VisitorActionsRecord(model.SkipassId, model.LocationId, (DateTimeOffset)model.Time!,
             (double)model.BalanceChange!, (OperationType)model.TransactionType!);
 
     public static GetVisitorActionsModel ToGetModel(this VisitorActionsRecord record) =>
         new GetVisitorActionsModel(record.Id, record.SkipassId, record.LocationId, record.Time,
             record.BalanceChange, record.TransactionType);
-    
+
     public static VisitorActionsRecord ToEntity(this UpdateVisitorActionsModel model) =>
-        new VisitorActionsRecord(model.SkipassId, model.LocationId, (DateTimeOffset)model.Time!, 
+        new VisitorActionsRecord(model.SkipassId, model.LocationId, (DateTimeOffset)model.Time!,
             (double)model.BalanceChange!, (OperationType)model.TransactionType!);
 }
