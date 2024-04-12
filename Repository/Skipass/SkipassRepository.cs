@@ -19,6 +19,11 @@ internal sealed class SkipassRepository : ISkipassRepository
         return await context.Skipasses.Skip(offset).Take(limit).ToListAsync();
     }
 
+    public async Task<int> GetTotalAmountAsync()
+    {
+        return await context.Visitors.CountAsync();
+    }
+
     public async Task<SkipassRecord?> GetByIdAsync(Guid skipassId)
     {
         return await context.Skipasses

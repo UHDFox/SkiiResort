@@ -52,4 +52,9 @@ internal sealed class VisitorActionsRepository : IVisitorActionsRepository
     {
         return await context.Database.BeginTransactionAsync();
     }
+
+    public async Task<int> GetTotalAmountAsync()
+    {
+        return await context.VisitorActions.CountAsync();
+    }
 }

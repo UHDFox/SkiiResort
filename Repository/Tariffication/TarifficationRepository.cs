@@ -7,15 +7,20 @@ namespace Repository.Tariffication;
 internal sealed class TarifficationRepository : ITarifficationRepository
 {
     private readonly SkiiResortContext context;
-    
+
     public TarifficationRepository(SkiiResortContext context)
     {
         this.context = context;
     }
-    
+
     public async Task<IReadOnlyCollection<TarifficationRecord>> GetListAsync(int offset, int limit)
     {
         return await context.Tariffications.Skip(offset).Take(limit).ToListAsync();
+    }
+
+    public async Task<int> GetTotalAmountAsync()
+    {
+        return await context.Tariffications.CountAsync();
     }
 
     public async Task<TarifficationRecord?> GetByIdAsync(Guid id)

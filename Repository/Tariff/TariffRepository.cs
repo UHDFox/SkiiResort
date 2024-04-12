@@ -20,6 +20,11 @@ internal sealed class TariffRepository : ITariffRepository
         return await context.Tariffs.Skip(offset).Take(limit).ToListAsync();
     }
 
+    public async Task<int> GetTotalAmountAsync()
+    {
+        return await context.Visitors.CountAsync();
+    }
+
     public async Task<TariffRecord?> GetByIdAsync(Guid id)
     {
         return await context.Tariffs.AsNoTracking().FirstOrDefaultAsync(record => record.Id == id);

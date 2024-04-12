@@ -7,7 +7,7 @@ namespace Repository.Visitor;
 internal sealed class VisitorRepository : IVisitorRepository
 {
     private readonly SkiiResortContext context;
-    
+
     public VisitorRepository(SkiiResortContext context)
     {
         this.context = context;
@@ -16,6 +16,11 @@ internal sealed class VisitorRepository : IVisitorRepository
     public async Task<IReadOnlyCollection<VisitorRecord>> GetListAsync(int offset, int limit)
     {
         return await context.Visitors.Skip(offset).Take(limit).ToListAsync();
+    }
+
+    public async Task<int> GetTotalAmountAsync()
+    {
+        return await context.Visitors.CountAsync();
     }
 
     public async Task<VisitorRecord?> GetByIdAsync(Guid id)
