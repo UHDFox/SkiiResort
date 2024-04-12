@@ -1,8 +1,6 @@
 using Application.Exceptions;
-using Application.Visitor;
 using AutoMapper;
 using Domain.Entities.Skipass;
-using Microsoft.EntityFrameworkCore;
 using Repository.Skipass;
 
 namespace Application.Skipass;
@@ -20,6 +18,18 @@ internal sealed class SkipassService : ISkipassService
 
     public async Task<IReadOnlyCollection<GetSkipassModel>> GetListAsync(int offset, int limit)
     {
+        var totalAmount = await repository.GetTotalAmountAsync();
+
+        if (totalAmount < offset)
+        {
+            throw new PaginationQueryException("offset exceeds total amount of records");
+        }
+
+        if (totalAmount < offset + limit)
+        {
+            throw new PaginationQueryException("queried page exceeds total amount of records");
+        }
+
         return mapper.Map<IReadOnlyCollection<GetSkipassModel>>(await repository.GetListAsync(offset, limit));
     }
 
@@ -41,10 +51,10 @@ internal sealed class SkipassService : ISkipassService
                      ?? throw new NotFoundException();
 
         mapper.Map(skipassModel, entity);
-        
+
         repository.UpdateAsync(entity);
         await repository.SaveChangesAsync();
-        
+
         return skipassModel;
     }
 

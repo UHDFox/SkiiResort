@@ -24,6 +24,18 @@ internal sealed class TariffService : ITariffService
 
     public async Task<IReadOnlyCollection<GetTariffModel>> GetListAsync(int offset, int limit)
     {
+        var totalAmount = await repository.GetTotalAmountAsync();
+
+        if (totalAmount < offset)
+        {
+            throw new PaginationQueryException("offset exceeds total amount of records");
+        }
+
+        if (totalAmount < offset + limit)
+        {
+            throw new PaginationQueryException("queried page exceeds total amount of records");
+        }
+
         return mapper.Map<IReadOnlyCollection<GetTariffModel>>(await repository.GetListAsync(offset, limit));
     }
 
@@ -43,12 +55,12 @@ internal sealed class TariffService : ITariffService
     {
         var entity = await repository.GetByIdAsync(tariffModel.Id)
                      ?? throw new NotFoundException("tariff entity not found");
-        
+
         mapper.Map(tariffModel, entity);
-        
+
         repository.UpdateAsync(entity);
         await repository.SaveChangesAsync();
-        
+
         return tariffModel;
     }
 }

@@ -16,9 +16,21 @@ public sealed class TarifficationService : ITarifficationService
         this.repository = repository;
         this.mapper = mapper;
     }
-    
+
     public async Task<IReadOnlyCollection<GetTarifficationModel>> GetAllAsync(int offset, int limit)
     {
+        var totalAmount = await repository.GetTotalAmountAsync();
+
+        if (totalAmount < offset)
+        {
+            throw new PaginationQueryException("offset exceeds total amount of records");
+        }
+
+        if (totalAmount < offset + limit)
+        {
+            throw new PaginationQueryException("queried page exceeds total amount of records");
+        }
+
         return mapper.Map<IReadOnlyCollection<GetTarifficationModel>>(await repository.GetListAsync(offset, limit));
     }
 
@@ -35,11 +47,11 @@ public sealed class TarifficationService : ITarifficationService
 
     public async Task<UpdateTarifficationModel> UpdateAsync(UpdateTarifficationModel model)
     {
-        var entity = await repository.GetByIdAsync(model.Id) 
+        var entity = await repository.GetByIdAsync(model.Id)
             ?? throw new NotFoundException("tariffication record not found");
-        
+
         mapper.Map(model, entity);
-        
+
         repository.UpdateAsync(entity);
         await repository.SaveChangesAsync();
 
@@ -48,7 +60,7 @@ public sealed class TarifficationService : ITarifficationService
 
     public async Task<bool> DeleteAsync(Guid id)
     {
-        await repository.GetByIdAsync(id); //to check if such an entity exists
+        await GetByIdAsync(id); //to check if such an entity exists
         return await repository.DeleteAsync(id);
     }
 }

@@ -10,15 +10,27 @@ internal sealed class LocationService : ILocationService
 {
     private readonly ILocationRepository repository;
     private readonly IMapper mapper;
-    
+
     public LocationService(ILocationRepository repository, IMapper mapper)
     {
         this.repository = repository;
         this.mapper = mapper;
     }
-    
+
     public async Task<IReadOnlyCollection<GetLocationModel>> GetAllAsync(int offset, int limit)
     {
+        var totalAmount = await repository.GetTotalAmountAsync();
+
+        if (totalAmount < offset)
+        {
+            throw new PaginationQueryException("offset exceeds total amount of records");
+        }
+
+        if (totalAmount < offset + limit)
+        {
+            throw new PaginationQueryException("queried page exceeds total amount of records");
+        }
+
         return mapper.Map<IReadOnlyCollection<GetLocationModel>>(await repository.GetListAsync(offset, limit));
     }
 
@@ -40,17 +52,17 @@ internal sealed class LocationService : ILocationService
                      ?? throw new NotFoundException("location entity not found");
 
         mapper.Map(model, entity);
-        
+
         repository.UpdateAsync(entity);
-        
+
         await repository.SaveChangesAsync();
-        
+
         return model;
     }
 
     public async Task<bool> DeleteAsync(Guid id)
     {
-        await repository.GetByIdAsync(id); //to check if such an entity exists
+        await GetByIdAsync(id); //to check if such an entity exists
         return await repository.DeleteAsync(id);
     }
 }

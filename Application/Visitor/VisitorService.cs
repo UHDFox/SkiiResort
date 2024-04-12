@@ -27,16 +27,32 @@ internal sealed class VisitorService : IVisitorService
     {
         var record = mapper.Map<VisitorRecord>(model);
         if (!passportRegex.IsMatch(record.Passport))
+        {
             throw new ValidationException("Validation error - check passport series and number");
+        }
 
         if (!phoneNumberRegex.IsMatch(record.Phone))
+        {
             throw new ValidationException("Validation error - check if phone number's entered correctly");
+        }
 
         return await repository.AddAsync(record);
     }
 
     public async Task<IReadOnlyCollection<GetVisitorModel>> GetListAsync(int offset, int limit)
     {
+        var totalAmount = await repository.GetTotalAmountAsync();
+
+        if (totalAmount < offset)
+        {
+            throw new PaginationQueryException("offset exceeds total amount of records");
+        }
+
+        if (totalAmount < offset + limit)
+        {
+            throw new PaginationQueryException("queried page exceeds total amount of records");
+        }
+
         return mapper.Map<IReadOnlyCollection<GetVisitorModel>>(await repository.GetListAsync(offset, limit));
     }
 
@@ -52,16 +68,20 @@ internal sealed class VisitorService : IVisitorService
                      ?? throw new NotFoundException("visitor entity not found");
 
         if (!passportRegex.IsMatch(model.Passport))
+        {
             throw new ValidationException("Validation error - check passport series and number");
+        }
 
         if (!phoneNumberRegex.IsMatch(model.Phone))
+        {
             throw new ValidationException("Validation error - check passport series and number");
+        }
 
 
         mapper.Map(model, entity);
         repository.UpdateAsync(entity);
         await repository.SaveChangesAsync();
-        
+
         return model;
     }
 
