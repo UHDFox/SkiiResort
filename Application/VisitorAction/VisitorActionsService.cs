@@ -187,25 +187,25 @@ internal sealed class VisitorActionsService : IVisitorActions
 
     public async Task<bool> DeleteAsync(Guid id)
     {
-        var visitorsAction = mapper.Map<VisitorActionsRecord>(await GetByIdAsync(id));
-        var skipassRecord = await skipassRepository.GetByIdAsync(visitorsAction.SkipassId)
+        var visitorActionRecord = mapper.Map<VisitorActionsRecord>(await GetByIdAsync(id));
+        var skipassRecord = await skipassRepository.GetByIdAsync(visitorActionRecord.SkipassId)
                             ?? throw new NotFoundException("Skipass not found");
         bool result;
         await using (var dbContextTransaction =
                      await visitorActionsRepository.BeginTransaction())
         {
-            switch (visitorsAction.TransactionType)
+            switch (visitorActionRecord.TransactionType)
             {
                 case OperationType.Positive:
-                    skipassRecord.Balance -= visitorsAction.BalanceChange;
+                    skipassRecord.Balance -= visitorActionRecord.BalanceChange;
                     break;
 
                 case OperationType.Negative:
-                    skipassRecord.Balance += visitorsAction.BalanceChange;
+                    skipassRecord.Balance += visitorActionRecord.BalanceChange;
                     break;
 
                 default:
-                    throw new ArgumentOutOfRangeException(nameof(visitorsAction.TransactionType));
+                    throw new ArgumentOutOfRangeException(nameof(visitorActionRecord.TransactionType));
             }
 
             skipassRepository.UpdateAsync(skipassRecord);

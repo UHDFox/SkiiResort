@@ -79,7 +79,7 @@ public sealed class SkipassServicesTest : TestBase
     }
 
     [Fact(DisplayName = "Метод GetByIdAsync должен возвращать запись по её Id, если она существует в БД")]
-    public async void GetByIdAsync_ValidInput_ShouldReturnGetModel()
+    public async Task GetByIdAsync_ValidInput_ShouldReturnGetModel()
     {
         //Arrange
         var sampleSkipass = FixtureGenerator.Create<SkipassRecord>();
