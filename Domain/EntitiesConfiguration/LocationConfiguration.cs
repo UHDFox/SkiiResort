@@ -2,6 +2,7 @@ using Domain.Entities.Location;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
+
 namespace Domain.EntitiesConfiguration;
 
 public sealed class LocationConfiguration : IEntityTypeConfiguration<LocationRecord>
