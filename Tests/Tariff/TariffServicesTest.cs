@@ -33,7 +33,7 @@ public sealed class TariffServicesTest : TestBase
         TariffRepositoryMock.Setup(m => m.GetTotalAmountAsync())
             .ReturnsAsync(new Random().Next(limit + offset, int.MaxValue));
 
-        TariffRepositoryMock.Setup(m => m.GetListAsync(offset, limit))
+        TariffRepositoryMock.Setup(m => m.GetAllAsync(offset, limit))
             .ReturnsAsync(sampleList);
 
         //Act

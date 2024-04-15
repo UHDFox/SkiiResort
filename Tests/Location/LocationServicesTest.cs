@@ -34,7 +34,7 @@ public sealed class LocationServicesTest : TestBase
         LocationRepositoryMock.Setup(m => m.GetTotalAmountAsync())
             .ReturnsAsync(new Random().Next(limit + offset, int.MaxValue));
 
-        LocationRepositoryMock.Setup(m => m.GetListAsync(offset, limit))
+        LocationRepositoryMock.Setup(m => m.GetAllAsync(offset, limit))
             .ReturnsAsync(sampleList);
 
         //Act

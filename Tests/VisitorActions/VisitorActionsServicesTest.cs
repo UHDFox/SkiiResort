@@ -39,7 +39,7 @@ public sealed class VisitorActionsServicesTest : TestBase
         VisitorActionsRepositoryMock.Setup(m => m.GetTotalAmountAsync())
             .ReturnsAsync(new Random().Next(limit + offset, int.MaxValue));
 
-        VisitorActionsRepositoryMock.Setup(m => m.GetListAsync(offset, limit))
+        VisitorActionsRepositoryMock.Setup(m => m.GetAllAsync(offset, limit))
             .ReturnsAsync(sampleList);
 
         //Act

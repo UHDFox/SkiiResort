@@ -52,7 +52,7 @@ internal sealed class VisitorService : IVisitorService
             throw new PaginationQueryException("queried page exceeds total amount of records");
         }
 
-        return mapper.Map<IReadOnlyCollection<GetVisitorModel>>(await repository.GetListAsync(offset, limit));
+        return mapper.Map<IReadOnlyCollection<GetVisitorModel>>(await repository.GetAllAsync(offset, limit));
     }
 
     public async Task<GetVisitorModel> GetByIdAsync(Guid id)

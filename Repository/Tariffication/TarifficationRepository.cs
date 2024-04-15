@@ -13,7 +13,7 @@ internal sealed class TarifficationRepository : ITarifficationRepository
         this.context = context;
     }
 
-    public async Task<IReadOnlyCollection<TarifficationRecord>> GetListAsync(int offset, int limit)
+    public async Task<IReadOnlyCollection<TarifficationRecord>> GetAllAsync(int offset, int limit)
     {
         return await context.Tariffications.Skip(offset).Take(limit).ToListAsync();
     }

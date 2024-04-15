@@ -31,7 +31,7 @@ internal sealed class LocationService : ILocationService
             throw new PaginationQueryException("queried page exceeds total amount of records");
         }
 
-        return mapper.Map<IReadOnlyCollection<GetLocationModel>>(await repository.GetListAsync(offset, limit));
+        return mapper.Map<IReadOnlyCollection<GetLocationModel>>(await repository.GetAllAsync(offset, limit));
     }
 
     public async Task<GetLocationModel> GetByIdAsync(Guid id)

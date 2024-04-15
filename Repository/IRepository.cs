@@ -2,7 +2,7 @@ namespace SkiiResort.Repository;
 
 public interface IRepository<TEntity>
 {
-    Task<IReadOnlyCollection<TEntity>> GetListAsync(int offset, int limit);
+    Task<IReadOnlyCollection<TEntity>> GetAllAsync(int offset, int limit);
 
     Task<int> GetTotalAmountAsync();
 

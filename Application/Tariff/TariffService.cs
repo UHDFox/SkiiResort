@@ -36,7 +36,7 @@ internal sealed class TariffService : ITariffService
             throw new PaginationQueryException("queried page exceeds total amount of records");
         }
 
-        return mapper.Map<IReadOnlyCollection<GetTariffModel>>(await repository.GetListAsync(offset, limit));
+        return mapper.Map<IReadOnlyCollection<GetTariffModel>>(await repository.GetAllAsync(offset, limit));
     }
 
     public async Task<Guid> AddAsync(AddTariffModel tariffModel)

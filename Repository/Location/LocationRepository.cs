@@ -12,7 +12,7 @@ internal sealed class LocationRepository : ILocationRepository
     {
         this.context = context;
     }
-    public async Task<IReadOnlyCollection<LocationRecord>> GetListAsync(int offset, int limit)
+    public async Task<IReadOnlyCollection<LocationRecord>> GetAllAsync(int offset, int limit)
     {
         return await context.Locations.Skip(offset).Take(limit).ToListAsync();
     }

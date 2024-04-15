@@ -13,7 +13,7 @@ internal sealed class VisitorRepository : IVisitorRepository
         this.context = context;
     }
 
-    public async Task<IReadOnlyCollection<VisitorRecord>> GetListAsync(int offset, int limit)
+    public async Task<IReadOnlyCollection<VisitorRecord>> GetAllAsync(int offset, int limit)
     {
         return await context.Visitors.Skip(offset).Take(limit).ToListAsync();
     }

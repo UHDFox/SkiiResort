@@ -30,7 +30,7 @@ internal sealed class SkipassService : ISkipassService
             throw new PaginationQueryException("queried page exceeds total amount of records");
         }
 
-        return mapper.Map<IReadOnlyCollection<GetSkipassModel>>(await repository.GetListAsync(offset, limit));
+        return mapper.Map<IReadOnlyCollection<GetSkipassModel>>(await repository.GetAllAsync(offset, limit));
     }
 
     public async Task<GetSkipassModel> GetByIdAsync(Guid skipassId)

@@ -49,7 +49,7 @@ internal sealed class VisitorActionsService : IVisitorActions
         }
 
         return mapper.Map<IReadOnlyCollection<GetVisitorActionsModel>>(
-            await visitorActionsRepository.GetListAsync(offset, limit));
+            await visitorActionsRepository.GetAllAsync(offset, limit));
     }
 
     public async Task<GetVisitorActionsModel> GetByIdAsync(Guid id)

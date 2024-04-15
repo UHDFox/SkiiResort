@@ -33,7 +33,7 @@ public sealed class SkipassServicesTest : TestBase
         SkipassRepositoryMock.Setup(m => m.GetTotalAmountAsync())
             .ReturnsAsync(new Random().Next(limit + offset, int.MaxValue));
 
-        SkipassRepositoryMock.Setup(m => m.GetListAsync(offset, limit))
+        SkipassRepositoryMock.Setup(m => m.GetAllAsync(offset, limit))
             .ReturnsAsync(sampleList);
 
         //Act
