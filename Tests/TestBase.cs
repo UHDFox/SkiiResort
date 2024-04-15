@@ -1,16 +1,16 @@
-using Application.Infrastructure.Automapper;
 using AutoFixture;
 using AutoFixture.AutoMoq;
 using AutoMapper;
 using Moq;
-using Repository.Location;
-using Repository.Skipass;
-using Repository.Tariff;
-using Repository.Tariffication;
-using Repository.Visitor;
-using Repository.VisitorActions;
+using SkiiResort.Application.Infrastructure.Automapper;
+using SkiiResort.Repository.Location;
+using SkiiResort.Repository.Skipass;
+using SkiiResort.Repository.Tariff;
+using SkiiResort.Repository.Tariffication;
+using SkiiResort.Repository.Visitor;
+using SkiiResort.Repository.VisitorActions;
 
-namespace Tests;
+namespace SkiiResort.Tests;
 
 public abstract class TestBase
 {

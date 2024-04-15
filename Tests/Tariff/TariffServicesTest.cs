@@ -1,12 +1,12 @@
-using Application.Exceptions;
-using Application.Tariff;
 using AutoFixture;
 using AutoFixture.Xunit2;
-using Domain.Entities.Tariff;
 using FluentAssertions;
 using Moq;
+using SkiiResort.Application.Exceptions;
+using SkiiResort.Application.Tariff;
+using SkiiResort.Domain.Entities.Tariff;
 
-namespace Tests.Tariff;
+namespace SkiiResort.Tests.Tariff;
 
 public sealed class TariffServicesTest : TestBase
 {

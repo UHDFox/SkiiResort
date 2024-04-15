@@ -1,14 +1,14 @@
-using Application.Exceptions;
 using AutoMapper;
-using Domain.Entities.VisitorsAction;
-using Domain.Enums;
-using Repository.Location;
-using Repository.Skipass;
-using Repository.Tariff;
-using Repository.Tariffication;
-using Repository.VisitorActions;
+using SkiiResort.Application.Exceptions;
+using SkiiResort.Domain.Entities.VisitorsAction;
+using SkiiResort.Domain.Enums;
+using SkiiResort.Repository.Location;
+using SkiiResort.Repository.Skipass;
+using SkiiResort.Repository.Tariff;
+using SkiiResort.Repository.Tariffication;
+using SkiiResort.Repository.VisitorActions;
 
-namespace Application.VisitorAction;
+namespace SkiiResort.Application.VisitorAction;
 
 internal sealed class VisitorActionsService : IVisitorActions
 {

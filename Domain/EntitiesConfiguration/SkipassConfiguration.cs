@@ -1,8 +1,8 @@
-using Domain.Entities.Skipass;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
+using SkiiResort.Domain.Entities.Skipass;
 
-namespace Domain.EntitiesConfiguration;
+namespace SkiiResort.Domain.EntitiesConfiguration;
 
 public sealed class SkipassConfiguration : IEntityTypeConfiguration<SkipassRecord>
 {
@@ -11,7 +11,7 @@ public sealed class SkipassConfiguration : IEntityTypeConfiguration<SkipassRecor
         builder.HasKey(e => e.Id);
 
         builder.HasOne(v => v.Visitor).WithMany(s => s.Skipasses);
-        
+
         builder.HasMany(e => e.VisitorActions).WithOne(s => s.Skipass);
     }
 }

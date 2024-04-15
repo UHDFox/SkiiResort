@@ -1,12 +1,12 @@
-using Application.Exceptions;
-using Application.Skipass;
 using AutoFixture;
 using AutoFixture.Xunit2;
-using Domain.Entities.Skipass;
 using FluentAssertions;
 using Moq;
+using SkiiResort.Application.Exceptions;
+using SkiiResort.Application.Skipass;
+using SkiiResort.Domain.Entities.Skipass;
 
-namespace Tests.Skipass;
+namespace SkiiResort.Tests.Skipass;
 
 public sealed class SkipassServicesTest : TestBase
 {

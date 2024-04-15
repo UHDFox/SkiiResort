@@ -1,12 +1,11 @@
-using Application.Visitor;
 using AutoMapper;
 using Microsoft.AspNetCore.Mvc;
-using Web.Contracts;
-using Web.Contracts.CommonResponses;
-using Web.Contracts.Visitor;
-using Web.Contracts.Visitor.Requests;
+using SkiiResort.Application.Visitor;
+using SkiiResort.Web.Contracts.CommonResponses;
+using SkiiResort.Web.Contracts.Visitor;
+using SkiiResort.Web.Contracts.Visitor.Requests;
 
-namespace Web.Controllers;
+namespace SkiiResort.Web.Controllers;
 
 [ApiController]
 [Route("api/[controller]/[action]")]

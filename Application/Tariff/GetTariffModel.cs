@@ -1,7 +1,7 @@
-using Domain.Entities.Skipass;
-using Domain.Entities.Tariffication;
+using SkiiResort.Domain.Entities.Skipass;
+using SkiiResort.Domain.Entities.Tariffication;
 
-namespace Application.Tariff;
+namespace SkiiResort.Application.Tariff;
 
 public sealed class GetTariffModel
 {
@@ -16,12 +16,12 @@ public sealed class GetTariffModel
     public Guid Id { get; set; }
 
     public string? Name { get; set; }
-    
+
     public double PriceModifier { get; set; }
-    
+
     public bool IsVip { get; set; }
 
     public IReadOnlyList<SkipassRecord> Skipasses { get; set; } = new List<SkipassRecord>();
-    
+
     public IReadOnlyList<TarifficationRecord> Tariffications { get; set; } = new List<TarifficationRecord>();
 }

@@ -1,10 +1,10 @@
-using Application.Exceptions;
-using Application.Tariffication.Models;
 using AutoMapper;
-using Domain.Entities.Tariffication;
-using Repository.Tariffication;
+using SkiiResort.Application.Exceptions;
+using SkiiResort.Application.Tariffication.Models;
+using SkiiResort.Domain.Entities.Tariffication;
+using SkiiResort.Repository.Tariffication;
 
-namespace Application.Tariffication;
+namespace SkiiResort.Application.Tariffication;
 
 public sealed class TarifficationService : ITarifficationService
 {

@@ -1,10 +1,9 @@
-using Domain;
-using Domain.Entities.VisitorsAction;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Storage;
+using SkiiResort.Domain;
+using SkiiResort.Domain.Entities.VisitorsAction;
 
-
-namespace Repository.VisitorActions;
+namespace SkiiResort.Repository.VisitorActions;
 
 internal sealed class VisitorActionsRepository : IVisitorActionsRepository
 {

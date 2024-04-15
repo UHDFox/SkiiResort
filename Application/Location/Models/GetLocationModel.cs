@@ -1,4 +1,4 @@
-namespace Application.Location.Models;
+namespace SkiiResort.Application.Location.Models;
 
 public sealed class GetLocationModel
 {
@@ -7,7 +7,7 @@ public sealed class GetLocationModel
         Id = id;
         Name = name;
     }
-    
+
     public Guid Id { get; set; }
 
     public string Name { get; set; }

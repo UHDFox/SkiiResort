@@ -1,8 +1,8 @@
-using Domain.Entities.Tariffication;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
+using SkiiResort.Domain.Entities.Tariffication;
 
-namespace Domain.EntitiesConfiguration;
+namespace SkiiResort.Domain.EntitiesConfiguration;
 
 public class TarifficationConfiguration : IEntityTypeConfiguration<TarifficationRecord>
 {

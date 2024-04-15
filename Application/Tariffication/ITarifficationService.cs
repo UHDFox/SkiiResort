@@ -1,7 +1,6 @@
-using Application.Tariffication.Models;
-using Application.Visitor;
+using SkiiResort.Application.Tariffication.Models;
 
-namespace Application.Tariffication;
+namespace SkiiResort.Application.Tariffication;
 
 public interface ITarifficationService
 {

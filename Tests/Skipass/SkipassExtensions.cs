@@ -1,9 +1,9 @@
-using Application.Skipass;
-using Domain.Entities.Skipass;
 using FluentAssertions;
 using FluentAssertions.Execution;
+using SkiiResort.Application.Skipass;
+using SkiiResort.Domain.Entities.Skipass;
 
-namespace Tests.Skipass;
+namespace SkiiResort.Tests.Skipass;
 
 public static class SkipassExtensions
 {

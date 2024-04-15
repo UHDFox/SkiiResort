@@ -1,4 +1,4 @@
-namespace Web.Contracts.Location.Requests;
+namespace SkiiResort.Web.Contracts.Location.Requests;
 
 public sealed class CreateLocationRequest
 {

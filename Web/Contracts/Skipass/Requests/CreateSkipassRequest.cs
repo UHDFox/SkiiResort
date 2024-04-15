@@ -1,4 +1,4 @@
-namespace Web.Contracts.Skipass.Requests;
+namespace SkiiResort.Web.Contracts.Skipass.Requests;
 
 public sealed class CreateSkipassRequest
 {

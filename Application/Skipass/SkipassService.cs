@@ -1,9 +1,9 @@
-using Application.Exceptions;
 using AutoMapper;
-using Domain.Entities.Skipass;
-using Repository.Skipass;
+using SkiiResort.Application.Exceptions;
+using SkiiResort.Domain.Entities.Skipass;
+using SkiiResort.Repository.Skipass;
 
-namespace Application.Skipass;
+namespace SkiiResort.Application.Skipass;
 
 internal sealed class SkipassService : ISkipassService
 {

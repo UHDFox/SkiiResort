@@ -1,9 +1,9 @@
-using Application.Location.Models;
-using Domain.Entities.Location;
 using FluentAssertions;
 using FluentAssertions.Execution;
+using SkiiResort.Application.Location.Models;
+using SkiiResort.Domain.Entities.Location;
 
-namespace Tests.Location;
+namespace SkiiResort.Tests.Location;
 
 public static class LocationExtensions
 {

@@ -1,10 +1,10 @@
-using Application.Exceptions;
-using Application.Location.Models;
 using AutoMapper;
-using Domain.Entities.Location;
-using Repository.Location;
+using SkiiResort.Application.Exceptions;
+using SkiiResort.Application.Location.Models;
+using SkiiResort.Domain.Entities.Location;
+using SkiiResort.Repository.Location;
 
-namespace Application.Location;
+namespace SkiiResort.Application.Location;
 
 internal sealed class LocationService : ILocationService
 {

@@ -1,4 +1,4 @@
-namespace Web.Contracts.Tariff.Requests;
+namespace SkiiResort.Web.Contracts.Tariff.Requests;
 
 public sealed class CreateTariffRequest
 {
@@ -10,8 +10,8 @@ public sealed class CreateTariffRequest
     }
 
     public string Name { get; set; }
-    
+
     public double PriceModifier { get; set; }
-    
+
     public bool IsVip { get; set; }
 }

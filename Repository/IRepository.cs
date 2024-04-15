@@ -1,4 +1,4 @@
-namespace Repository;
+namespace SkiiResort.Repository;
 
 public interface IRepository<TEntity>
 {

@@ -1,8 +1,8 @@
-using Domain;
-using Domain.Entities.Visitor;
 using Microsoft.EntityFrameworkCore;
+using SkiiResort.Domain;
+using SkiiResort.Domain.Entities.Visitor;
 
-namespace Repository.Visitor;
+namespace SkiiResort.Repository.Visitor;
 
 internal sealed class VisitorRepository : IVisitorRepository
 {

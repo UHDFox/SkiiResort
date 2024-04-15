@@ -1,4 +1,4 @@
-namespace Web.Contracts.Location;
+namespace SkiiResort.Web.Contracts.Location;
 
 public sealed class LocationResponse
 {
@@ -7,7 +7,7 @@ public sealed class LocationResponse
         Id = id;
         Name = name;
     }
-    
+
     public Guid Id { get; set; }
 
     public string Name { get; set; }

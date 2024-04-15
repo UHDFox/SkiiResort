@@ -1,6 +1,6 @@
-using Domain.Entities.Location;
+using SkiiResort.Domain.Entities.Location;
 
-namespace Repository.Location;
+namespace SkiiResort.Repository.Location;
 
 public interface ILocationRepository : IRepository<LocationRecord>
 {

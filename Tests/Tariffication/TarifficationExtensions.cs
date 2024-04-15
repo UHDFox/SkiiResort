@@ -1,9 +1,9 @@
-using Application.Tariffication.Models;
-using Domain.Entities.Tariffication;
 using FluentAssertions;
 using FluentAssertions.Execution;
+using SkiiResort.Application.Tariffication.Models;
+using SkiiResort.Domain.Entities.Tariffication;
 
-namespace Tests.Tariffication;
+namespace SkiiResort.Tests.Tariffication;
 
 public static class TarifficationExtensions
 {

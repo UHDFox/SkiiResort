@@ -1,7 +1,7 @@
-using Domain.Entities.VisitorsAction;
 using Microsoft.EntityFrameworkCore.Storage;
+using SkiiResort.Domain.Entities.VisitorsAction;
 
-namespace Repository.VisitorActions;
+namespace SkiiResort.Repository.VisitorActions;
 
 public interface IVisitorActionsRepository : IRepository<VisitorActionsRecord>
 {

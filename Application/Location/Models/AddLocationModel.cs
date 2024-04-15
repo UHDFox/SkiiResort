@@ -1,4 +1,4 @@
-namespace Application.Location.Models;
+namespace SkiiResort.Application.Location.Models;
 
 public sealed class AddLocationModel
 {

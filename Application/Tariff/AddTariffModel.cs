@@ -1,4 +1,4 @@
-namespace Application.Tariff;
+namespace SkiiResort.Application.Tariff;
 
 public sealed class AddTariffModel
 {
@@ -10,8 +10,8 @@ public sealed class AddTariffModel
     }
 
     public string Name { get; set; }
-    
+
     public double PriceModifier { get; set; }
-    
+
     public bool IsVip { get; set; }
 }

@@ -1,4 +1,4 @@
-namespace Application.Tariffication.Models;
+namespace SkiiResort.Application.Tariffication.Models;
 
 public class UpdateTarifficationModel
 {
@@ -15,6 +15,6 @@ public class UpdateTarifficationModel
     public double Price { get; set; }
 
     public Guid TariffId { get; set; }
-    
+
     public Guid LocationId { get; set; }
 }

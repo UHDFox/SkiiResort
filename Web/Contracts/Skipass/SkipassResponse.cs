@@ -1,4 +1,4 @@
-namespace Web.Contracts.Skipass;
+namespace SkiiResort.Web.Contracts.Skipass;
 
 public sealed class SkipassResponse
 {

@@ -1,4 +1,4 @@
-namespace Web.Contracts.Visitor.Requests;
+namespace SkiiResort.Web.Contracts.Visitor.Requests;
 
 public sealed class CreateVisitorRequest
 {

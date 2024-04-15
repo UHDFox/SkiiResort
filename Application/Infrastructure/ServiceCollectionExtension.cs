@@ -1,13 +1,13 @@
 using System.Reflection;
-using Application.Location;
-using Application.Skipass;
-using Application.Tariff;
-using Application.Tariffication;
-using Application.Visitor;
-using Application.VisitorAction;
 using Microsoft.Extensions.DependencyInjection;
+using SkiiResort.Application.Location;
+using SkiiResort.Application.Skipass;
+using SkiiResort.Application.Tariff;
+using SkiiResort.Application.Tariffication;
+using SkiiResort.Application.Visitor;
+using SkiiResort.Application.VisitorAction;
 
-namespace Application.Infrastructure;
+namespace SkiiResort.Application.Infrastructure;
 
 public static class ServiceCollectionExtension
 {
@@ -24,10 +24,10 @@ public static class ServiceCollectionExtension
         services.AddTransient<ILocationService, LocationService>();
 
         services.AddTransient<ITarifficationService, TarifficationService>();
-        
+
         services.AddAutoMapper(ApplicationAssemblyReference.Assembly);
 
-        
+
         return services;
     }
 

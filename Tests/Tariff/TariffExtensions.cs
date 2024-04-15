@@ -1,9 +1,9 @@
-using Application.Tariff;
-using Domain.Entities.Tariff;
 using FluentAssertions;
 using FluentAssertions.Execution;
+using SkiiResort.Application.Tariff;
+using SkiiResort.Domain.Entities.Tariff;
 
-namespace Tests.Tariff;
+namespace SkiiResort.Tests.Tariff;
 
 public static class TariffExtensions
 {

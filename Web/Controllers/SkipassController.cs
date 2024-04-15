@@ -1,12 +1,11 @@
-using Application.Skipass;
 using AutoMapper;
 using Microsoft.AspNetCore.Mvc;
-using Web.Contracts;
-using Web.Contracts.CommonResponses;
-using Web.Contracts.Skipass;
-using Web.Contracts.Skipass.Requests;
+using SkiiResort.Application.Skipass;
+using SkiiResort.Web.Contracts.CommonResponses;
+using SkiiResort.Web.Contracts.Skipass;
+using SkiiResort.Web.Contracts.Skipass.Requests;
 
-namespace Web.Controllers;
+namespace SkiiResort.Web.Controllers;
 
 [Route("api/[controller]/[action]")]
 [ApiController]

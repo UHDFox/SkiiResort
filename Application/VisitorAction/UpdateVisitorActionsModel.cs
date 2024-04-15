@@ -1,6 +1,6 @@
-using Domain.Enums;
+using SkiiResort.Domain.Enums;
 
-namespace Application.VisitorAction;
+namespace SkiiResort.Application.VisitorAction;
 
 public sealed class UpdateVisitorActionsModel
 {
@@ -14,12 +14,12 @@ public sealed class UpdateVisitorActionsModel
     public Guid Id { get; set; }
 
     public Guid SkipassId { get; set; }
-    
+
     public Guid LocationId { get; set; }
 
     public DateTimeOffset? Time { get; set; } = DateTimeOffset.UtcNow;
-    
+
     public double? BalanceChange { get; set; }
-    
+
     public OperationType? TransactionType { get; set; }
-} 
+}

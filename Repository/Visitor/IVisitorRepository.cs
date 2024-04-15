@@ -1,6 +1,6 @@
-using Domain.Entities.Visitor;
+using SkiiResort.Domain.Entities.Visitor;
 
-namespace Repository.Visitor;
+namespace SkiiResort.Repository.Visitor;
 
 public interface IVisitorRepository : IRepository<VisitorRecord>
 {

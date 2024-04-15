@@ -1,4 +1,4 @@
-namespace Web.Contracts.Location.Requests;
+namespace SkiiResort.Web.Contracts.Location.Requests;
 
 public sealed class UpdateLocationRequest
 {
@@ -9,6 +9,6 @@ public sealed class UpdateLocationRequest
     }
 
     public Guid Id { get; set; }
-    
+
     public string Name { get; set; }
 }

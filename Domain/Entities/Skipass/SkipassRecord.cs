@@ -1,8 +1,8 @@
-using Domain.Entities.Tariff;
-using Domain.Entities.Visitor;
-using Domain.Entities.VisitorsAction;
+using SkiiResort.Domain.Entities.Tariff;
+using SkiiResort.Domain.Entities.Visitor;
+using SkiiResort.Domain.Entities.VisitorsAction;
 
-namespace Domain.Entities.Skipass;
+namespace SkiiResort.Domain.Entities.Skipass;
 
 public sealed class SkipassRecord
 {

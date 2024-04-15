@@ -1,9 +1,9 @@
-using Application.Visitor;
-using Domain.Entities.Visitor;
 using FluentAssertions;
 using FluentAssertions.Execution;
+using SkiiResort.Application.Visitor;
+using SkiiResort.Domain.Entities.Visitor;
 
-namespace Tests.Visitor;
+namespace SkiiResort.Tests.Visitor;
 
 public static class VisitorExtensions
 {

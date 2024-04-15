@@ -1,6 +1,6 @@
-using Domain.Enums;
+using SkiiResort.Domain.Enums;
 
-namespace Web.Contracts.VisitorActions;
+namespace SkiiResort.Web.Contracts.VisitorActions;
 
 public sealed class VisitorActionsResponse
 {
@@ -17,12 +17,12 @@ public sealed class VisitorActionsResponse
     public Guid Id { get; set; }
 
     public Guid SkipassId { get; set; }
-    
+
     public Guid LocationId { get; set; }
 
     public DateTimeOffset Time { get; set; }
 
     public double BalanceChange { get; set; }
-    
+
     public OperationType TransactionType { get; set; }
 }

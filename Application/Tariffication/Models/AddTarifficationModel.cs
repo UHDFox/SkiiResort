@@ -1,4 +1,4 @@
-namespace Application.Tariffication.Models;
+namespace SkiiResort.Application.Tariffication.Models;
 
 public sealed class AddTarifficationModel
 {
@@ -12,6 +12,6 @@ public sealed class AddTarifficationModel
     public double Price { get; set; }
 
     public Guid TariffId { get; set; }
-    
+
     public Guid LocationId { get; set; }
 }

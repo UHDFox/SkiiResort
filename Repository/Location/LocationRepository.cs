@@ -1,8 +1,8 @@
-using Domain;
-using Domain.Entities.Location;
 using Microsoft.EntityFrameworkCore;
+using SkiiResort.Domain;
+using SkiiResort.Domain.Entities.Location;
 
-namespace Repository.Location;
+namespace SkiiResort.Repository.Location;
 
 internal sealed class LocationRepository : ILocationRepository
 {

@@ -1,8 +1,8 @@
-using Domain.Entities.Location;
-using Domain.Entities.Skipass;
-using Domain.Enums;
+using SkiiResort.Domain.Entities.Location;
+using SkiiResort.Domain.Entities.Skipass;
+using SkiiResort.Domain.Enums;
 
-namespace Application.VisitorAction;
+namespace SkiiResort.Application.VisitorAction;
 
 public sealed class GetVisitorActionsModel
 {
@@ -21,7 +21,7 @@ public sealed class GetVisitorActionsModel
     public Guid SkipassId { get; set; }
 
     public SkipassRecord? Skipass { get; set; }
-    
+
     public Guid LocationId { get; set; }
 
     public LocationRecord? Location { get; set; }
@@ -29,6 +29,6 @@ public sealed class GetVisitorActionsModel
     public DateTimeOffset Time { get; set; }
 
     public double BalanceChange { get; set; }
-    
+
     public OperationType TransactionType { get; set; }
 }

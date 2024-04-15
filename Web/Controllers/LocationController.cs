@@ -1,15 +1,13 @@
-using Application.Location;
-using Application.Location.Models;
 using AutoMapper;
-using Domain.Entities.Location;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
-using Web.Contracts;
-using Web.Contracts.CommonResponses;
-using Web.Contracts.Location;
-using Web.Contracts.Location.Requests;
+using SkiiResort.Application.Location;
+using SkiiResort.Application.Location.Models;
+using SkiiResort.Domain.Entities.Location;
+using SkiiResort.Web.Contracts.CommonResponses;
+using SkiiResort.Web.Contracts.Location;
+using SkiiResort.Web.Contracts.Location.Requests;
 
-namespace Web.Controllers;
+namespace SkiiResort.Web.Controllers;
 
 [ApiController]
 [Route("api/[controller]/[action]")]
@@ -23,7 +21,7 @@ public sealed class LocationController : Controller
         this.locationService = locationService;
         this.mapper = mapper;
     }
-    
+
     [HttpGet]
     [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(GetAllResponse<LocationRecord>))]
     [ProducesResponseType(StatusCodes.Status404NotFound)]
@@ -31,7 +29,7 @@ public sealed class LocationController : Controller
     {
         var result = mapper.Map<IReadOnlyCollection<LocationResponse>>
             (await locationService.GetAllAsync(offset.GetValueOrDefault(0), limit.GetValueOrDefault(15)));
-        
+
         return Ok(new GetAllResponse<LocationResponse>(result, result.Count));
     }
 
@@ -42,7 +40,7 @@ public sealed class LocationController : Controller
     {
         return Ok(mapper.Map<LocationResponse>(await locationService.GetByIdAsync(id)));
     }
-    
+
     [HttpPost]
     [ProducesResponseType(StatusCodes.Status201Created, Type = typeof(CreatedResponse))]
     [ProducesResponseType(StatusCodes.Status400BadRequest)]

@@ -1,4 +1,4 @@
-namespace Application.Skipass;
+namespace SkiiResort.Application.Skipass;
 
 public sealed class AddSkipassModel
 {

@@ -1,7 +1,7 @@
-using Domain.Entities.Location;
-using Domain.Entities.Tariff;
+using SkiiResort.Domain.Entities.Location;
+using SkiiResort.Domain.Entities.Tariff;
 
-namespace Application.Tariffication.Models;
+namespace SkiiResort.Application.Tariffication.Models;
 
 public sealed class GetTarifficationModel
 {
@@ -20,8 +20,8 @@ public sealed class GetTarifficationModel
     public Guid TariffId { get; set; }
 
     public TariffRecord? Tariff { get; set; }
-    
+
     public Guid LocationId { get; set; }
-    
+
     public LocationRecord? Location { get; set; }
 }

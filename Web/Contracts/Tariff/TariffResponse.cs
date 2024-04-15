@@ -1,4 +1,4 @@
-namespace Web.Contracts.Tariff;
+namespace SkiiResort.Web.Contracts.Tariff;
 
 public sealed class TariffResponse
 {
@@ -11,10 +11,10 @@ public sealed class TariffResponse
     }
 
     public Guid Id { get; set; }
-    
+
     public string? Name { get; set; }
-    
+
     public double PriceModifier { get; set; }
-    
+
     public bool IsVip { get; set; }
 }

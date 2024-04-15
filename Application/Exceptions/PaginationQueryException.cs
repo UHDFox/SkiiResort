@@ -1,4 +1,4 @@
-﻿namespace Application.Exceptions;
+﻿namespace SkiiResort.Application.Exceptions;
 
 public sealed class PaginationQueryException : Exception
 {

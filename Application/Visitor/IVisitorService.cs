@@ -1,4 +1,4 @@
-namespace Application.Visitor;
+namespace SkiiResort.Application.Visitor;
 
 public interface IVisitorService
 {

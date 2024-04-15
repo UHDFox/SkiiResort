@@ -1,10 +1,10 @@
-using Application.VisitorAction;
-using Domain.Entities.VisitorsAction;
-using Domain.Enums;
 using FluentAssertions;
 using FluentAssertions.Execution;
+using SkiiResort.Application.VisitorAction;
+using SkiiResort.Domain.Entities.VisitorsAction;
+using SkiiResort.Domain.Enums;
 
-namespace Tests.VisitorActions;
+namespace SkiiResort.Tests.VisitorActions;
 
 public static class VisitorActionsExtensions
 {

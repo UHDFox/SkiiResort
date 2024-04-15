@@ -1,4 +1,4 @@
-namespace Web.Contracts.VisitorActions.Requests;
+namespace SkiiResort.Web.Contracts.VisitorActions.Requests;
 
 public sealed class TapSkipassRequest
 {
@@ -9,6 +9,6 @@ public sealed class TapSkipassRequest
     }
 
     public Guid SkipassId { get; set; }
-    
+
     public Guid LocationId { get; set; }
 }

@@ -1,6 +1,6 @@
-using Domain.Entities.Skipass;
+using SkiiResort.Domain.Entities.Skipass;
 
-namespace Application.Visitor;
+namespace SkiiResort.Application.Visitor;
 
 public sealed class GetVisitorModel
 {

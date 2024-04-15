@@ -1,13 +1,13 @@
 using System.ComponentModel.DataAnnotations;
-using Application.Exceptions;
-using Application.Visitor;
 using AutoFixture;
 using AutoFixture.Xunit2;
-using Domain.Entities.Visitor;
 using FluentAssertions;
 using Moq;
+using SkiiResort.Application.Exceptions;
+using SkiiResort.Application.Visitor;
+using SkiiResort.Domain.Entities.Visitor;
 
-namespace Tests.Visitor;
+namespace SkiiResort.Tests.Visitor;
 
 public sealed class VisitorServicesTest : TestBase
 {

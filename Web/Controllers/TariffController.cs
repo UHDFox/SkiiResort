@@ -1,13 +1,11 @@
-using Application.Tariff;
 using AutoMapper;
-using Domain.Entities.Tariff;
 using Microsoft.AspNetCore.Mvc;
-using Web.Contracts;
-using Web.Contracts.CommonResponses;
-using Web.Contracts.Tariff;
-using Web.Contracts.Tariff.Requests;
+using SkiiResort.Application.Tariff;
+using SkiiResort.Web.Contracts.CommonResponses;
+using SkiiResort.Web.Contracts.Tariff;
+using SkiiResort.Web.Contracts.Tariff.Requests;
 
-namespace Web.Controllers;
+namespace SkiiResort.Web.Controllers;
 
 [Route("api/v1/[controller]/[action]")]
 [ApiController]
@@ -59,7 +57,7 @@ public sealed class TariffController : Controller
         await context.UpdateAsync(mapper.Map<UpdateTariffModel>(tariffModel));
         return Ok(new UpdatedResponse(tariffModel.Id));
     }
-    
+
     [HttpDelete]
     [ProducesResponseType(StatusCodes.Status404NotFound)]
     [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(DeletedResponse))]

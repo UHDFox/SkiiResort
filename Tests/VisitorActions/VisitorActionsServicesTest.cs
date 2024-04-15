@@ -1,16 +1,16 @@
-using Application.Exceptions;
-using Application.VisitorAction;
 using AutoFixture;
-using Domain.Entities.Location;
-using Domain.Entities.Skipass;
-using Domain.Entities.Tariff;
-using Domain.Entities.Tariffication;
-using Domain.Entities.VisitorsAction;
-using Domain.Enums;
 using FluentAssertions;
 using Moq;
+using SkiiResort.Application.Exceptions;
+using SkiiResort.Application.VisitorAction;
+using SkiiResort.Domain.Entities.Location;
+using SkiiResort.Domain.Entities.Skipass;
+using SkiiResort.Domain.Entities.Tariff;
+using SkiiResort.Domain.Entities.Tariffication;
+using SkiiResort.Domain.Entities.VisitorsAction;
+using SkiiResort.Domain.Enums;
 
-namespace Tests.VisitorActions;
+namespace SkiiResort.Tests.VisitorActions;
 
 public sealed class VisitorActionsServicesTest : TestBase
 {

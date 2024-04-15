@@ -1,12 +1,11 @@
-using Application.VisitorAction;
 using AutoMapper;
 using Microsoft.AspNetCore.Mvc;
-using Web.Contracts;
-using Web.Contracts.CommonResponses;
-using Web.Contracts.VisitorActions;
-using Web.Contracts.VisitorActions.Requests;
+using SkiiResort.Application.VisitorAction;
+using SkiiResort.Web.Contracts.CommonResponses;
+using SkiiResort.Web.Contracts.VisitorActions;
+using SkiiResort.Web.Contracts.VisitorActions.Requests;
 
-namespace Web.Controllers;
+namespace SkiiResort.Web.Controllers;
 
 [Route("api/[controller]/[action]")]
 [ApiController]
@@ -59,7 +58,7 @@ public sealed class VisitorActionsController : Controller
         return Created($"{Request.Path}",
             mapper.Map<VisitorActionsResponse>(await visitorActionsService.GetByIdAsync(id)));
     }
-    
+
 
     [HttpPost]
     [ProducesResponseType(StatusCodes.Status201Created, Type = typeof(CreatedResponse))]
@@ -70,7 +69,7 @@ public sealed class VisitorActionsController : Controller
         return Created($"{Request.Path}",
             mapper.Map<VisitorActionsResponse>(await visitorActionsService.GetByIdAsync(id)));
     }
-    
+
     [HttpPut]
     [ProducesResponseType(StatusCodes.Status404NotFound)]
     [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(UpdatedResponse))]

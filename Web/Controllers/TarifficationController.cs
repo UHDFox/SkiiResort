@@ -1,14 +1,12 @@
-using Application.Tariffication;
-using Application.Tariffication.Models;
 using AutoMapper;
-using Microsoft.AspNetCore.Http.HttpResults;
 using Microsoft.AspNetCore.Mvc;
-using Web.Contracts;
-using Web.Contracts.CommonResponses;
-using Web.Contracts.Tariffication;
-using Web.Contracts.Tariffication.Requests;
+using SkiiResort.Application.Tariffication;
+using SkiiResort.Application.Tariffication.Models;
+using SkiiResort.Web.Contracts.CommonResponses;
+using SkiiResort.Web.Contracts.Tariffication;
+using SkiiResort.Web.Contracts.Tariffication.Requests;
 
-namespace Web.Controllers;
+namespace SkiiResort.Web.Controllers;
 
 [ApiController]
 [Route("api/[controller]/[action]")]
@@ -31,7 +29,7 @@ public sealed class TarifficationController : Controller
     {
         var result = mapper.Map<IReadOnlyCollection<TarifficationResponse>>
             (await tarifficationService.GetAllAsync(offset.GetValueOrDefault(0), limit.GetValueOrDefault(15)));
-        
+
         return Ok(new GetAllResponse<TarifficationResponse>(result, result.Count));
     }
 

@@ -1,13 +1,13 @@
-using Application.Exceptions;
-using Application.Location;
-using Application.Location.Models;
 using AutoFixture;
 using AutoFixture.Xunit2;
-using Domain.Entities.Location;
 using FluentAssertions;
 using Moq;
+using SkiiResort.Application.Exceptions;
+using SkiiResort.Application.Location;
+using SkiiResort.Application.Location.Models;
+using SkiiResort.Domain.Entities.Location;
 
-namespace Tests.Location;
+namespace SkiiResort.Tests.Location;
 
 public sealed class LocationServicesTest : TestBase
 {

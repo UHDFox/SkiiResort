@@ -1,8 +1,8 @@
-using Domain;
-using Domain.Entities.Skipass;
 using Microsoft.EntityFrameworkCore;
+using SkiiResort.Domain;
+using SkiiResort.Domain.Entities.Skipass;
 
-namespace Repository.Skipass;
+namespace SkiiResort.Repository.Skipass;
 
 internal sealed class SkipassRepository : ISkipassRepository
 {

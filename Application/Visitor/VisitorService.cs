@@ -1,12 +1,11 @@
 using System.ComponentModel.DataAnnotations;
 using System.Text.RegularExpressions;
-using Application.Exceptions;
-using Application.VisitorAction;
 using AutoMapper;
-using Domain.Entities.Visitor;
-using Repository.Visitor;
+using SkiiResort.Application.Exceptions;
+using SkiiResort.Domain.Entities.Visitor;
+using SkiiResort.Repository.Visitor;
 
-namespace Application.Visitor;
+namespace SkiiResort.Application.Visitor;
 
 
 internal sealed class VisitorService : IVisitorService

@@ -1,4 +1,4 @@
-namespace Application.Tariff;
+namespace SkiiResort.Application.Tariff;
 
 public interface ITariffService
 {

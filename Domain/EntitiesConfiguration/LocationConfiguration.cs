@@ -1,9 +1,8 @@
-using Domain.Entities.Location;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
+using SkiiResort.Domain.Entities.Location;
 
-
-namespace Domain.EntitiesConfiguration;
+namespace SkiiResort.Domain.EntitiesConfiguration;
 
 public sealed class LocationConfiguration : IEntityTypeConfiguration<LocationRecord>
 {

@@ -1,19 +1,18 @@
-using Application.Location;
-using Application.Location.Models;
-using Application.Skipass;
-using Application.Tariff;
-using Application.Tariffication.Models;
-using Application.Visitor;
-using Application.VisitorAction;
 using AutoMapper;
-using Domain.Entities.Location;
-using Domain.Entities.Skipass;
-using Domain.Entities.Tariff;
-using Domain.Entities.Tariffication;
-using Domain.Entities.Visitor;
-using Domain.Entities.VisitorsAction;
+using SkiiResort.Application.Location.Models;
+using SkiiResort.Application.Skipass;
+using SkiiResort.Application.Tariff;
+using SkiiResort.Application.Tariffication.Models;
+using SkiiResort.Application.Visitor;
+using SkiiResort.Application.VisitorAction;
+using SkiiResort.Domain.Entities.Location;
+using SkiiResort.Domain.Entities.Skipass;
+using SkiiResort.Domain.Entities.Tariff;
+using SkiiResort.Domain.Entities.Tariffication;
+using SkiiResort.Domain.Entities.Visitor;
+using SkiiResort.Domain.Entities.VisitorsAction;
 
-namespace Application.Infrastructure.Automapper;
+namespace SkiiResort.Application.Infrastructure.Automapper;
 
 public sealed class ApplicationProfile : Profile
 {
@@ -26,7 +25,7 @@ public sealed class ApplicationProfile : Profile
         CreateMap<TariffRecord, GetTariffModel>().ReverseMap();
         CreateMap<AddTariffModel, TariffRecord>().ReverseMap();
         CreateMap<UpdateTariffModel, TariffRecord>().ReverseMap();
-        
+
 
         CreateMap<VisitorRecord, GetVisitorModel>().ReverseMap();
         CreateMap<AddVisitorModel, VisitorRecord>().ReverseMap();

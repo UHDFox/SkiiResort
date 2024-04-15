@@ -1,4 +1,4 @@
-namespace Web.Contracts.Visitor;
+namespace SkiiResort.Web.Contracts.Visitor;
 
 public sealed class VisitorResponse
 {

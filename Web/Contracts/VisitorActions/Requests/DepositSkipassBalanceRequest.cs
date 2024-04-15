@@ -1,6 +1,4 @@
-using Domain.Enums;
-
-namespace Web.Contracts.VisitorActions.Requests;
+namespace SkiiResort.Web.Contracts.VisitorActions.Requests;
 
 public sealed class DepositSkipassBalanceRequest
 {
@@ -10,10 +8,10 @@ public sealed class DepositSkipassBalanceRequest
         LocationId = locationId;
         BalanceChange = balanceChange;
     }
-    
+
     public Guid SkipassId { get; set; }
-    
-    public Guid LocationId { get; set; } 
+
+    public Guid LocationId { get; set; }
 
     public double BalanceChange { get; set; }
 }

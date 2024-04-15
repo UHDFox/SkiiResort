@@ -2,7 +2,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 
-namespace Domain.Infrastructure;
+namespace SkiiResort.Domain.Infrastructure;
 
 public static class ServiceCollectionExtension
 {

@@ -1,4 +1,4 @@
-namespace Application.Visitor;
+namespace SkiiResort.Application.Visitor;
 
 public sealed class UpdateVisitorModel
 {
@@ -21,6 +21,6 @@ public sealed class UpdateVisitorModel
     public string Phone { get; set; }
 
     public DateTime Birthdate { get; set; }
-    
+
     public string Passport { get; set; }
 }

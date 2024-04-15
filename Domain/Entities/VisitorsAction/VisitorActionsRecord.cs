@@ -1,8 +1,8 @@
-using Domain.Entities.Location;
-using Domain.Entities.Skipass;
-using Domain.Enums;
+using SkiiResort.Domain.Entities.Location;
+using SkiiResort.Domain.Entities.Skipass;
+using SkiiResort.Domain.Enums;
 
-namespace Domain.Entities.VisitorsAction;
+namespace SkiiResort.Domain.Entities.VisitorsAction;
 
 public sealed class VisitorActionsRecord
 {

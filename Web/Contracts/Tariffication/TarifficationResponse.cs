@@ -1,4 +1,4 @@
-namespace Web.Contracts.Tariffication;
+namespace SkiiResort.Web.Contracts.Tariffication;
 
 public sealed class TarifficationResponse
 {
@@ -9,12 +9,12 @@ public sealed class TarifficationResponse
         TariffId = tariffId;
         LocationId = locationId;
     }
-    
+
     public Guid Id { get; set; }
-    
+
     public double Price { get; set; }
-    
+
     public Guid TariffId { get; set; }
-    
+
     public Guid LocationId { get; set; }
 }

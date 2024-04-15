@@ -1,4 +1,4 @@
-namespace Web.Contracts.CommonResponses;
+namespace SkiiResort.Web.Contracts.CommonResponses;
 
 public sealed class GetAllResponse<T>
 {

@@ -1,4 +1,4 @@
-namespace Web.Contracts.Tariffication.Requests;
+namespace SkiiResort.Web.Contracts.Tariffication.Requests;
 
 public class UpdateTarifficationRequest
 {
@@ -8,12 +8,12 @@ public class UpdateTarifficationRequest
         TariffId = tariffId;
         LocationId = locationId;
     }
-    
+
     public Guid Id { get; set; }
-    
+
     public double Price { get; set; }
-    
+
     public Guid TariffId { get; set; }
-    
+
     public Guid LocationId { get; set; }
 }

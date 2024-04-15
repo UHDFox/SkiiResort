@@ -1,7 +1,7 @@
 using System.Reflection;
-using Application.Infrastructure;
-using Domain.Infrastructure;
-using Repository.Infrastructure;
+using SkiiResort.Application.Infrastructure;
+using SkiiResort.Domain.Infrastructure;
+using SkiiResort.Repository.Infrastructure;
 
 var builder = WebApplication.CreateBuilder(args);
 

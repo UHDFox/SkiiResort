@@ -1,6 +1,6 @@
-using Domain.Entities.Skipass;
+using SkiiResort.Domain.Entities.Skipass;
 
-namespace Repository.Skipass;
+namespace SkiiResort.Repository.Skipass;
 
 public interface ISkipassRepository : IRepository<SkipassRecord>
 {

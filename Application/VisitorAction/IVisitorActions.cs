@@ -1,4 +1,4 @@
-namespace Application.VisitorAction;
+namespace SkiiResort.Application.VisitorAction;
 
 public interface IVisitorActions
 {

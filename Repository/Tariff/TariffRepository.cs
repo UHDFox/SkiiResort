@@ -1,9 +1,8 @@
-using Domain;
-using Domain.Entities.Tariff;
 using Microsoft.EntityFrameworkCore;
+using SkiiResort.Domain;
+using SkiiResort.Domain.Entities.Tariff;
 
-
-namespace Repository.Tariff;
+namespace SkiiResort.Repository.Tariff;
 
 internal sealed class TariffRepository : ITariffRepository
 {

@@ -1,4 +1,4 @@
-namespace Application.Location.Models;
+namespace SkiiResort.Application.Location.Models;
 
 public sealed class UpdateLocationModel
 {
@@ -7,7 +7,7 @@ public sealed class UpdateLocationModel
         Id = id;
         Name = name;
     }
-    
+
     public Guid Id { get; set; }
 
     public string Name { get; set; }

@@ -1,6 +1,6 @@
-using Domain.Entities.Tariffication;
+using SkiiResort.Domain.Entities.Tariffication;
 
-namespace Repository.Tariffication;
+namespace SkiiResort.Repository.Tariffication;
 
 public interface ITarifficationRepository : IRepository<TarifficationRecord>
 {

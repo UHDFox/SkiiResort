@@ -1,4 +1,4 @@
-namespace Domain.Enums;
+namespace SkiiResort.Domain.Enums;
 
 public enum OperationType : byte
 {

@@ -1,9 +1,9 @@
-using Application.Exceptions;
 using AutoMapper;
-using Domain.Entities.Tariff;
-using Repository.Tariff;
+using SkiiResort.Application.Exceptions;
+using SkiiResort.Domain.Entities.Tariff;
+using SkiiResort.Repository.Tariff;
 
-namespace Application.Tariff;
+namespace SkiiResort.Application.Tariff;
 
 internal sealed class TariffService : ITariffService
 {

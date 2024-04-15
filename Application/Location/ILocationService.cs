@@ -1,6 +1,6 @@
-using Application.Location.Models;
+using SkiiResort.Application.Location.Models;
 
-namespace Application.Location;
+namespace SkiiResort.Application.Location;
 
 public interface ILocationService
 {

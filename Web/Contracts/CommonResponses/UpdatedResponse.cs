@@ -1,4 +1,4 @@
-namespace Web.Contracts;
+namespace SkiiResort.Web.Contracts.CommonResponses;
 
 public class UpdatedResponse
 {

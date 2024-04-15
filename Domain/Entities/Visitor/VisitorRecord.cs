@@ -1,6 +1,6 @@
-using Domain.Entities.Skipass;
+using SkiiResort.Domain.Entities.Skipass;
 
-namespace Domain.Entities.Visitor;
+namespace SkiiResort.Domain.Entities.Visitor;
 
 public sealed class VisitorRecord
 {

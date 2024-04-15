@@ -1,7 +1,7 @@
-using Domain.Entities.Tariff;
-using Domain.Entities.Visitor;
+using SkiiResort.Domain.Entities.Tariff;
+using SkiiResort.Domain.Entities.Visitor;
 
-namespace Application.Skipass;
+namespace SkiiResort.Application.Skipass;
 
 public sealed class GetSkipassModel
 {
