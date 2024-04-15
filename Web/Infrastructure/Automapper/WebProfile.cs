@@ -1,24 +1,24 @@
-using Application.Location.Models;
-using Application.Skipass;
-using Application.Tariff;
-using Application.Tariffication.Models;
-using Application.Visitor;
-using Application.VisitorAction;
 using AutoMapper;
-using Web.Contracts.Location;
-using Web.Contracts.Location.Requests;
-using Web.Contracts.Skipass;
-using Web.Contracts.Skipass.Requests;
-using Web.Contracts.Tariff;
-using Web.Contracts.Tariff.Requests;
-using Web.Contracts.Tariffication;
-using Web.Contracts.Tariffication.Requests;
-using Web.Contracts.Visitor;
-using Web.Contracts.Visitor.Requests;
-using Web.Contracts.VisitorActions;
-using Web.Contracts.VisitorActions.Requests;
+using SkiiResort.Application.Location.Models;
+using SkiiResort.Application.Skipass;
+using SkiiResort.Application.Tariff;
+using SkiiResort.Application.Tariffication.Models;
+using SkiiResort.Application.Visitor;
+using SkiiResort.Application.VisitorAction;
+using SkiiResort.Web.Contracts.Location;
+using SkiiResort.Web.Contracts.Location.Requests;
+using SkiiResort.Web.Contracts.Skipass;
+using SkiiResort.Web.Contracts.Skipass.Requests;
+using SkiiResort.Web.Contracts.Tariff;
+using SkiiResort.Web.Contracts.Tariff.Requests;
+using SkiiResort.Web.Contracts.Tariffication;
+using SkiiResort.Web.Contracts.Tariffication.Requests;
+using SkiiResort.Web.Contracts.Visitor;
+using SkiiResort.Web.Contracts.Visitor.Requests;
+using SkiiResort.Web.Contracts.VisitorActions;
+using SkiiResort.Web.Contracts.VisitorActions.Requests;
 
-namespace Web.Infrastructure.Automapper;
+namespace SkiiResort.Web.Infrastructure.Automapper;
 
 public sealed class WebProfile : Profile
 {

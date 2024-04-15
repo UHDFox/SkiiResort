@@ -8,6 +8,10 @@
   </PropertyGroup>
 
   <PropertyGroup>
+    <RootNamespace>SkiiResort.$(MSBuildProjectName)</RootNamespace>
+  </PropertyGroup>
+
+  <PropertyGroup>
     <IsPackable>False</IsPackable>
     <EmbedAllSources>True</EmbedAllSources>
     <DebugType>embedded</DebugType>
