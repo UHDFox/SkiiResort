@@ -133,7 +133,7 @@ public sealed class LocationServicesTest : TestBase
         LocationRepositoryMock.Setup(m => m.GetByIdAsync(updateModel.Id))
             .ReturnsAsync(FixtureGenerator.Create<LocationRecord>());
 
-        LocationRepositoryMock.Setup(m => m.UpdateAsync(It.IsAny<LocationRecord>()));
+        LocationRepositoryMock.Setup(m => m.Update(It.IsAny<LocationRecord>()));
 
         //Act
         var result = await LocationService.UpdateAsync(updateModel);

@@ -132,7 +132,7 @@ public sealed class TariffServicesTest : TestBase
         TariffRepositoryMock.Setup(m => m.GetByIdAsync(updateModel.Id))
             .ReturnsAsync(FixtureGenerator.Create<TariffRecord>());
 
-        TariffRepositoryMock.Setup(m => m.UpdateAsync(It.IsAny<TariffRecord>()));
+        TariffRepositoryMock.Setup(m => m.Update(It.IsAny<TariffRecord>()));
 
         //Act
         var result = await TariffService.UpdateAsync(updateModel);

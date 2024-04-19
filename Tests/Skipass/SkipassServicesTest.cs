@@ -138,7 +138,7 @@ public sealed class SkipassServicesTest : TestBase
         SkipassRepositoryMock.Setup(m => m.GetByIdAsync(updateModel.Id))
             .ReturnsAsync(FixtureGenerator.Create<SkipassRecord>());
 
-        SkipassRepositoryMock.Setup(m => m.UpdateAsync(It.IsAny<SkipassRecord>()));
+        SkipassRepositoryMock.Setup(m => m.Update(It.IsAny<SkipassRecord>()));
 
         //Act
         var result = await SkipassService.UpdateAsync(updateModel);

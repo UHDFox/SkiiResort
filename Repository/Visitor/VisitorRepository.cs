@@ -35,7 +35,7 @@ internal sealed class VisitorRepository : IVisitorRepository
         return data.Id;
     }
 
-    public void UpdateAsync(VisitorRecord data)
+    public void Update(VisitorRecord data)
     {
         context.Visitors.Update(data);
     }

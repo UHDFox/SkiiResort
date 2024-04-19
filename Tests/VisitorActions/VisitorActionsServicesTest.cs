@@ -476,7 +476,7 @@ public sealed class VisitorActionsServicesTest : TestBase
         TarifficationRepositoryMock.Setup(m => m.GetByLocationAndTariffIdsAsync(tariffEntity.Id, locationEntity.Id))
             .ReturnsAsync(tarifficationEntity);
 
-        SkipassRepositoryMock.Setup(m => m.UpdateAsync(skipassEntity));
+        SkipassRepositoryMock.Setup(m => m.Update(skipassEntity));
 
         //Act
         var result = await VisitorActionsService.UpdateAsync(updateVisitorsActionModel);

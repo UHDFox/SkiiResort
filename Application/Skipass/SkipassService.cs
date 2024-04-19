@@ -52,7 +52,7 @@ internal sealed class SkipassService : ISkipassService
 
         mapper.Map(skipassModel, entity);
 
-        repository.UpdateAsync(entity);
+        repository.Update(entity);
         await repository.SaveChangesAsync();
 
         return skipassModel;

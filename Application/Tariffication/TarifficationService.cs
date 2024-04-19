@@ -52,7 +52,7 @@ public sealed class TarifficationService : ITarifficationService
 
         mapper.Map(model, entity);
 
-        repository.UpdateAsync(entity);
+        repository.Update(entity);
         await repository.SaveChangesAsync();
 
         return model;

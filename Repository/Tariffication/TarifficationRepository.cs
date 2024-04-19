@@ -39,7 +39,7 @@ internal sealed class TarifficationRepository : ITarifficationRepository
         return result.Entity.Id;
     }
 
-    public void UpdateAsync(TarifficationRecord data)
+    public void Update(TarifficationRecord data)
     {
         context.Tariffications.Update(data);
     }

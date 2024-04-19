@@ -36,7 +36,7 @@ internal sealed class TariffRepository : ITariffRepository
         return data.Id;
     }
 
-    public void UpdateAsync(TariffRecord data)
+    public void Update(TariffRecord data)
     {
         context.Tariffs.Update(data);
     }

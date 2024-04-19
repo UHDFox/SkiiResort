@@ -175,7 +175,7 @@ public sealed class VisitorServicesTest : TestBase
         VisitorsRepositoryMock.Setup(m => m.GetByIdAsync(updateModel.Id))
             .ReturnsAsync(FixtureGenerator.Create<VisitorRecord>());
 
-        VisitorsRepositoryMock.Setup(m => m.UpdateAsync(It.IsAny<VisitorRecord>()));
+        VisitorsRepositoryMock.Setup(m => m.Update(It.IsAny<VisitorRecord>()));
 
         //Act
         var result = await VisitorService.UpdateAsync(updateModel);

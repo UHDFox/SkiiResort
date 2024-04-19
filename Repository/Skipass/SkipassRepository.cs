@@ -40,7 +40,7 @@ internal sealed class SkipassRepository : ISkipassRepository
         return result.Entity.Id;
     }
 
-    public void UpdateAsync(SkipassRecord data)
+    public void Update(SkipassRecord data)
     {
         context.Skipasses.Update(data);
     }

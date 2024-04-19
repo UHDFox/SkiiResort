@@ -36,7 +36,7 @@ internal sealed class LocationRepository : ILocationRepository
         return result.Entity.Id;
     }
 
-    public void UpdateAsync(LocationRecord data)
+    public void Update(LocationRecord data)
     {
         context.Locations.Update(data);
     }
