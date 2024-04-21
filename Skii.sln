@@ -8,9 +8,23 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Application", "src\Applicat
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Repository", "src\Repository\Repository.csproj", "{31EB6E52-5CA8-42CC-8293-5B353CC6B8A2}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Tests", "Tests\Tests.csproj", "{3EFB81FF-F64F-4DCF-BEE9-741F69B9761C}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Tests", "tests\Tests.csproj", "{3EFB81FF-F64F-4DCF-BEE9-741F69B9761C}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{8F213D55-1316-4A35-A727-318B6FC9892D}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "tests", "tests", "{719000BB-9259-4F77-A28C-6117E79079B0}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution items", "Solution items", "{1075BE5D-32BD-4EBC-99BF-C06AAF3EF177}"
+	ProjectSection(SolutionItems) = preProject
+		.dockerignore = .dockerignore
+		.editorconfig = .editorconfig
+		.gitignore = .gitignore
+		Directory.Build.props = Directory.Build.props
+		Directory.Packages.props = Directory.Packages.props
+		Skii.sln = Skii.sln
+		Skii.sln.DotSettings.user = Skii.sln.DotSettings.user
+		Testing.targets = Testing.targets
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -44,5 +58,6 @@ Global
 		{31EB6E52-5CA8-42CC-8293-5B353CC6B8A2} = {8F213D55-1316-4A35-A727-318B6FC9892D}
 		{1CE1EBFB-50BD-457D-8147-1CAA04611A51} = {8F213D55-1316-4A35-A727-318B6FC9892D}
 		{8F2A597A-04FC-4C50-A2FB-F4CEC615B2FB} = {8F213D55-1316-4A35-A727-318B6FC9892D}
+		{3EFB81FF-F64F-4DCF-BEE9-741F69B9761C} = {719000BB-9259-4F77-A28C-6117E79079B0}
 	EndGlobalSection
 EndGlobal
