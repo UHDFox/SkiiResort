@@ -36,10 +36,7 @@ public sealed class LocationController : Controller
     [HttpGet]
     [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(LocationRecord))]
     [ProducesResponseType(StatusCodes.Status404NotFound)]
-    public async Task<IActionResult> GetByIdAsync(Guid id)
-    {
-        return Ok(mapper.Map<LocationResponse>(await locationService.GetByIdAsync(id)));
-    }
+    public async Task<IActionResult> GetByIdAsync(Guid id) => Ok(mapper.Map<LocationResponse>(await locationService.GetByIdAsync(id)));
 
     [HttpPost]
     [ProducesResponseType(StatusCodes.Status201Created, Type = typeof(CreatedResponse))]

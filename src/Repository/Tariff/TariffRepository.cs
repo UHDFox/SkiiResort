@@ -14,20 +14,12 @@ internal sealed class TariffRepository : ITariffRepository
         this.context = context;
     }
 
-    public async Task<IReadOnlyCollection<TariffRecord>> GetAllAsync(int offset, int limit)
-    {
-        return await context.Tariffs.Skip(offset).Take(limit).ToListAsync();
-    }
+    public async Task<IReadOnlyCollection<TariffRecord>> GetAllAsync(int offset, int limit) =>
+        await context.Tariffs.Skip(offset).Take(limit).ToListAsync();
 
-    public async Task<int> GetTotalAmountAsync()
-    {
-        return await context.Visitors.CountAsync();
-    }
+    public async Task<int> GetTotalAmountAsync() => await context.Visitors.CountAsync();
 
-    public async Task<TariffRecord?> GetByIdAsync(Guid id)
-    {
-        return await context.Tariffs.AsNoTracking().FirstOrDefaultAsync(record => record.Id == id);
-    }
+    public async Task<TariffRecord?> GetByIdAsync(Guid id) => await context.Tariffs.AsNoTracking().FirstOrDefaultAsync(record => record.Id == id);
 
     public async Task<Guid> AddAsync(TariffRecord data)
     {
@@ -36,10 +28,7 @@ internal sealed class TariffRepository : ITariffRepository
         return data.Id;
     }
 
-    public void Update(TariffRecord data)
-    {
-        context.Tariffs.Update(data);
-    }
+    public void Update(TariffRecord data) => context.Tariffs.Update(data);
 
     public async Task<bool> DeleteAsync(Guid id)
     {
@@ -47,8 +36,5 @@ internal sealed class TariffRepository : ITariffRepository
         return await SaveChangesAsync() > 0;
     }
 
-    public async Task<int> SaveChangesAsync()
-    {
-        return await context.SaveChangesAsync();
-    }
+    public async Task<int> SaveChangesAsync() => await context.SaveChangesAsync();
 }

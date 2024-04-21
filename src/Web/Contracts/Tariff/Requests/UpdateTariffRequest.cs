@@ -2,7 +2,7 @@ namespace SkiiResort.Web.Contracts.Tariff.Requests;
 
 public sealed class UpdateTariffRequest
 {
-    public UpdateTariffRequest(Guid id, string name,double priceModifier, bool isVip)
+    public UpdateTariffRequest(Guid id, string name, double priceModifier, bool isVip)
     {
         Id = id;
         Name = name;

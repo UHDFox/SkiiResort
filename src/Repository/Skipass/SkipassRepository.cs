@@ -14,24 +14,17 @@ internal sealed class SkipassRepository : ISkipassRepository
         this.context = context;
     }
 
-    public async Task<IReadOnlyCollection<SkipassRecord>> GetAllAsync(int offset, int limit)
-    {
-        return await context.Skipasses.Skip(offset).Take(limit).ToListAsync();
-    }
+    public async Task<IReadOnlyCollection<SkipassRecord>> GetAllAsync(int offset, int limit) =>
+        await context.Skipasses.Skip(offset).Take(limit).ToListAsync();
 
-    public async Task<int> GetTotalAmountAsync()
-    {
-        return await context.Visitors.CountAsync();
-    }
+    public async Task<int> GetTotalAmountAsync() => await context.Visitors.CountAsync();
 
-    public async Task<SkipassRecord?> GetByIdAsync(Guid skipassId)
-    {
-        return await context.Skipasses
+    public async Task<SkipassRecord?> GetByIdAsync(Guid skipassId) =>
+        await context.Skipasses
             .AsNoTracking()
             .Include(record => record.Tariff)
             .Include(record => record.Visitor)
             .FirstOrDefaultAsync(x => x.Id == skipassId);
-    }
 
     public async Task<Guid> AddAsync(SkipassRecord data)
     {
@@ -40,10 +33,7 @@ internal sealed class SkipassRepository : ISkipassRepository
         return result.Entity.Id;
     }
 
-    public void Update(SkipassRecord data)
-    {
-        context.Skipasses.Update(data);
-    }
+    public void Update(SkipassRecord data) => context.Skipasses.Update(data);
 
     public async Task<bool> DeleteAsync(Guid id)
     {
@@ -51,8 +41,5 @@ internal sealed class SkipassRepository : ISkipassRepository
         return await SaveChangesAsync() > 0;
     }
 
-    public async Task<int> SaveChangesAsync()
-    {
-        return await context.SaveChangesAsync();
-    }
+    public async Task<int> SaveChangesAsync() => await context.SaveChangesAsync();
 }

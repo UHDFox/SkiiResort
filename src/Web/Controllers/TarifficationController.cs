@@ -12,8 +12,8 @@ namespace SkiiResort.Web.Controllers;
 [Route("api/[controller]/[action]")]
 public sealed class TarifficationController : Controller
 {
-    private readonly ITarifficationService tarifficationService;
     private readonly IMapper mapper;
+    private readonly ITarifficationService tarifficationService;
 
     public TarifficationController(ITarifficationService tarifficationService, IMapper mapper)
     {
@@ -36,10 +36,7 @@ public sealed class TarifficationController : Controller
     [HttpGet]
     [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(TarifficationResponse))]
     [ProducesResponseType(StatusCodes.Status404NotFound)]
-    public async Task<IActionResult> GetByIdAsync(Guid id)
-    {
-        return Ok(mapper.Map<TarifficationResponse>(await tarifficationService.GetByIdAsync(id)));
-    }
+    public async Task<IActionResult> GetByIdAsync(Guid id) => Ok(mapper.Map<TarifficationResponse>(await tarifficationService.GetByIdAsync(id)));
 
     [HttpPost]
     [ProducesResponseType(StatusCodes.Status201Created, Type = typeof(CreatedResponse))]

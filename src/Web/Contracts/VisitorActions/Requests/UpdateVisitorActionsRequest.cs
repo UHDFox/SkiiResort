@@ -4,7 +4,12 @@ namespace SkiiResort.Web.Contracts.VisitorActions.Requests;
 
 public sealed class UpdateVisitorActionsRequest
 {
-    public UpdateVisitorActionsRequest(Guid id, Guid skipassId, Guid locationId, DateTimeOffset time, double balanceChange, OperationType transactionType)
+    public UpdateVisitorActionsRequest(Guid id,
+        Guid skipassId,
+        Guid locationId,
+        DateTimeOffset time,
+        double balanceChange,
+        OperationType transactionType)
     {
         Id = id;
         SkipassId = skipassId;

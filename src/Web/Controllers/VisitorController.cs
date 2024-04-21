@@ -58,7 +58,7 @@ public sealed class VisitorController : Controller
     }
 
     [HttpDelete]
-    [ProducesResponseType(StatusCodes.Status200OK,Type = typeof(DeletedResponse))]
+    [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(DeletedResponse))]
     [ProducesResponseType(StatusCodes.Status204NoContent, Type = typeof(DeletedResponse))]
     public async Task<IActionResult> DeleteAsync(Guid id)
     {

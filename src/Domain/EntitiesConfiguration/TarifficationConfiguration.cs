@@ -6,8 +6,5 @@ namespace SkiiResort.Domain.EntitiesConfiguration;
 
 public class TarifficationConfiguration : IEntityTypeConfiguration<TarifficationRecord>
 {
-    public void Configure(EntityTypeBuilder<TarifficationRecord> builder)
-    {
-        builder.HasKey(e => e.Id);
-    }
+    public void Configure(EntityTypeBuilder<TarifficationRecord> builder) => builder.HasKey(e => e.Id);
 }

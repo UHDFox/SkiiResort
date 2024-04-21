@@ -12,22 +12,16 @@ internal sealed class LocationRepository : ILocationRepository
     {
         this.context = context;
     }
-    public async Task<IReadOnlyCollection<LocationRecord>> GetAllAsync(int offset, int limit)
-    {
-        return await context.Locations.Skip(offset).Take(limit).ToListAsync();
-    }
 
-    public async Task<int> GetTotalAmountAsync()
-    {
-        return await context.Locations.CountAsync();
-    }
+    public async Task<IReadOnlyCollection<LocationRecord>> GetAllAsync(int offset, int limit) =>
+        await context.Locations.Skip(offset).Take(limit).ToListAsync();
 
-    public async Task<LocationRecord?> GetByIdAsync(Guid id)
-    {
-        return await context.Locations
+    public async Task<int> GetTotalAmountAsync() => await context.Locations.CountAsync();
+
+    public async Task<LocationRecord?> GetByIdAsync(Guid id) =>
+        await context.Locations
             .AsNoTracking()
             .FirstOrDefaultAsync(x => x.Id == id);
-    }
 
     public async Task<Guid> AddAsync(LocationRecord data)
     {
@@ -36,10 +30,7 @@ internal sealed class LocationRepository : ILocationRepository
         return result.Entity.Id;
     }
 
-    public void Update(LocationRecord data)
-    {
-        context.Locations.Update(data);
-    }
+    public void Update(LocationRecord data) => context.Locations.Update(data);
 
     public async Task<bool> DeleteAsync(Guid id)
     {
@@ -48,8 +39,5 @@ internal sealed class LocationRepository : ILocationRepository
         return await SaveChangesAsync() > 0;
     }
 
-    public async Task<int> SaveChangesAsync()
-    {
-        return await context.SaveChangesAsync();
-    }
+    public async Task<int> SaveChangesAsync() => await context.SaveChangesAsync();
 }

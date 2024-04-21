@@ -13,20 +13,12 @@ internal sealed class VisitorRepository : IVisitorRepository
         this.context = context;
     }
 
-    public async Task<IReadOnlyCollection<VisitorRecord>> GetAllAsync(int offset, int limit)
-    {
-        return await context.Visitors.Skip(offset).Take(limit).ToListAsync();
-    }
+    public async Task<IReadOnlyCollection<VisitorRecord>> GetAllAsync(int offset, int limit) =>
+        await context.Visitors.Skip(offset).Take(limit).ToListAsync();
 
-    public async Task<int> GetTotalAmountAsync()
-    {
-        return await context.Visitors.CountAsync();
-    }
+    public async Task<int> GetTotalAmountAsync() => await context.Visitors.CountAsync();
 
-    public async Task<VisitorRecord?> GetByIdAsync(Guid id)
-    {
-        return await context.Visitors.AsNoTracking().FirstOrDefaultAsync(x => x.Id == id);
-    }
+    public async Task<VisitorRecord?> GetByIdAsync(Guid id) => await context.Visitors.AsNoTracking().FirstOrDefaultAsync(x => x.Id == id);
 
     public async Task<Guid> AddAsync(VisitorRecord data)
     {
@@ -35,10 +27,7 @@ internal sealed class VisitorRepository : IVisitorRepository
         return data.Id;
     }
 
-    public void Update(VisitorRecord data)
-    {
-        context.Visitors.Update(data);
-    }
+    public void Update(VisitorRecord data) => context.Visitors.Update(data);
 
     public async Task<bool> DeleteAsync(Guid id)
     {
@@ -46,8 +35,5 @@ internal sealed class VisitorRepository : IVisitorRepository
         return await SaveChangesAsync() > 0;
     }
 
-    public async Task<int> SaveChangesAsync()
-    {
-        return await context.SaveChangesAsync();
-    }
+    public async Task<int> SaveChangesAsync() => await context.SaveChangesAsync();
 }

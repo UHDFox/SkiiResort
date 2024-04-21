@@ -4,7 +4,7 @@ namespace SkiiResort.Web.Contracts.VisitorActions;
 
 public sealed class VisitorActionsResponse
 {
-    public VisitorActionsResponse(Guid id, Guid skipassId,Guid locationId, DateTimeOffset time, double balanceChange, OperationType transactionType)
+    public VisitorActionsResponse(Guid id, Guid skipassId, Guid locationId, DateTimeOffset time, double balanceChange, OperationType transactionType)
     {
         Id = id;
         SkipassId = skipassId;
