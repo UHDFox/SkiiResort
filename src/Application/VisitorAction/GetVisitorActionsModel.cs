@@ -6,7 +6,7 @@ namespace SkiiResort.Application.VisitorAction;
 
 public sealed class GetVisitorActionsModel
 {
-    public GetVisitorActionsModel(Guid id, Guid skipassId,Guid locationId, DateTimeOffset time, double balanceChange, OperationType transactionType)
+    public GetVisitorActionsModel(Guid id, Guid skipassId, Guid locationId, DateTimeOffset time, double balanceChange, OperationType transactionType)
     {
         Id = id;
         SkipassId = skipassId;

@@ -116,10 +116,10 @@ dotnet_naming_style.pascal_case_style.capitalization = pascal_case
 dotnet_naming_style.camel_case_style.capitalization = camel_case
 
 #Kinds
-dotnet_naming_symbols.constant_fields.applicable_kinds   = field
+dotnet_naming_symbols.constant_fields.applicable_kinds = field
 dotnet_naming_symbols.constant_fields.required_modifiers = const
 
-dotnet_naming_symbols.open_static_fields.applicable_kinds   = field
+dotnet_naming_symbols.open_static_fields.applicable_kinds = field
 dotnet_naming_symbols.open_static_fields.required_modifiers = static
 dotnet_naming_symbols.open_static_fields.applicable_accessibilities = public, internal, protected
 
@@ -131,23 +131,23 @@ dotnet_naming_symbols.private_internal_fields.applicable_accessibilities = priva
 # Rules
 ## name all constant fields using PascalCase
 dotnet_naming_rule.constant_fields_should_be_pascal_case.severity = error
-dotnet_naming_rule.constant_fields_should_be_pascal_case.symbols  = constant_fields
-dotnet_naming_rule.constant_fields_should_be_pascal_case.style    = pascal_case_style
+dotnet_naming_rule.constant_fields_should_be_pascal_case.symbols = constant_fields
+dotnet_naming_rule.constant_fields_should_be_pascal_case.style = pascal_case_style
 
 ## static fields should be pascal_case
 dotnet_naming_rule.static_fields_should_be_pascal_case.severity = error
-dotnet_naming_rule.static_fields_should_be_pascal_case.symbols  = open_static_fields
-dotnet_naming_rule.static_fields_should_be_pascal_case.style    = pascal_case_style
+dotnet_naming_rule.static_fields_should_be_pascal_case.symbols = open_static_fields
+dotnet_naming_rule.static_fields_should_be_pascal_case.style = pascal_case_style
 
 ## internal and private fields should be camel_case
 dotnet_naming_rule.camel_case_for_private_internal_fields.severity = error
-dotnet_naming_rule.camel_case_for_private_internal_fields.symbols  = private_internal_fields
-dotnet_naming_rule.camel_case_for_private_internal_fields.style    = camel_case_style
+dotnet_naming_rule.camel_case_for_private_internal_fields.symbols = private_internal_fields
+dotnet_naming_rule.camel_case_for_private_internal_fields.style = camel_case_style
 
 ## Properties should be pascal_case
 dotnet_naming_rule.properties_should_be_pascal_case.severity = error
-dotnet_naming_rule.properties_should_be_pascal_case.symbols  = properties
-dotnet_naming_rule.properties_should_be_pascal_case.style    = pascal_case_style
+dotnet_naming_rule.properties_should_be_pascal_case.symbols = properties
+dotnet_naming_rule.properties_should_be_pascal_case.style = pascal_case_style
 
 ## AsyncFixer02: Long-running or blocking operations inside an async method
 dotnet_diagnostic.AsyncFixer02.severity = none

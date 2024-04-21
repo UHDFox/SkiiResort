@@ -8,8 +8,8 @@ namespace SkiiResort.Application.Location;
 
 internal sealed class LocationService : ILocationService
 {
-    private readonly ILocationRepository repository;
     private readonly IMapper mapper;
+    private readonly ILocationRepository repository;
 
     public LocationService(ILocationRepository repository, IMapper mapper)
     {

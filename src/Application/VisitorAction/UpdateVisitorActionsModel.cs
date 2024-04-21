@@ -4,7 +4,7 @@ namespace SkiiResort.Application.VisitorAction;
 
 public sealed class UpdateVisitorActionsModel
 {
-    public UpdateVisitorActionsModel(Guid id, Guid skipassId,Guid locationId)
+    public UpdateVisitorActionsModel(Guid id, Guid skipassId, Guid locationId)
     {
         Id = id;
         SkipassId = skipassId;

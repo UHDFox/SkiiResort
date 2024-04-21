@@ -7,7 +7,6 @@ using SkiiResort.Repository.Visitor;
 
 namespace SkiiResort.Application.Visitor;
 
-
 internal sealed class VisitorService : IVisitorService
 {
     private static readonly Regex passportRegex = new(@"\d{4}-\d{6}", RegexOptions.IgnoreCase | RegexOptions.Compiled);

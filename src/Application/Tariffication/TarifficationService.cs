@@ -8,8 +8,8 @@ namespace SkiiResort.Application.Tariffication;
 
 public sealed class TarifficationService : ITarifficationService
 {
-    private readonly ITarifficationRepository repository;
     private readonly IMapper mapper;
+    private readonly ITarifficationRepository repository;
 
     public TarifficationService(ITarifficationRepository repository, IMapper mapper)
     {
@@ -40,15 +40,12 @@ public sealed class TarifficationService : ITarifficationService
         return mapper.Map<GetTarifficationModel>(result);
     }
 
-    public async Task<Guid> AddAsync(AddTarifficationModel model)
-    {
-        return await repository.AddAsync(mapper.Map<TarifficationRecord>(model));
-    }
+    public async Task<Guid> AddAsync(AddTarifficationModel model) => await repository.AddAsync(mapper.Map<TarifficationRecord>(model));
 
     public async Task<UpdateTarifficationModel> UpdateAsync(UpdateTarifficationModel model)
     {
         var entity = await repository.GetByIdAsync(model.Id)
-            ?? throw new NotFoundException("tariffication record not found");
+                     ?? throw new NotFoundException("tariffication record not found");
 
         mapper.Map(model, entity);
 

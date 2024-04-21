@@ -1,5 +1,5 @@
 <Project>
   <ItemGroup Condition="'$(IsTestProject)' != 'true'">
-    <InternalsVisibleTo Include="Tests" />
+    <InternalsVisibleTo Include="Tests"/>
   </ItemGroup>
 </Project>
