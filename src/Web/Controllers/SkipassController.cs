@@ -7,7 +7,7 @@ using SkiiResort.Web.Contracts.Skipass.Requests;
 
 namespace SkiiResort.Web.Controllers;
 
-[Route("api/[controller]/[action]")]
+[Route("api/[controller]")]
 [ApiController]
 public sealed class SkipassController : Controller
 {

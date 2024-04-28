@@ -9,7 +9,7 @@ using SkiiResort.Web.Contracts.Tariffication.Requests;
 namespace SkiiResort.Web.Controllers;
 
 [ApiController]
-[Route("api/[controller]/[action]")]
+[Route("api/[controller]")]
 public sealed class TarifficationController : Controller
 {
     private readonly IMapper mapper;

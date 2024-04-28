@@ -7,7 +7,7 @@ using SkiiResort.Web.Contracts.Tariff.Requests;
 
 namespace SkiiResort.Web.Controllers;
 
-[Route("api/v1/[controller]/[action]")]
+[Route("api/v1/[controller]")]
 [ApiController]
 public sealed class TariffController : Controller
 {

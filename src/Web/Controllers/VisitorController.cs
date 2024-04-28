@@ -8,7 +8,7 @@ using SkiiResort.Web.Contracts.Visitor.Requests;
 namespace SkiiResort.Web.Controllers;
 
 [ApiController]
-[Route("api/[controller]/[action]")]
+[Route("api/[controller]")]
 public sealed class VisitorController : Controller
 {
     private readonly IMapper mapper;

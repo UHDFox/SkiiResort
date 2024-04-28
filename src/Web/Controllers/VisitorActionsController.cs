@@ -7,7 +7,7 @@ using SkiiResort.Web.Contracts.VisitorActions.Requests;
 
 namespace SkiiResort.Web.Controllers;
 
-[Route("api/[controller]/[action]")]
+[Route("api/[controller]")]
 [ApiController]
 public sealed class VisitorActionsController : Controller
 {

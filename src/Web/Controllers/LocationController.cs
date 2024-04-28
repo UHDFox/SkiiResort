@@ -10,7 +10,7 @@ using SkiiResort.Web.Contracts.Location.Requests;
 namespace SkiiResort.Web.Controllers;
 
 [ApiController]
-[Route("api/[controller]/[action]")]
+[Route("api/[controller]")]
 public sealed class LocationController : Controller
 {
     private readonly ILocationService locationService;
