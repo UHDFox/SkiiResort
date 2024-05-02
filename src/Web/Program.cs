@@ -13,6 +13,15 @@ builder.Services.AddBusinessServices();
 builder.Services.AddAutoMapper(Assembly.GetExecutingAssembly());
 builder.Services.AddRepositories();
 
+builder.Services.AddCors(opts =>
+    opts.AddPolicy("ApiCorsPolicy",
+        policy =>
+        {
+            policy.WithOrigins("http://localhost:7045")
+                .AllowAnyMethod()
+                .AllowAnyHeader();
+        }));
+
 builder.Services.AddSwaggerGen();
 
 var app = builder.Build();
@@ -22,6 +31,8 @@ if (app.Environment.IsDevelopment())
     app.UseSwagger();
     app.UseSwaggerUI();
 }
+
+app.UseCors("ApiCorsPolicy");
 
 app.UseHttpsRedirection();
 
