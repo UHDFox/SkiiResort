@@ -40,7 +40,7 @@ public sealed class TariffController : Controller
         return Ok(new GetAllResponse<TariffResponse>(collection, collection.Count));
     }
 
-    [HttpGet("Get tariff by Id")]
+    [HttpGet("tariffId:guid", Name = "Get tariff by Id")]
     [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(TariffResponse))]
     [ProducesResponseType(StatusCodes.Status404NotFound)]
     public async Task<IActionResult> GetByIdAsync(Guid id)

@@ -7,7 +7,7 @@ using SkiiResort.Web.Contracts.Skipass.Requests;
 
 namespace SkiiResort.Web.Controllers;
 
-[Route("api/[controller]")]
+[Route("api/v1/[controller]")]
 [ApiController]
 public sealed class SkipassController : Controller
 {
@@ -30,7 +30,7 @@ public sealed class SkipassController : Controller
             result.Count));
     }
 
-    [HttpGet(Name = "Get skipass by Id")]
+    [HttpGet("skipassId:guid", Name = "Get skipass by Id")]
     [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(SkipassResponse))]
     [ProducesResponseType(StatusCodes.Status404NotFound)]
     public async Task<IActionResult> GetByIdAsync(Guid id)

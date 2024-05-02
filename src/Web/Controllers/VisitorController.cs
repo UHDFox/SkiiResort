@@ -8,7 +8,7 @@ using SkiiResort.Web.Contracts.Visitor.Requests;
 namespace SkiiResort.Web.Controllers;
 
 [ApiController]
-[Route("api/[controller]")]
+[Route("api/[controller]/")]
 public sealed class VisitorController : Controller
 {
     private readonly IMapper mapper;
@@ -39,7 +39,7 @@ public sealed class VisitorController : Controller
             result.Count));
     }
 
-    [HttpGet]
+    [HttpGet("visitorId:guid", Name = "Get visitor by Id")]
     [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(VisitorResponse))]
     [ProducesResponseType(StatusCodes.Status404NotFound)]
     public async Task<IActionResult> GetByIdAsync(Guid id)

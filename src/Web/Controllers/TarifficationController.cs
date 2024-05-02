@@ -9,7 +9,7 @@ using SkiiResort.Web.Contracts.Tariffication.Requests;
 namespace SkiiResort.Web.Controllers;
 
 [ApiController]
-[Route("api/[controller]")]
+[Route("api/v1/[controller]")]
 public sealed class TarifficationController : Controller
 {
     private readonly IMapper mapper;
@@ -33,7 +33,7 @@ public sealed class TarifficationController : Controller
         return Ok(new GetAllResponse<TarifficationResponse>(result, result.Count));
     }
 
-    [HttpGet]
+    [HttpGet("tarifficationId:guid", Name = "Get tariffication by Id")]
     [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(TarifficationResponse))]
     [ProducesResponseType(StatusCodes.Status404NotFound)]
     public async Task<IActionResult> GetByIdAsync(Guid id) => Ok(mapper.Map<TarifficationResponse>(await tarifficationService.GetByIdAsync(id)));

@@ -7,7 +7,7 @@ using SkiiResort.Web.Contracts.VisitorActions.Requests;
 
 namespace SkiiResort.Web.Controllers;
 
-[Route("api/[controller]")]
+[Route("api/v1/[controller]/")]
 [ApiController]
 public sealed class VisitorActionsController : Controller
 {
@@ -30,7 +30,7 @@ public sealed class VisitorActionsController : Controller
             mapper.Map<IReadOnlyCollection<VisitorActionsResponse>>(result), result.Count));
     }
 
-    [HttpGet]
+    [HttpGet("visitorActionId:guid", Name = "Get visitorAction by Id")]
     [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(VisitorActionsResponse))]
     [ProducesResponseType(StatusCodes.Status404NotFound)]
     public async Task<IActionResult> GetByIdAsync(Guid id)
@@ -49,7 +49,7 @@ public sealed class VisitorActionsController : Controller
             mapper.Map<VisitorActionsResponse>(await visitorActionsService.GetByIdAsync(id)));
     }
 
-    [HttpPost]
+    [HttpPost("-/tapSkipass")]
     [ProducesResponseType(StatusCodes.Status201Created, Type = typeof(CreatedResponse))]
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
     public async Task<IActionResult> TapSkipass(TapSkipassRequest request)
@@ -60,7 +60,7 @@ public sealed class VisitorActionsController : Controller
     }
 
 
-    [HttpPost]
+    [HttpPost("-/depositSkipassBalance/")]
     [ProducesResponseType(StatusCodes.Status201Created, Type = typeof(CreatedResponse))]
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
     public async Task<IActionResult> DepositSkipassBalance(DepositSkipassBalanceRequest request)

@@ -10,7 +10,7 @@ using SkiiResort.Web.Contracts.Location.Requests;
 namespace SkiiResort.Web.Controllers;
 
 [ApiController]
-[Route("api/[controller]")]
+[Route("api/v1/[controller]")]
 public sealed class LocationController : Controller
 {
     private readonly ILocationService locationService;
@@ -33,7 +33,7 @@ public sealed class LocationController : Controller
         return Ok(new GetAllResponse<LocationResponse>(result, result.Count));
     }
 
-    [HttpGet]
+    [HttpGet("locationId:guid", Name = "Get location by Id")]
     [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(LocationRecord))]
     [ProducesResponseType(StatusCodes.Status404NotFound)]
     public async Task<IActionResult> GetByIdAsync(Guid id) => Ok(mapper.Map<LocationResponse>(await locationService.GetByIdAsync(id)));
