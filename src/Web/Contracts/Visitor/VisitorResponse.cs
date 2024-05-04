@@ -2,7 +2,7 @@ namespace SkiiResort.Web.Contracts.Visitor;
 
 public sealed class VisitorResponse
 {
-    public VisitorResponse(Guid id, string name, int age, string phone, DateTime birthdate, string passport)
+    public VisitorResponse(Guid id, string name, int age, string phone, DateTimeOffset birthdate, string passport)
     {
         Id = id;
         Name = name;
@@ -20,7 +20,7 @@ public sealed class VisitorResponse
 
     public string Phone { get; set; }
 
-    public DateTime Birthdate { get; set; }
+    public DateTimeOffset Birthdate { get; set; }
 
     public string? Passport { get; set; }
 }

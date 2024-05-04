@@ -6,6 +6,7 @@ using SkiiResort.Domain.Entities.Tariffication;
 using SkiiResort.Domain.Entities.Visitor;
 using SkiiResort.Domain.Entities.VisitorsAction;
 using SkiiResort.Domain.Enums;
+using SkiiResort.Domain.Infrastructure;
 
 namespace SkiiResort.Domain;
 
@@ -36,4 +37,12 @@ public sealed class SkiiResortContext : DbContext
         base.OnModelCreating(modelBuilder);
         modelBuilder.ApplyConfigurationsFromAssembly(GetType().Assembly);
     }
+
+    protected override void ConfigureConventions(ModelConfigurationBuilder configurationBuilder)
+    {
+        configurationBuilder
+            .Properties<DateTimeOffset>()
+            .HaveConversion<DateTimeOffsetConverter>();
+    }
+
 }

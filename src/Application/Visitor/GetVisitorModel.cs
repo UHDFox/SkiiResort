@@ -4,7 +4,7 @@ namespace SkiiResort.Application.Visitor;
 
 public sealed class GetVisitorModel
 {
-    public GetVisitorModel(Guid id, string name, int age, string phone, DateTime birthdate, string passport)
+    public GetVisitorModel(Guid id, string name, int age, string phone, DateTimeOffset birthdate, string passport)
     {
         Id = id;
         Name = name;
@@ -22,7 +22,7 @@ public sealed class GetVisitorModel
 
     public string Phone { get; set; }
 
-    public DateTime Birthdate { get; set; }
+    public DateTimeOffset Birthdate { get; set; }
 
     public string? Passport { get; set; }
 

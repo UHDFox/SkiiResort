@@ -2,7 +2,7 @@ namespace SkiiResort.Web.Contracts.Visitor.Requests;
 
 public sealed class UpdateVisitorRequest
 {
-    public UpdateVisitorRequest(Guid id, string name, int age, string phone, DateTime birthdate, string passport)
+    public UpdateVisitorRequest(Guid id, string name, int age, string phone, DateTimeOffset birthdate, string passport)
     {
         Id = id;
         Name = name;
@@ -20,7 +20,7 @@ public sealed class UpdateVisitorRequest
 
     public string Phone { get; set; }
 
-    public DateTime Birthdate { get; set; }
+    public DateTimeOffset Birthdate { get; set; }
 
     public string Passport { get; set; }
 }

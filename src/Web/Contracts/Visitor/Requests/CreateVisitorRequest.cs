@@ -16,6 +16,6 @@ public sealed class CreateVisitorRequest
 
     public string Phone { get; set; }
 
-    public DateTime Birthdate { get; set; }
+    public DateTimeOffset Birthdate { get; set; }
     public string? Passport { get; set; }
 }
