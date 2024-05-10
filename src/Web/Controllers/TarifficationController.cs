@@ -33,7 +33,7 @@ public sealed class TarifficationController : Controller
         return Ok(new GetAllResponse<TarifficationResponse>(result, result.Count));
     }
 
-    [HttpGet("tarifficationId:guid", Name = "Get tariffication by Id")]
+    [HttpGet("id:guid")]
     [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(TarifficationResponse))]
     [ProducesResponseType(StatusCodes.Status404NotFound)]
     public async Task<IActionResult> GetByIdAsync(Guid id) => Ok(mapper.Map<TarifficationResponse>(await tarifficationService.GetByIdAsync(id)));

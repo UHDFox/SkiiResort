@@ -30,7 +30,7 @@ public sealed class VisitorActionsController : Controller
             mapper.Map<IReadOnlyCollection<VisitorActionsResponse>>(result), result.Count));
     }
 
-    [HttpGet("visitorActionId:guid", Name = "Get visitorAction by Id")]
+    [HttpGet("id:guid")]
     [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(VisitorActionsResponse))]
     [ProducesResponseType(StatusCodes.Status404NotFound)]
     public async Task<IActionResult> GetByIdAsync(Guid id)

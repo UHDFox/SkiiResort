@@ -8,7 +8,7 @@ using SkiiResort.Web.Contracts.Visitor.Requests;
 namespace SkiiResort.Web.Controllers;
 
 [ApiController]
-[Route("api/[controller]/")]
+[Route("api/v1/[controller]/")]
 public sealed class VisitorController : Controller
 {
     private readonly IMapper mapper;
@@ -36,10 +36,10 @@ public sealed class VisitorController : Controller
     {
         var result = await visitorService.GetListAsync(offset.GetValueOrDefault(0), limit.GetValueOrDefault(15));
         return Ok(new GetAllResponse<VisitorResponse>(mapper.Map<IReadOnlyCollection<VisitorResponse>>(result),
-            result.Count));
+            await visitorService.GetTotalAmountAsync()));
     }
 
-    [HttpGet("visitorId:guid", Name = "Get visitor by Id")]
+    [HttpGet("id:guid")]
     [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(VisitorResponse))]
     [ProducesResponseType(StatusCodes.Status404NotFound)]
     public async Task<IActionResult> GetByIdAsync(Guid id)
