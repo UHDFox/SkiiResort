@@ -6,6 +6,8 @@ public interface IVisitorService
 
     Task<IReadOnlyCollection<GetVisitorModel>> GetListAsync(int offset, int limit);
 
+    Task<int> GetTotalAmountAsync();
+
     Task<GetVisitorModel> GetByIdAsync(Guid id);
 
     Task<UpdateVisitorModel> UpdateAsync(UpdateVisitorModel model);

@@ -46,13 +46,10 @@ internal sealed class VisitorService : IVisitorService
             throw new PaginationQueryException("offset exceeds total amount of records");
         }
 
-        if (totalAmount < offset + limit)
-        {
-            throw new PaginationQueryException("queried page exceeds total amount of records");
-        }
-
         return mapper.Map<IReadOnlyCollection<GetVisitorModel>>(await repository.GetAllAsync(offset, limit));
     }
+
+    public async Task<int> GetTotalAmountAsync() => await repository.GetTotalAmountAsync();
 
     public async Task<GetVisitorModel> GetByIdAsync(Guid id)
     {
