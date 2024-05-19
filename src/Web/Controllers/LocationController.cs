@@ -33,7 +33,7 @@ public sealed class LocationController : Controller
         return Ok(new GetAllResponse<LocationResponse>(result, result.Count));
     }
 
-    [HttpGet("locationId:guid", Name = "Get location by Id")]
+    [HttpGet("id:guid")]
     [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(LocationRecord))]
     [ProducesResponseType(StatusCodes.Status404NotFound)]
     public async Task<IActionResult> GetByIdAsync(Guid id) => Ok(mapper.Map<LocationResponse>(await locationService.GetByIdAsync(id)));
