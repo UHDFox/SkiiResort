@@ -49,7 +49,7 @@ public sealed class VisitorActionsController : Controller
             mapper.Map<VisitorActionsResponse>(await visitorActionsService.GetByIdAsync(id)));
     }
 
-    [HttpPost("-/tapSkipass")]
+    [HttpPost("tapSkipass")]
     [ProducesResponseType(StatusCodes.Status201Created, Type = typeof(CreatedResponse))]
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
     public async Task<IActionResult> TapSkipass(TapSkipassRequest request)
@@ -60,7 +60,7 @@ public sealed class VisitorActionsController : Controller
     }
 
 
-    [HttpPost("-/depositSkipassBalance/")]
+    [HttpPost("depositSkipassBalance")]
     [ProducesResponseType(StatusCodes.Status201Created, Type = typeof(CreatedResponse))]
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
     public async Task<IActionResult> DepositSkipassBalance(DepositSkipassBalanceRequest request)
