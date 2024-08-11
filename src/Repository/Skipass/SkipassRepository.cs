@@ -21,7 +21,6 @@ internal sealed class SkipassRepository : ISkipassRepository
 
     public async Task<SkipassRecord?> GetByIdAsync(Guid skipassId) =>
         await context.Skipasses
-            .AsNoTracking()
             .Include(record => record.Tariff)
             .Include(record => record.Visitor)
             .FirstOrDefaultAsync(x => x.Id == skipassId);
