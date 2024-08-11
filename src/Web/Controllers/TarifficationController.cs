@@ -28,7 +28,7 @@ public sealed class TarifficationController : Controller
     public async Task<IActionResult> GetListAsync(int? offset, int? limit)
     {
         var result = mapper.Map<IReadOnlyCollection<TarifficationResponse>>
-            (await tarifficationService.GetAllAsync(offset.GetValueOrDefault(0), limit.GetValueOrDefault(15)));
+            (await tarifficationService.GetAllAsync(offset.GetValueOrDefault(0), limit.GetValueOrDefault(5)));
 
         return Ok(new GetAllResponse<TarifficationResponse>(result, result.Count));
     }

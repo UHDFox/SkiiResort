@@ -28,7 +28,7 @@ public sealed class LocationController : Controller
     public async Task<IActionResult> GetListAsync(int? offset, int? limit)
     {
         var result = mapper.Map<IReadOnlyCollection<LocationResponse>>
-            (await locationService.GetAllAsync(offset.GetValueOrDefault(0), limit.GetValueOrDefault(15)));
+            (await locationService.GetAllAsync(offset.GetValueOrDefault(0), limit.GetValueOrDefault(5)));
 
         return Ok(new GetAllResponse<LocationResponse>(result, result.Count));
     }

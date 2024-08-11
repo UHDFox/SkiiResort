@@ -34,7 +34,7 @@ public sealed class VisitorController : Controller
     [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(GetAllResponse<VisitorResponse>))]
     public async Task<IActionResult> GetAllAsync(int? offset, int? limit)
     {
-        var result = await visitorService.GetListAsync(offset.GetValueOrDefault(0), limit.GetValueOrDefault(15));
+        var result = await visitorService.GetListAsync(offset.GetValueOrDefault(0), limit.GetValueOrDefault(5));
         return Ok(new GetAllResponse<VisitorResponse>(mapper.Map<IReadOnlyCollection<VisitorResponse>>(result),
             await visitorService.GetTotalAmountAsync()));
     }

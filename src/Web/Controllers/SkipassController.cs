@@ -25,7 +25,7 @@ public sealed class SkipassController : Controller
     [ProducesResponseType(StatusCodes.Status404NotFound)]
     public async Task<IActionResult> GetListAsync(int? offset, int? limit)
     {
-        var result = await context.GetListAsync(offset.GetValueOrDefault(0), limit.GetValueOrDefault(15));
+        var result = await context.GetListAsync(offset.GetValueOrDefault(0), limit.GetValueOrDefault(5));
         return Ok(new GetAllResponse<SkipassResponse>(mapper.Map<IReadOnlyCollection<SkipassResponse>>(result),
             result.Count));
     }
@@ -38,7 +38,7 @@ public sealed class SkipassController : Controller
         var result = await context.GetByIdAsync(id);
         return Ok(mapper.Map<SkipassResponse>(result));
     }
-    
+
     [HttpPost]
     [ProducesResponseType(StatusCodes.Status201Created, Type = typeof(SkipassResponse))]
     [ProducesResponseType(StatusCodes.Status400BadRequest, Type = typeof(ValidationProblemDetails))]
