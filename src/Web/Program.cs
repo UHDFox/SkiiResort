@@ -17,7 +17,7 @@ builder.Services.AddCors(opts =>
     opts.AddPolicy("ApiCorsPolicy",
         policy =>
         {
-            policy.WithOrigins("http://localhost:7045")
+            policy.AllowAnyOrigin()
                 .AllowAnyMethod()
                 .AllowAnyHeader();
         }));
@@ -25,6 +25,7 @@ builder.Services.AddCors(opts =>
 builder.Services.AddSwaggerGen();
 
 var app = builder.Build();
+app.UseCors("ApiCorsPolicy");
 
 if (app.Environment.IsDevelopment())
 {
@@ -32,7 +33,6 @@ if (app.Environment.IsDevelopment())
     app.UseSwaggerUI();
 }
 
-app.UseCors("ApiCorsPolicy");
 
 app.UseHttpsRedirection();
 
