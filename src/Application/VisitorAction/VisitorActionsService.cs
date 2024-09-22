@@ -38,16 +38,6 @@ internal sealed class VisitorActionsService : IVisitorActions
     {
         var totalAmount = await visitorActionsRepository.GetTotalAmountAsync();
 
-        if (totalAmount < offset)
-        {
-            throw new PaginationQueryException("offset exceeds total amount of records");
-        }
-
-        if (totalAmount < offset + limit)
-        {
-            throw new PaginationQueryException("queried page exceeds total amount of records");
-        }
-
         return mapper.Map<IReadOnlyCollection<GetVisitorActionsModel>>(
             await visitorActionsRepository.GetAllAsync(offset, limit));
     }

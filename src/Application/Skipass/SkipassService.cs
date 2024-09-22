@@ -20,16 +20,6 @@ internal sealed class SkipassService : ISkipassService
     {
         var totalAmount = await repository.GetTotalAmountAsync();
 
-        if (totalAmount < offset)
-        {
-            throw new PaginationQueryException("offset exceeds total amount of records");
-        }
-
-        if (totalAmount < offset + limit)
-        {
-            throw new PaginationQueryException("queried page exceeds total amount of records");
-        }
-
         return mapper.Map<IReadOnlyCollection<GetSkipassModel>>(await repository.GetAllAsync(offset, limit));
     }
 

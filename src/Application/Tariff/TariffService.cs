@@ -26,16 +26,6 @@ internal sealed class TariffService : ITariffService
     {
         var totalAmount = await repository.GetTotalAmountAsync();
 
-        if (totalAmount < offset)
-        {
-            throw new PaginationQueryException("offset exceeds total amount of records");
-        }
-
-        if (totalAmount < offset + limit)
-        {
-            throw new PaginationQueryException("queried page exceeds total amount of records");
-        }
-
         return mapper.Map<IReadOnlyCollection<GetTariffModel>>(await repository.GetAllAsync(offset, limit));
     }
 
