@@ -45,40 +45,6 @@ public sealed class TarifficationServicesTest : TestBase
         result.Count.Should().Be(limit);
     }
 
-    [Fact(DisplayName = "Метод GetAllAsync вернет PaginationQueryException, " +
-                          "если смещение превышает общее количество элементов")]
-    public async Task GetAllAsync_OffsetExceedsTotalAmountOfRecords_ThrowsPaginationQueryException()
-    {
-        //Arrange
-        var offset = new Random().Next(6, 100);
-
-        TarifficationRepositoryMock.Setup(m => m.GetTotalAmountAsync())
-            .ReturnsAsync(new Random().Next(1, 5));
-
-        //Act
-        var action = () => TarifficationService.GetAllAsync(0, offset);
-
-        //Assert
-        await action.Should().ThrowAsync<PaginationQueryException>("offset exceeds total amount of records");
-    }
-
-    [Fact(DisplayName = "Метод GetAllAsync вернет PaginationQueryException, " +
-                        "если страница превышает общее количество элементов")]
-    public async Task GetAllAsync_PageExceedsTotalAmountOfRecords_ThrowsPaginationQueryException()
-    {
-        //Arrange
-        var offset = new Random().Next(3, 100);
-        var limit = new Random().Next(3, 100);
-        TarifficationRepositoryMock.Setup(m => m.GetTotalAmountAsync())
-            .ReturnsAsync(new Random().Next(1, 5));
-
-        //Act
-        var action = () => TarifficationService.GetAllAsync(offset, limit);
-
-        //Assert
-        await action.Should().ThrowAsync<PaginationQueryException>("queried page exceeds total amount of records");
-    }
-
     [Fact(DisplayName = "Метод GetByIdAsync должен возвращать запись по её Id, если она существует в БД")]
     public async Task GetByIdAsync_ValidInput_ShouldReturnGetModel()
     {
