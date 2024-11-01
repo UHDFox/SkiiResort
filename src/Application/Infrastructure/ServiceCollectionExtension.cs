@@ -4,6 +4,7 @@ using SkiiResort.Application.Location;
 using SkiiResort.Application.Skipass;
 using SkiiResort.Application.Tariff;
 using SkiiResort.Application.Tariffication;
+using SkiiResort.Application.User;
 using SkiiResort.Application.Visitor;
 using SkiiResort.Application.VisitorAction;
 
@@ -24,6 +25,8 @@ public static class ServiceCollectionExtension
         services.AddTransient<ILocationService, LocationService>();
 
         services.AddTransient<ITarifficationService, TarifficationService>();
+
+        services.AddTransient<IUserService, UserService>();
 
         services.AddAutoMapper(ApplicationAssemblyReference.Assembly);
 

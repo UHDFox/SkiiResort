@@ -3,12 +3,14 @@ using SkiiResort.Application.Location.Models;
 using SkiiResort.Application.Skipass;
 using SkiiResort.Application.Tariff;
 using SkiiResort.Application.Tariffication.Models;
+using SkiiResort.Application.User;
 using SkiiResort.Application.Visitor;
 using SkiiResort.Application.VisitorAction;
 using SkiiResort.Domain.Entities.Location;
 using SkiiResort.Domain.Entities.Skipass;
 using SkiiResort.Domain.Entities.Tariff;
 using SkiiResort.Domain.Entities.Tariffication;
+using SkiiResort.Domain.Entities.User;
 using SkiiResort.Domain.Entities.Visitor;
 using SkiiResort.Domain.Entities.VisitorsAction;
 
@@ -42,5 +44,9 @@ public sealed class ApplicationProfile : Profile
         CreateMap<GetTarifficationModel, TarifficationRecord>().ReverseMap();
         CreateMap<AddTarifficationModel, TarifficationRecord>().ReverseMap();
         CreateMap<UpdateTarifficationModel, TarifficationRecord>().ReverseMap();
+
+        CreateMap<GetUserModel, UserRecord>().ReverseMap();
+        CreateMap<AddUserModel, UserRecord>().ReverseMap();
+        CreateMap<UpdateUserModel, UserRecord>().ReverseMap();
     }
 }

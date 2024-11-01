@@ -1,4 +1,5 @@
 using SkiiResort.Domain.Entities.Skipass;
+using SkiiResort.Domain.Entities.User;
 
 namespace SkiiResort.Domain.Entities.Visitor;
 
@@ -26,4 +27,6 @@ public sealed class VisitorRecord
     public string Passport { get; set; }
 
     public IReadOnlyList<SkipassRecord> Skipasses { get; set; } = new List<SkipassRecord>();
+
+    public UserRecord? User { get; set; }
 }

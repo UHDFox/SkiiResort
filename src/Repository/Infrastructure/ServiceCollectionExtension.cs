@@ -3,6 +3,7 @@ using SkiiResort.Repository.Location;
 using SkiiResort.Repository.Skipass;
 using SkiiResort.Repository.Tariff;
 using SkiiResort.Repository.Tariffication;
+using SkiiResort.Repository.User;
 using SkiiResort.Repository.Visitor;
 using SkiiResort.Repository.VisitorActions;
 
@@ -23,6 +24,8 @@ public static class ServiceCollectionExtension
         services.AddTransient<ILocationRepository, LocationRepository>();
 
         services.AddTransient<ITarifficationRepository, TarifficationRepository>();
+
+        services.AddTransient<IUserRepository, UserRepository>();
 
 
         return services;
