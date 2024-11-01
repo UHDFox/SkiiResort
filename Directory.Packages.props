@@ -2,30 +2,29 @@
   <PropertyGroup>
     <ManagePackageVersionsCentrally>true</ManagePackageVersionsCentrally>
   </PropertyGroup>
-
   <ItemGroup>
-    <PackageVersion Include="Npgsql.EntityFrameworkCore.PostgreSQL" Version="7.0.11"/>
-    <PackageVersion Include="AutoMapper" Version="12.0.1"/>
-    <PackageVersion Include="AutoMapper.Extensions.Microsoft.DependencyInjection" Version="12.0.1"/>
-    <PackageVersion Include="Microsoft.EntityFrameworkCore" Version="7.0.11"/>
-    <PackageVersion Include="Microsoft.EntityFrameworkCore.Tools" Version="7.0.11"/>
-    <PackageVersion Include="AutoFixture" Version="5.0.0-preview0010"/>
-    <PackageVersion Include="AutoFixture.AutoMoq" Version="5.0.0-preview0010"/>
-    <PackageVersion Include="AutoFixture.Xunit2" Version="4.18.1"/>
-    <PackageVersion Include="FluentAssertions" Version="6.12.0"/>
-    <PackageVersion Include="Microsoft.NET.Test.Sdk" Version="17.7.1"/>
-    <PackageVersion Include="Moq" Version="4.20.70"/>
-    <PackageVersion Include="Regseed" Version="1.0.1"/>
-    <PackageVersion Include="xunit" Version="2.4.2"/>
-    <PackageVersion Include="xunit.runner.visualstudio" Version="2.4.5"/>
-    <PackageVersion Include="Microsoft.AspNetCore.OpenApi" Version="7.0.11"/>
-    <PackageVersion Include="Microsoft.AspNetCore.Mvc.NewtonsoftJson" Version="7.0.11"/>
-    <PackageVersion Include="coverlet.collector" Version="3.2.0"/>
+    <PackageVersion Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="7.0.11" />
+    <PackageVersion Include="Npgsql.EntityFrameworkCore.PostgreSQL" Version="7.0.11" />
+    <PackageVersion Include="AutoMapper" Version="12.0.1" />
+    <PackageVersion Include="AutoMapper.Extensions.Microsoft.DependencyInjection" Version="12.0.1" />
+    <PackageVersion Include="Microsoft.EntityFrameworkCore" Version="7.0.11" />
+    <PackageVersion Include="Microsoft.EntityFrameworkCore.Tools" Version="7.0.11" />
+    <PackageVersion Include="AutoFixture" Version="5.0.0-preview0010" />
+    <PackageVersion Include="AutoFixture.AutoMoq" Version="5.0.0-preview0010" />
+    <PackageVersion Include="AutoFixture.Xunit2" Version="4.18.1" />
+    <PackageVersion Include="FluentAssertions" Version="6.12.0" />
+    <PackageVersion Include="Microsoft.NET.Test.Sdk" Version="17.7.1" />
+    <PackageVersion Include="Moq" Version="4.20.70" />
+    <PackageVersion Include="Regseed" Version="1.0.1" />
+    <PackageVersion Include="xunit" Version="2.4.2" />
+    <PackageVersion Include="xunit.runner.visualstudio" Version="2.4.5" />
+    <PackageVersion Include="Microsoft.AspNetCore.OpenApi" Version="7.0.11" />
+    <PackageVersion Include="Microsoft.AspNetCore.Mvc.NewtonsoftJson" Version="7.0.11" />
+    <PackageVersion Include="coverlet.collector" Version="3.2.0" />
     <PackageVersion Include="Microsoft.EntityFrameworkCore.Design" Version="7.0.11" />
     <PackageVersion Include="Swashbuckle.AspNetCore" Version="6.5.0">
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
       <PrivateAssets>all</PrivateAssets>
     </PackageVersion>
   </ItemGroup>
-
 </Project>
