@@ -4,17 +4,21 @@ namespace SkiiResort.Web.Contracts.User;
 
 public sealed class CreateUserRequest
 {
-    public CreateUserRequest(string name, string passwordHash, UserRole role, DateTime createdAt, Guid visitorId)
+    public CreateUserRequest(string name, string password, string email, UserRole role, DateTime createdAt, Guid visitorId)
     {
         Name = name;
-        PasswordHash = passwordHash;
+        Password = password;
+        Email = email;
         Role = role;
         CreatedAt = createdAt;
         VisitorId = visitorId;
     }
+
     public string Name { get; set; }
 
-    public string PasswordHash { get; set; }
+    public string Password { get; set; }
+
+    public string Email { get; set; }
 
     public UserRole Role { get; set; }
 

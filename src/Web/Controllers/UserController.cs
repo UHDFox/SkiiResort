@@ -5,6 +5,7 @@ using SkiiResort.Domain.Entities.User;
 using SkiiResort.Web.Contracts.CommonResponses;
 using SkiiResort.Web.Contracts.User;
 
+
 namespace SkiiResort.Web.Controllers;
 
 [ApiController]
@@ -19,6 +20,20 @@ public sealed class UserController : Controller
         this.userService = userService;
         this.mapper = mapper;
     }
+
+    [HttpPost("login")]
+    public async Task<IActionResult> LoginAsync(LoginRequest request)
+    {
+        var token = await userService.LoginAsync(mapper.Map<LoginModel>(request), HttpContext);
+
+        if (string.IsNullOrEmpty(token))
+        {
+            return Unauthorized("Invalid credentials");
+        }
+
+        return Ok(token);
+    }
+
 
     [HttpGet]
     [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(GetAllResponse<UserRecord>))]

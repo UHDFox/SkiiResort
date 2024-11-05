@@ -2,18 +2,21 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 using SkiiResort.Domain;
 
 #nullable disable
 
-namespace Domain.Migrations
+namespace SkiiResort.Domain.Migrations
 {
     [DbContext(typeof(SkiiResortContext))]
-    partial class HotelContextModelSnapshot : ModelSnapshot
+    [Migration("20241105083632_AddUserEmail")]
+    partial class AddUserEmail
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder

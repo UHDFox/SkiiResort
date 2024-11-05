@@ -7,7 +7,7 @@ public class AuthOptions
 {
     public const string Issuer = "CapybaraSkiiResort";
     public const string Audience = "SkiiResort";
-    private const string Key = "testSecretKey"; // encryption key
+    private const string Key = "testSecretKeyLoooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooong"; // encryption key
 
     public static SymmetricSecurityKey GetSymmetricSecurityKey()
     {

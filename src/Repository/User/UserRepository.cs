@@ -54,4 +54,7 @@ internal sealed class UserRepository : IUserRepository
     {
         return await context.SaveChangesAsync();
     }
+
+    public Task<UserRecord?> GetByEmailAsync(string email)
+        => context.Users.FirstOrDefaultAsync(e => e.Email == email);
 }

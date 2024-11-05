@@ -55,5 +55,6 @@ public sealed class WebProfile : Profile
         CreateMap<GetUserModel, UserResponse>().ReverseMap();
         CreateMap<CreateUserRequest, AddUserModel>().ReverseMap();
         CreateMap<UpdateUserRequest, UpdateUserModel>().ReverseMap();
+        CreateMap<LoginRequest, LoginModel>();
     }
 }

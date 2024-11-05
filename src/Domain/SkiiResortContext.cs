@@ -48,5 +48,4 @@ public sealed class SkiiResortContext : DbContext
             .Properties<DateTimeOffset>()
             .HaveConversion<DateTimeOffsetConverter>();
     }
-
 }

@@ -4,10 +4,11 @@ namespace SkiiResort.Application.User;
 
 public class UpdateUserModel
 {
-    public UpdateUserModel(string name, string passwordHash, UserRole role, DateTime createdAt, Guid visitorId)
+    public UpdateUserModel(string name, string password, string email, UserRole role, DateTime createdAt, Guid visitorId)
     {
         Name = name;
-        PasswordHash = passwordHash;
+        Password = password;
+        Email = email;
         Role = role;
         CreatedAt = createdAt;
         VisitorId = visitorId;
@@ -17,7 +18,9 @@ public class UpdateUserModel
 
     public string Name { get; set; }
 
-    public string PasswordHash { get; set; }
+    public string Email { get; set; }
+
+    public string Password { get; set; }
 
     public UserRole Role { get; set; }
 

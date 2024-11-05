@@ -1,4 +1,6 @@
-﻿namespace SkiiResort.Application.User;
+﻿using Microsoft.AspNetCore.Http;
+
+namespace SkiiResort.Application.User;
 
 public interface IUserService
 {
@@ -11,4 +13,6 @@ public interface IUserService
     Task<bool> DeleteAsync(Guid id);
 
     Task<UpdateUserModel> UpdateAsync(UpdateUserModel userModel);
+
+    public Task<string> LoginAsync(LoginModel model, HttpContext context);
 }

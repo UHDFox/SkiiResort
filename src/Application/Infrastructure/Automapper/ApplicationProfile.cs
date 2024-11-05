@@ -46,7 +46,9 @@ public sealed class ApplicationProfile : Profile
         CreateMap<UpdateTarifficationModel, TarifficationRecord>().ReverseMap();
 
         CreateMap<GetUserModel, UserRecord>().ReverseMap();
-        CreateMap<AddUserModel, UserRecord>().ReverseMap();
+        CreateMap<AddUserModel, UserRecord>()
+            .ForCtorParam("passwordHash", opt =>
+                opt.MapFrom(src => src.Password));
         CreateMap<UpdateUserModel, UserRecord>().ReverseMap();
     }
 }
