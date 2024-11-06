@@ -1,7 +1,7 @@
 ﻿using System.Security.Cryptography;
 using System.Text;
 
-namespace SkiiResort.Web.Infrastructure;
+namespace SkiiResort.Application.Infrastructure.Authentication;
 
 public sealed class PasswordProvider : IPasswordProvider
 {

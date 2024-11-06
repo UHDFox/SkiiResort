@@ -1,17 +1,16 @@
 ﻿using SkiiResort.Domain.Enums;
 
-namespace SkiiResort.Web.Contracts.User;
+namespace SkiiResort.Web.Contracts.User.Requests;
 
 public sealed class CreateUserRequest
 {
-    public CreateUserRequest(string name, string password, string email, UserRole role, DateTime createdAt, Guid visitorId)
+    public CreateUserRequest(string name, string password, string email, UserRole role, DateTimeOffset createdAt)
     {
         Name = name;
         Password = password;
         Email = email;
         Role = role;
         CreatedAt = createdAt;
-        VisitorId = visitorId;
     }
 
     public string Name { get; set; }
@@ -22,7 +21,5 @@ public sealed class CreateUserRequest
 
     public UserRole Role { get; set; }
 
-    public DateTime CreatedAt { get; set; }
-
-    public Guid VisitorId { get; set; }
+    public DateTimeOffset CreatedAt { get; set; }
 }

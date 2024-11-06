@@ -1,7 +1,8 @@
 ﻿using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
+using SkiiResort.Application.Infrastructure.Authentication;
 
-namespace SkiiResort.Web.Infrastructure;
+namespace SkiiResort.Web.Infrastructure.Authentication;
 
 public static class AuthenticationExtensions
 {
@@ -17,7 +18,7 @@ public static class AuthenticationExtensions
                     ValidateAudience = true,
                     ValidAudience = AuthOptions.Audience,
                     ValidateIssuerSigningKey = true,
-                    IssuerSigningKey = AuthOptions.GetSymmetricSecurityKey()
+                    IssuerSigningKey = AuthOptions.GetSymmetricSecurityKey(),
                 };
 
                 options.Events = new JwtBearerEvents

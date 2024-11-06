@@ -1,4 +1,4 @@
-﻿namespace SkiiResort.Web.Infrastructure;
+﻿namespace SkiiResort.Application.Infrastructure.Authentication;
 
 public interface IPasswordProvider
 {

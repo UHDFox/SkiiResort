@@ -2,16 +2,15 @@
 
 namespace SkiiResort.Application.User;
 
-public class UpdateUserModel
+public sealed class UpdateUserModel
 {
-    public UpdateUserModel(string name, string password, string email, UserRole role, DateTime createdAt, Guid visitorId)
+    public UpdateUserModel(string name, string passwordHash, string email, UserRole role, DateTimeOffset createdAt)
     {
         Name = name;
-        Password = password;
+        PasswordHash = passwordHash;
         Email = email;
         Role = role;
         CreatedAt = createdAt;
-        VisitorId = visitorId;
     }
 
     public Guid Id { get; set; }
@@ -20,11 +19,11 @@ public class UpdateUserModel
 
     public string Email { get; set; }
 
-    public string Password { get; set; }
+    public string PasswordHash { get; set; }
 
     public UserRole Role { get; set; }
 
-    public DateTime CreatedAt { get; set; }
-
-    public Guid VisitorId { get; set; }
+    public DateTimeOffset CreatedAt { get; set; }
 }
+
+

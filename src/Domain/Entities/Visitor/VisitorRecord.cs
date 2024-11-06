@@ -5,13 +5,15 @@ namespace SkiiResort.Domain.Entities.Visitor;
 
 public sealed class VisitorRecord
 {
-    public VisitorRecord(string name, int age, string phone, DateTimeOffset birthdate, string passport)
+    public VisitorRecord(string name, int age, string phone, DateTimeOffset birthdate, string passport,
+        Guid userId)
     {
         Name = name;
         Age = age;
         Phone = phone;
         Birthdate = birthdate;
         Passport = passport;
+        UserId = userId;
     }
 
     public Guid Id { get; set; }
@@ -27,6 +29,8 @@ public sealed class VisitorRecord
     public string Passport { get; set; }
 
     public IReadOnlyList<SkipassRecord> Skipasses { get; set; } = new List<SkipassRecord>();
+
+    public Guid UserId { get; set; }
 
     public UserRecord? User { get; set; }
 }

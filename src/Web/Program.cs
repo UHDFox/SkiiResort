@@ -2,7 +2,7 @@ using System.Reflection;
 using SkiiResort.Application.Infrastructure;
 using SkiiResort.Domain.Infrastructure;
 using SkiiResort.Repository.Infrastructure;
-using SkiiResort.Web.Infrastructure;
+using SkiiResort.Web.Infrastructure.Authentication;
 
 var builder = WebApplication.CreateBuilder(args);
 

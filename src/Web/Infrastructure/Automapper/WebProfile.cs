@@ -15,6 +15,7 @@ using SkiiResort.Web.Contracts.Tariff.Requests;
 using SkiiResort.Web.Contracts.Tariffication;
 using SkiiResort.Web.Contracts.Tariffication.Requests;
 using SkiiResort.Web.Contracts.User;
+using SkiiResort.Web.Contracts.User.Requests;
 using SkiiResort.Web.Contracts.Visitor;
 using SkiiResort.Web.Contracts.Visitor.Requests;
 using SkiiResort.Web.Contracts.VisitorActions;
@@ -56,5 +57,6 @@ public sealed class WebProfile : Profile
         CreateMap<CreateUserRequest, AddUserModel>().ReverseMap();
         CreateMap<UpdateUserRequest, UpdateUserModel>().ReverseMap();
         CreateMap<LoginRequest, LoginModel>();
+        CreateMap<RegisterRequest, RegisterModel>();
     }
 }

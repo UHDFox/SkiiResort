@@ -1,6 +1,6 @@
 ﻿namespace SkiiResort.Domain.Enums;
 
-public enum UserRole
+public enum UserRole : byte
 {
     SuperAdmin,
     HighLevelAdmin,

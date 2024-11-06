@@ -14,5 +14,7 @@ public interface IUserService
 
     Task<UpdateUserModel> UpdateAsync(UpdateUserModel userModel);
 
-    public Task<string> LoginAsync(LoginModel model, HttpContext context);
+    Task<string> LoginAsync(LoginModel model, HttpContext context);
+
+    Task<Guid> RegisterAsync(RegisterModel model);
 }

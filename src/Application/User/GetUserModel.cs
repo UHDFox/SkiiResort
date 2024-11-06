@@ -2,9 +2,9 @@
 
 namespace SkiiResort.Application.User;
 
-public class GetUserModel
+public sealed class GetUserModel
 {
-    public GetUserModel(Guid id, string name, string email, string passwordHash, UserRole role, DateTime createdAt, Guid visitorId)
+    public GetUserModel(Guid id, string name, string email, string passwordHash, UserRole role, DateTimeOffset createdAt)
     {
         Id = id;
         Name = name;
@@ -12,7 +12,6 @@ public class GetUserModel
         PasswordHash = passwordHash;
         Role = role;
         CreatedAt = createdAt;
-        VisitorId = visitorId;
     }
 
     public Guid Id { get; set; }
@@ -25,7 +24,5 @@ public class GetUserModel
 
     public UserRole Role { get; set; }
 
-    public DateTime CreatedAt { get; set; }
-
-    public Guid VisitorId { get; set; }
+    public DateTimeOffset CreatedAt { get; set; }
 }

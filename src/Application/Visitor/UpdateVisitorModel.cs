@@ -2,7 +2,7 @@ namespace SkiiResort.Application.Visitor;
 
 public sealed class UpdateVisitorModel
 {
-    public UpdateVisitorModel(Guid id, string name, int age, string phone, DateTimeOffset birthdate, string passport)
+    public UpdateVisitorModel(Guid id, string name, int age, string phone, DateTimeOffset birthdate, string passport, Guid userId)
     {
         Id = id;
         Name = name;
@@ -10,6 +10,7 @@ public sealed class UpdateVisitorModel
         Phone = phone;
         Birthdate = birthdate;
         Passport = passport;
+        UserId = userId;
     }
 
     public Guid Id { get; set; }
@@ -23,4 +24,6 @@ public sealed class UpdateVisitorModel
     public DateTimeOffset Birthdate { get; set; }
 
     public string Passport { get; set; }
+
+    public Guid UserId { get; set; }
 }

@@ -1,12 +1,10 @@
-﻿using System.IdentityModel.Tokens.Jwt;
-using System.Security.Claims;
-using AutoMapper;
+﻿using AutoMapper;
 using Microsoft.AspNetCore.Http;
-using Microsoft.IdentityModel.Tokens;
 using SkiiResort.Application.Exceptions;
+using SkiiResort.Application.Infrastructure.Authentication;
 using SkiiResort.Domain.Entities.User;
+using SkiiResort.Domain.Enums;
 using SkiiResort.Repository.User;
-using SkiiResort.Web.Infrastructure;
 
 namespace SkiiResort.Application.User;
 
@@ -42,6 +40,17 @@ internal sealed class UserService : IUserService
         return token;
     }
 
+    public async Task<Guid> RegisterAsync(RegisterModel model)
+    {
+
+        var hashedPassword = passwordProvider.Generate(model.Password);
+
+        var entity = new UserRecord(model.Name, hashedPassword, model.Email, UserRole.User, DateTime.Now);
+
+        return await AddAsync(mapper.Map<AddUserModel>(model));
+
+
+    }
     public async Task<GetUserModel> GetByIdAsync(Guid id)
     {
         var user = await repository.GetByIdAsync(id) ?? throw new NotFoundException();

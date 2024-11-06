@@ -5,14 +5,13 @@ namespace SkiiResort.Domain.Entities.User;
 
 public sealed class UserRecord
 {
-    public UserRecord(string name, string passwordHash, string email, UserRole role, DateTime createdAt, Guid visitorId)
+    public UserRecord(string name, string passwordHash, string email, UserRole role, DateTimeOffset createdAt)
     {
         Name = name;
         PasswordHash = passwordHash;
         Email = email;
         Role = role;
         CreatedAt = createdAt;
-        VisitorId = visitorId;
     }
 
     public Guid Id { get; set; }
@@ -25,9 +24,7 @@ public sealed class UserRecord
 
     public UserRole Role { get; set; }
 
-    public DateTime CreatedAt { get; set; }
-
-    public Guid VisitorId { get; set; }
+    public DateTimeOffset CreatedAt { get; set; }
 
     public VisitorRecord? Visitor { get; set; }
 }

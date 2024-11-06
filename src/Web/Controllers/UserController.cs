@@ -1,9 +1,11 @@
 ﻿using AutoMapper;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using SkiiResort.Application.User;
 using SkiiResort.Domain.Entities.User;
 using SkiiResort.Web.Contracts.CommonResponses;
 using SkiiResort.Web.Contracts.User;
+using SkiiResort.Web.Contracts.User.Requests;
 
 
 namespace SkiiResort.Web.Controllers;
@@ -34,8 +36,17 @@ public sealed class UserController : Controller
         return Ok(token);
     }
 
+    [HttpPost("register")]
+    public async Task<IActionResult> RegisterAsync(RegisterRequest request)
+    {
+        var result = await userService.RegisterAsync(mapper.Map<RegisterModel>(request));
+
+        return Created($"{Request.Path}", mapper.Map<UserResponse>(await userService.GetByIdAsync(result)));
+    }
+
 
     [HttpGet]
+    [Authorize(Roles = "SuperAdmin, HighLevelAdmin, LowLevelAdmin")]
     [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(GetAllResponse<UserRecord>))]
     [ProducesResponseType(StatusCodes.Status404NotFound)]
     public async Task<IActionResult> GetListAsync(int? offset, int? limit)
@@ -47,11 +58,13 @@ public sealed class UserController : Controller
     }
 
     [HttpGet("id:guid")]
+    [Authorize(Roles = "SuperAdmin, HighLevelAdmin, LowLevelAdmin")]
     [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(UserRecord))]
     [ProducesResponseType(StatusCodes.Status404NotFound)]
     public async Task<IActionResult> GetByIdAsync(Guid id) => Ok(mapper.Map<UserResponse>(await userService.GetByIdAsync(id)));
 
     [HttpPost]
+    [Authorize(Roles = "SuperAdmin, HighLevelAdmin, LowLevelAdmin")]
     [ProducesResponseType(StatusCodes.Status201Created, Type = typeof(CreatedResponse))]
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
     public async Task<IActionResult> AddAsync(CreateUserRequest data)
@@ -61,6 +74,7 @@ public sealed class UserController : Controller
     }
 
     [HttpPut]
+    [Authorize(Roles = "SuperAdmin, HighLevelAdmin")]
     [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(UpdatedResponse))]
     [ProducesResponseType(StatusCodes.Status404NotFound)]
     public async Task<IActionResult> UpdateAsync(UpdateUserRequest data)
@@ -70,6 +84,7 @@ public sealed class UserController : Controller
     }
 
     [HttpDelete]
+    [Authorize(Roles = "SuperAdmin, HighLevelAdmin")]
     [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(DeletedResponse))]
     [ProducesResponseType(StatusCodes.Status404NotFound)]
     public async Task<IActionResult> DeleteAsync(Guid id)

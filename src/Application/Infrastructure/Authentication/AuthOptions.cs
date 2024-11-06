@@ -1,9 +1,9 @@
 ﻿using System.Text;
 using Microsoft.IdentityModel.Tokens;
 
-namespace SkiiResort.Web.Infrastructure;
+namespace SkiiResort.Application.Infrastructure.Authentication;
 
-public class AuthOptions
+public static class AuthOptions
 {
     public const string Issuer = "CapybaraSkiiResort";
     public const string Audience = "SkiiResort";

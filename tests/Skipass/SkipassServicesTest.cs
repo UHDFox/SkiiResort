@@ -51,7 +51,8 @@ public sealed class SkipassServicesTest : TestBase
         var sampleSkipass = FixtureGenerator.Create<SkipassRecord>();
 
         SkipassRepositoryMock.Setup(method => method
-            .GetByIdAsync(sampleSkipass.Id)).ReturnsAsync(sampleSkipass);
+                .GetByIdAsync(sampleSkipass.Id))
+            .ReturnsAsync(sampleSkipass);
 
         //Act
         var entity = await SkipassService.GetByIdAsync(sampleSkipass.Id);
@@ -64,7 +65,7 @@ public sealed class SkipassServicesTest : TestBase
     public void GetByIdAsync_NonexistentInDbId_ShouldReturnNotFoundException()
     {
         //Act
-        var action =  () =>  SkipassService.GetByIdAsync(Guid.NewGuid());
+        var action = () => SkipassService.GetByIdAsync(Guid.NewGuid());
 
         //Assert
         action.Should().ThrowAsync<NotFoundException>();

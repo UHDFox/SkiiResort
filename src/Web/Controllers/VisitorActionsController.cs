@@ -1,4 +1,5 @@
 using AutoMapper;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using SkiiResort.Application.VisitorAction;
 using SkiiResort.Web.Contracts.CommonResponses;
@@ -21,6 +22,7 @@ public sealed class VisitorActionsController : Controller
     }
 
     [HttpGet]
+    [Authorize(Roles = "SuperAdmin, HighLevelAdmin, LowLevelAdmin")]
     [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(GetAllResponse<VisitorActionsResponse>))]
     [ProducesResponseType(StatusCodes.Status404NotFound)]
     public async Task<IActionResult> GetAllAsync(int? offset, int? limit)
@@ -31,6 +33,7 @@ public sealed class VisitorActionsController : Controller
     }
 
     [HttpGet("id:guid")]
+    [Authorize(Roles = "SuperAdmin, HighLevelAdmin, LowLevelAdmin")]
     [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(VisitorActionsResponse))]
     [ProducesResponseType(StatusCodes.Status404NotFound)]
     public async Task<IActionResult> GetByIdAsync(Guid id)
@@ -40,6 +43,7 @@ public sealed class VisitorActionsController : Controller
     }
 
     [HttpPost]
+    [Authorize(Roles = "SuperAdmin, HighLevelAdmin, LowLevelAdmin")]
     [ProducesResponseType(StatusCodes.Status201Created, Type = typeof(CreatedResponse))]
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
     public async Task<IActionResult> AddAsync(CreateVisitorActionsRequest model)
@@ -50,6 +54,7 @@ public sealed class VisitorActionsController : Controller
     }
 
     [HttpPost("tapSkipass")]
+    [Authorize(Roles = "SuperAdmin, HighLevelAdmin, LowLevelAdmin, User")]
     [ProducesResponseType(StatusCodes.Status201Created, Type = typeof(CreatedResponse))]
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
     public async Task<IActionResult> TapSkipass(TapSkipassRequest request)
@@ -61,6 +66,7 @@ public sealed class VisitorActionsController : Controller
 
 
     [HttpPost("depositSkipassBalance")]
+    [Authorize(Roles = "SuperAdmin, HighLevelAdmin, LowLevelAdmin, User")]
     [ProducesResponseType(StatusCodes.Status201Created, Type = typeof(CreatedResponse))]
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
     public async Task<IActionResult> DepositSkipassBalance(DepositSkipassBalanceRequest request)
@@ -71,6 +77,7 @@ public sealed class VisitorActionsController : Controller
     }
 
     [HttpPut]
+    [Authorize(Roles = "SuperAdmin, HighLevelAdmin, LowLevelAdmin")]
     [ProducesResponseType(StatusCodes.Status404NotFound)]
     [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(UpdatedResponse))]
     public async Task<IActionResult> UpdateAsync(UpdateVisitorActionsRequest model)
@@ -80,6 +87,7 @@ public sealed class VisitorActionsController : Controller
     }
 
     [HttpDelete]
+    [Authorize(Roles = "SuperAdmin, HighLevelAdmin, LowLevelAdmin")]
     [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(DeletedResponse))]
     [ProducesResponseType(StatusCodes.Status404NotFound)]
     public async Task<IActionResult> DeleteAsync(Guid id)

@@ -1,6 +1,6 @@
 ﻿using SkiiResort.Domain.Entities.User;
 
-namespace SkiiResort.Web.Infrastructure;
+namespace SkiiResort.Application.Infrastructure.Authentication;
 
 public interface IJwtProvider
 {

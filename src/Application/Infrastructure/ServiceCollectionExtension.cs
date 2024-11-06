@@ -1,6 +1,6 @@
 using System.Reflection;
-using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.DependencyInjection;
+using SkiiResort.Application.Infrastructure.Authentication;
 using SkiiResort.Application.Location;
 using SkiiResort.Application.Skipass;
 using SkiiResort.Application.Tariff;
@@ -8,8 +8,6 @@ using SkiiResort.Application.Tariffication;
 using SkiiResort.Application.User;
 using SkiiResort.Application.Visitor;
 using SkiiResort.Application.VisitorAction;
-using SkiiResort.Domain.Entities.User;
-using SkiiResort.Web.Infrastructure;
 
 namespace SkiiResort.Application.Infrastructure;
 

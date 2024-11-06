@@ -52,7 +52,8 @@ public sealed class TarifficationServicesTest : TestBase
         var sampleTariffication = FixtureGenerator.Create<TarifficationRecord>();
 
         TarifficationRepositoryMock.Setup(method => method
-            .GetByIdAsync(sampleTariffication.Id)).ReturnsAsync(sampleTariffication);
+                .GetByIdAsync(sampleTariffication.Id))
+            .ReturnsAsync(sampleTariffication);
 
         //Act
         var entity = await TarifficationService.GetByIdAsync(sampleTariffication.Id);
@@ -65,7 +66,7 @@ public sealed class TarifficationServicesTest : TestBase
     public void GetByIdAsync_NonexistentInDbId_ShouldReturnNotFoundException()
     {
         //Act
-        var action =  () =>  TarifficationService.GetByIdAsync(Guid.NewGuid());
+        var action = () => TarifficationService.GetByIdAsync(Guid.NewGuid());
 
         //Assert
         action.Should().ThrowAsync<NotFoundException>();

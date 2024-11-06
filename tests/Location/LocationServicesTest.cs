@@ -52,7 +52,8 @@ public sealed class LocationServicesTest : TestBase
         var sampleLocation = FixtureGenerator.Create<LocationRecord>();
 
         LocationRepositoryMock.Setup(method => method
-            .GetByIdAsync(sampleLocation.Id)).ReturnsAsync(sampleLocation);
+                .GetByIdAsync(sampleLocation.Id))
+            .ReturnsAsync(sampleLocation);
 
         //Act
         var entity = await LocationService.GetByIdAsync(sampleLocation.Id);
@@ -65,7 +66,7 @@ public sealed class LocationServicesTest : TestBase
     public void GetByIdAsync_NonexistentInDbId_ShouldReturnNotFoundException()
     {
         //Act
-        var action =  () =>  LocationService.GetByIdAsync(Guid.NewGuid());
+        var action = () => LocationService.GetByIdAsync(Guid.NewGuid());
 
         //Assert
         action.Should().ThrowAsync<NotFoundException>();

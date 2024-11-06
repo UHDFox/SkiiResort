@@ -23,7 +23,6 @@ public sealed class VisitorActionsServicesTest : TestBase
 
 
     [Fact(DisplayName = "Метод GetAllAsync вернет список действий посетителя c определенного индекса и указанной длины")]
-
     public async Task GetAllAsync_ValidInput_ReturnsListOfVisitorActionsFromInSomeRange()
     {
         //Arrange
@@ -57,7 +56,8 @@ public sealed class VisitorActionsServicesTest : TestBase
         var sampleVisitorActions = FixtureGenerator.Create<VisitorActionsRecord>();
 
         VisitorActionsRepositoryMock.Setup(method => method
-            .GetByIdAsync(sampleVisitorActions.Id)).ReturnsAsync(sampleVisitorActions);
+                .GetByIdAsync(sampleVisitorActions.Id))
+            .ReturnsAsync(sampleVisitorActions);
 
         //Act
         var entity = await VisitorActionsService.GetByIdAsync(sampleVisitorActions.Id);
@@ -70,7 +70,7 @@ public sealed class VisitorActionsServicesTest : TestBase
     public async Task GetByIdAsync_NoneInput_ShouldReturnNotFoundException()
     {
         //Act
-        var action = () =>  VisitorActionsService.GetByIdAsync(Guid.NewGuid());
+        var action = () => VisitorActionsService.GetByIdAsync(Guid.NewGuid());
 
         //Assert
         await action.Should().ThrowAsync<NotFoundException>();
@@ -102,8 +102,7 @@ public sealed class VisitorActionsServicesTest : TestBase
             .Build<TariffRecord>()
             .With(m => m.Id, skipassEntity.TariffId)
             .With(m => m.IsVip, false)
-            .With(m => m.Tariffications, new []
-                {new TarifficationRecord(skipassEntity.Balance - 1, skipassEntity.TariffId, locationEntity.Id)})
+            .With(m => m.Tariffications, new[] { new TarifficationRecord(skipassEntity.Balance - 1, skipassEntity.TariffId, locationEntity.Id) })
             .Create();
 
 
@@ -146,7 +145,7 @@ public sealed class VisitorActionsServicesTest : TestBase
         var visitorActionModel = FixtureGenerator
             .Build<VisitorActionsRecord>()
             .With(m => m.SkipassId, skipassEntity.Id)
-            .With(m => m.TransactionType, (OperationType)new Random().Next (2, 100))
+            .With(m => m.TransactionType, (OperationType)new Random().Next(2, 100))
             .Create();
 
         var locationEntity = FixtureGenerator
@@ -157,8 +156,7 @@ public sealed class VisitorActionsServicesTest : TestBase
         var tariffEntity = FixtureGenerator
             .Build<TariffRecord>()
             .With(m => m.Id, skipassEntity.TariffId)
-            .With(m => m.Tariffications, new []
-                {new TarifficationRecord(100, skipassEntity.TariffId, locationEntity.Id)})
+            .With(m => m.Tariffications, new[] { new TarifficationRecord(100, skipassEntity.TariffId, locationEntity.Id) })
             .Create();
 
 
@@ -215,7 +213,7 @@ public sealed class VisitorActionsServicesTest : TestBase
             .With(m => m.Id, skipassEntity.TariffId)
             .With(m => m.IsVip, false)
             .With(m => m.Tariffications,
-                new [] {new TarifficationRecord(1000, skipassEntity.TariffId, locationEntity.Id)})
+                new[] { new TarifficationRecord(1000, skipassEntity.TariffId, locationEntity.Id) })
             .Create();
 
 
@@ -284,7 +282,6 @@ public sealed class VisitorActionsServicesTest : TestBase
 
         SkipassRepositoryMock.Verify(m =>
             m.GetByIdAsync(It.Is<Guid>(v => v.Equals(visitorActionsRecord.SkipassId))));
-
     }
 
     [Fact(DisplayName = "Метод AddAsync вернет NotFoundException, если относящийся к модели скайпасс ссылается на несуществующий тарифф")]
@@ -380,12 +377,14 @@ public sealed class VisitorActionsServicesTest : TestBase
             .Create();
 
         VisitorActionsRepositoryMock.Setup(m =>
-            m.AddAsync(It.IsAny<VisitorActionsRecord>())).ReturnsAsync(Guid.NewGuid());
+                m.AddAsync(It.IsAny<VisitorActionsRecord>()))
+            .ReturnsAsync(Guid.NewGuid());
 
         VisitorActionsRepositoryMock.Setup(m => m.SaveChangesAsync()).ReturnsAsync(1);
 
         SkipassRepositoryMock.Setup(m =>
-            m.GetByIdAsync(It.IsAny<Guid>())).ReturnsAsync(skipassEntity);
+                m.GetByIdAsync(It.IsAny<Guid>()))
+            .ReturnsAsync(skipassEntity);
 
         TariffRepositoryMock.Setup(m => m.GetByIdAsync(It.IsAny<Guid>()))
             .ReturnsAsync(tariffEntity);

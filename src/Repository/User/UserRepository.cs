@@ -39,8 +39,7 @@ internal sealed class UserRepository : IUserRepository
     }
 
     public void Update(UserRecord data)
-    {
-        context.Entry(data).Property(x => x.VisitorId).IsModified = true;
+    { ;
         context.Users.Update(data);
     }
 
