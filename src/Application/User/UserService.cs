@@ -34,8 +34,14 @@ internal sealed class UserService : IUserService
         }
 
         var token = jwtProvider.GenerateToken(user);
+        var cookieOptions = new CookieOptions
+        {
+            HttpOnly = true,
+            SameSite = SameSiteMode.Strict,
+            Expires = DateTime.UtcNow.AddMinutes(20)
+        };
 
-        context.Response.Cookies.Append("some-cookie", token);
+        context.Response.Cookies.Append("some-cookie", token, cookieOptions);
 
         return token;
     }
@@ -47,7 +53,7 @@ internal sealed class UserService : IUserService
 
         var entity = new UserRecord(model.Name, hashedPassword, model.Email, UserRole.User, DateTime.Now);
 
-        return await AddAsync(mapper.Map<AddUserModel>(model));
+        return await AddAsync(mapper.Map<AddUserModel>(entity));
 
 
     }
@@ -59,8 +65,6 @@ internal sealed class UserService : IUserService
 
     public async Task<IReadOnlyCollection<GetUserModel>> GetAllAsync(int offset, int limit)
     {
-        var totalAmount = await repository.GetTotalAmountAsync();
-
         return mapper.Map<IReadOnlyCollection<GetUserModel>>(await repository.GetAllAsync(offset, limit));
     }
 
