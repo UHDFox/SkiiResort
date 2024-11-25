@@ -1,4 +1,5 @@
 using AutoMapper;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using SkiiResort.Application.Skipass;
 using SkiiResort.Web.Contracts.CommonResponses;
@@ -21,6 +22,7 @@ public sealed class SkipassController : Controller
     }
 
     [HttpGet]
+    [Authorize(Roles = "SuperAdmin, HighLevelAdmin, LowLevelAdmin")]
     [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(GetAllResponse<SkipassResponse>))]
     [ProducesResponseType(StatusCodes.Status404NotFound)]
     public async Task<IActionResult> GetListAsync(int? offset, int? limit)
@@ -31,6 +33,7 @@ public sealed class SkipassController : Controller
     }
 
     [HttpGet("id:guid")]
+    [Authorize(Roles = "SuperAdmin, HighLevelAdmin, LowLevelAdmin")]
     [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(SkipassResponse))]
     [ProducesResponseType(StatusCodes.Status404NotFound)]
     public async Task<IActionResult> GetByIdAsync(Guid id)
@@ -40,6 +43,7 @@ public sealed class SkipassController : Controller
     }
 
     [HttpPost]
+    [Authorize(Roles = "SuperAdmin, HighLevelAdmin, LowLevelAdmin")]
     [ProducesResponseType(StatusCodes.Status201Created, Type = typeof(SkipassResponse))]
     [ProducesResponseType(StatusCodes.Status400BadRequest, Type = typeof(ValidationProblemDetails))]
     public async Task<IActionResult> AddAsync(CreateSkipassRequest skipassModel)
@@ -50,6 +54,7 @@ public sealed class SkipassController : Controller
     }
 
     [HttpPut]
+    [Authorize(Roles = "SuperAdmin, HighLevelAdmin, LowLevelAdmin")]
     [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(UpdatedResponse))]
     [ProducesResponseType(StatusCodes.Status404NotFound)]
     public async Task<IActionResult> UpdateAsync(UpdateSkipassRequest skipassModel)
@@ -59,6 +64,7 @@ public sealed class SkipassController : Controller
     }
 
     [HttpDelete]
+    [Authorize(Roles = "SuperAdmin, HighLevelAdmin")]
     [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(DeletedResponse))]
     [ProducesResponseType(StatusCodes.Status404NotFound)]
     public async Task<IActionResult> DeleteAsync(Guid id)

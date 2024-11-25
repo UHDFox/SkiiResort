@@ -3,14 +3,17 @@ using SkiiResort.Application.Location.Models;
 using SkiiResort.Application.Skipass;
 using SkiiResort.Application.Tariff;
 using SkiiResort.Application.Tariffication.Models;
+using SkiiResort.Application.User;
 using SkiiResort.Application.Visitor;
 using SkiiResort.Application.VisitorAction;
 using SkiiResort.Domain.Entities.Location;
 using SkiiResort.Domain.Entities.Skipass;
 using SkiiResort.Domain.Entities.Tariff;
 using SkiiResort.Domain.Entities.Tariffication;
+using SkiiResort.Domain.Entities.User;
 using SkiiResort.Domain.Entities.Visitor;
 using SkiiResort.Domain.Entities.VisitorsAction;
+using SkiiResort.Domain.Enums;
 
 namespace SkiiResort.Application.Infrastructure.Automapper;
 
@@ -42,5 +45,13 @@ public sealed class ApplicationProfile : Profile
         CreateMap<GetTarifficationModel, TarifficationRecord>().ReverseMap();
         CreateMap<AddTarifficationModel, TarifficationRecord>().ReverseMap();
         CreateMap<UpdateTarifficationModel, TarifficationRecord>().ReverseMap();
+
+        CreateMap<GetUserModel, UserRecord>().ReverseMap();
+        CreateMap<AddUserModel, UserRecord>()
+            .ForCtorParam("passwordHash", opt =>
+                opt.MapFrom(src => src.Password));
+        CreateMap<UpdateUserModel, UserRecord>().ReverseMap();
+        CreateMap<RegisterModel, AddUserModel>()
+            .ConstructUsing(src => new AddUserModel(src.Name, src.Password, src.Email, UserRole.User, DateTime.Now));
     }
 }

@@ -51,7 +51,8 @@ public sealed class TariffServicesTest : TestBase
         var sampleTariff = FixtureGenerator.Create<TariffRecord>();
 
         TariffRepositoryMock.Setup(method => method
-            .GetByIdAsync(sampleTariff.Id)).ReturnsAsync(sampleTariff);
+                .GetByIdAsync(sampleTariff.Id))
+            .ReturnsAsync(sampleTariff);
 
         //Act
         var entity = await TariffService.GetByIdAsync(sampleTariff.Id);
@@ -64,7 +65,7 @@ public sealed class TariffServicesTest : TestBase
     public void GetByIdAsync_NonexistentInDbId_ShouldReturnNotFoundException()
     {
         //Act
-        var action =  () =>  TariffService.GetByIdAsync(Guid.NewGuid());
+        var action = () => TariffService.GetByIdAsync(Guid.NewGuid());
 
         //Assert
         action.Should().ThrowAsync<NotFoundException>();

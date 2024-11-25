@@ -3,6 +3,7 @@ using SkiiResort.Application.Location.Models;
 using SkiiResort.Application.Skipass;
 using SkiiResort.Application.Tariff;
 using SkiiResort.Application.Tariffication.Models;
+using SkiiResort.Application.User;
 using SkiiResort.Application.Visitor;
 using SkiiResort.Application.VisitorAction;
 using SkiiResort.Web.Contracts.Location;
@@ -13,6 +14,8 @@ using SkiiResort.Web.Contracts.Tariff;
 using SkiiResort.Web.Contracts.Tariff.Requests;
 using SkiiResort.Web.Contracts.Tariffication;
 using SkiiResort.Web.Contracts.Tariffication.Requests;
+using SkiiResort.Web.Contracts.User;
+using SkiiResort.Web.Contracts.User.Requests;
 using SkiiResort.Web.Contracts.Visitor;
 using SkiiResort.Web.Contracts.Visitor.Requests;
 using SkiiResort.Web.Contracts.VisitorActions;
@@ -49,5 +52,11 @@ public sealed class WebProfile : Profile
         CreateMap<UpdateTarifficationRequest, UpdateTarifficationModel>().ReverseMap();
         CreateMap<TapSkipassRequest, AddVisitorActionsModel>().ReverseMap();
         CreateMap<DepositSkipassBalanceRequest, AddVisitorActionsModel>();
+
+        CreateMap<GetUserModel, UserResponse>().ReverseMap();
+        CreateMap<CreateUserRequest, AddUserModel>().ReverseMap();
+        CreateMap<UpdateUserRequest, UpdateUserModel>().ReverseMap();
+        CreateMap<LoginRequest, LoginModel>();
+        CreateMap<RegisterRequest, RegisterModel>();
     }
 }

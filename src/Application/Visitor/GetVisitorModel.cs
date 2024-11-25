@@ -4,7 +4,7 @@ namespace SkiiResort.Application.Visitor;
 
 public sealed class GetVisitorModel
 {
-    public GetVisitorModel(Guid id, string name, int age, string phone, DateTimeOffset birthdate, string passport)
+    public GetVisitorModel(Guid id, string name, int age, string phone, DateTimeOffset birthdate, string passport, Guid userId)
     {
         Id = id;
         Name = name;
@@ -12,6 +12,7 @@ public sealed class GetVisitorModel
         Phone = phone;
         Birthdate = birthdate;
         Passport = passport;
+        UserId = userId;
     }
 
     public Guid Id { get; set; }
@@ -27,4 +28,6 @@ public sealed class GetVisitorModel
     public string? Passport { get; set; }
 
     public IReadOnlyList<SkipassRecord> Skipasses { get; set; } = new List<SkipassRecord>();
+
+    public Guid UserId { get; set; }
 }

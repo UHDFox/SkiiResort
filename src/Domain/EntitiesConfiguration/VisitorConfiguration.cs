@@ -11,5 +11,10 @@ public sealed class VisitorConfiguration : IEntityTypeConfiguration<VisitorRecor
         builder.HasKey(e => e.Id);
 
         builder.HasMany(s => s.Skipasses).WithOne(v => v.Visitor);
+
+        builder.HasMany(v => v.Skipasses)
+            .WithOne(s => s.Visitor)
+            .HasForeignKey(s => s.VisitorId)
+            .OnDelete(DeleteBehavior.Cascade);
     }
 }

@@ -1,4 +1,5 @@
 using AutoMapper;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using SkiiResort.Application.Tariff;
 using SkiiResort.Web.Contracts.CommonResponses;
@@ -20,6 +21,7 @@ public sealed class TariffController : Controller
         this.mapper = mapper;
     }
 
+    [Authorize(Roles = "SuperAdmin, HighLevelAdmin")]
     [HttpPost]
     [ProducesResponseType(StatusCodes.Status201Created, Type = typeof(CreatedResponse))]
     [ProducesResponseType(StatusCodes.Status400BadRequest, Type = typeof(ValidationProblemDetails))]
@@ -29,6 +31,7 @@ public sealed class TariffController : Controller
         return Created($"{Request.Path}", mapper.Map<TariffResponse>(await context.GetByIdAsync(id)));
     }
 
+    [Authorize(Roles = "SuperAdmin, HighLevelAdmin, LowLevelAdmin")]
     [HttpGet]
     [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(GetAllResponse<TariffResponse>))]
     [ProducesResponseType(StatusCodes.Status404NotFound)]
@@ -40,6 +43,7 @@ public sealed class TariffController : Controller
         return Ok(new GetAllResponse<TariffResponse>(collection, collection.Count));
     }
 
+    [Authorize(Roles = "SuperAdmin, HighLevelAdmin, LowLevelAdmin")]
     [HttpGet("id:guid")]
     [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(TariffResponse))]
     [ProducesResponseType(StatusCodes.Status404NotFound)]
@@ -49,6 +53,7 @@ public sealed class TariffController : Controller
         return Ok(mapper.Map<TariffResponse>(result));
     }
 
+    [Authorize(Roles = "SuperAdmin, HighLevelAdmin")]
     [HttpPut]
     [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(UpdatedResponse))]
     [ProducesResponseType(StatusCodes.Status404NotFound)]
@@ -58,6 +63,7 @@ public sealed class TariffController : Controller
         return Ok(new UpdatedResponse(tariffModel.Id));
     }
 
+    [Authorize(Roles = "SuperAdmin, HighLevelAdmin")]
     [HttpDelete]
     [ProducesResponseType(StatusCodes.Status404NotFound)]
     [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(DeletedResponse))]

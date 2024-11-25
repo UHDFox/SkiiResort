@@ -1,4 +1,5 @@
 using AutoMapper;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using SkiiResort.Application.Visitor;
 using SkiiResort.Web.Contracts.CommonResponses;
@@ -21,6 +22,7 @@ public sealed class VisitorController : Controller
     }
 
     [HttpPost]
+    [Authorize(Roles = "SuperAdmin, HighLevelAdmin, LowLevelAdmin")]
     [ProducesResponseType(StatusCodes.Status404NotFound)]
     [ProducesResponseType(StatusCodes.Status201Created, Type = typeof(CreatedResponse))]
     public async Task<IActionResult> AddAsync(CreateVisitorRequest model)
@@ -30,6 +32,7 @@ public sealed class VisitorController : Controller
     }
 
     [HttpGet]
+    [Authorize(Roles = "SuperAdmin, HighLevelAdmin, LowLevelAdmin")]
     [ProducesResponseType(StatusCodes.Status404NotFound)]
     [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(GetAllResponse<VisitorResponse>))]
     public async Task<IActionResult> GetAllAsync(int? offset, int? limit)
@@ -40,6 +43,7 @@ public sealed class VisitorController : Controller
     }
 
     [HttpGet("id:guid")]
+    [Authorize(Roles = "SuperAdmin, HighLevelAdmin, LowLevelAdmin")]
     [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(VisitorResponse))]
     [ProducesResponseType(StatusCodes.Status404NotFound)]
     public async Task<IActionResult> GetByIdAsync(Guid id)
@@ -49,6 +53,7 @@ public sealed class VisitorController : Controller
     }
 
     [HttpPut]
+    [Authorize(Roles = "SuperAdmin, HighLevelAdmin, LowLevelAdmin")]
     [ProducesResponseType(StatusCodes.Status404NotFound)]
     [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(UpdatedResponse))]
     public async Task<IActionResult> UpdateAsync(UpdateVisitorRequest model)
@@ -58,6 +63,7 @@ public sealed class VisitorController : Controller
     }
 
     [HttpDelete]
+    [Authorize(Roles = "SuperAdmin, HighLevelAdmin, LowLevelAdmin")]
     [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(DeletedResponse))]
     [ProducesResponseType(StatusCodes.Status204NoContent, Type = typeof(DeletedResponse))]
     public async Task<IActionResult> DeleteAsync(Guid id)

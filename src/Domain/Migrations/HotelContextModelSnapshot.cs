@@ -21,6 +21,7 @@ namespace Domain.Migrations
                 .HasAnnotation("Relational:MaxIdentifierLength", 63);
 
             NpgsqlModelBuilderExtensions.HasPostgresEnum(modelBuilder, "operation_type", new[] { "positive", "negative" });
+            NpgsqlModelBuilderExtensions.HasPostgresEnum(modelBuilder, "user_role", new[] { "super_admin", "high_level_admin", "low_level_admin", "user" });
             NpgsqlModelBuilderExtensions.UseIdentityByDefaultColumns(modelBuilder);
 
             modelBuilder.Entity("SkiiResort.Domain.Entities.Location.LocationRecord", b =>
@@ -110,6 +111,38 @@ namespace Domain.Migrations
                     b.ToTable("Tariffications");
                 });
 
+            modelBuilder.Entity("SkiiResort.Domain.Entities.User.UserRecord", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uuid");
+
+                    b.Property<DateTimeOffset>("CreatedAt")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<string>("Email")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.Property<string>("PasswordHash")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.Property<byte>("Role")
+                        .HasColumnType("smallint");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("Email")
+                        .IsUnique();
+
+                    b.ToTable("Users");
+                });
+
             modelBuilder.Entity("SkiiResort.Domain.Entities.Visitor.VisitorRecord", b =>
                 {
                     b.Property<Guid>("Id")
@@ -134,7 +167,13 @@ namespace Domain.Migrations
                         .IsRequired()
                         .HasColumnType("text");
 
+                    b.Property<Guid>("UserId")
+                        .HasColumnType("uuid");
+
                     b.HasKey("Id");
+
+                    b.HasIndex("UserId")
+                        .IsUnique();
 
                     b.ToTable("Visitors");
                 });
@@ -207,6 +246,17 @@ namespace Domain.Migrations
                     b.Navigation("Tariff");
                 });
 
+            modelBuilder.Entity("SkiiResort.Domain.Entities.Visitor.VisitorRecord", b =>
+                {
+                    b.HasOne("SkiiResort.Domain.Entities.User.UserRecord", "User")
+                        .WithOne("Visitor")
+                        .HasForeignKey("SkiiResort.Domain.Entities.Visitor.VisitorRecord", "UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("User");
+                });
+
             modelBuilder.Entity("SkiiResort.Domain.Entities.VisitorsAction.VisitorActionsRecord", b =>
                 {
                     b.HasOne("SkiiResort.Domain.Entities.Location.LocationRecord", "Location")
@@ -241,6 +291,11 @@ namespace Domain.Migrations
                     b.Navigation("Skipasses");
 
                     b.Navigation("Tariffications");
+                });
+
+            modelBuilder.Entity("SkiiResort.Domain.Entities.User.UserRecord", b =>
+                {
+                    b.Navigation("Visitor");
                 });
 
             modelBuilder.Entity("SkiiResort.Domain.Entities.Visitor.VisitorRecord", b =>

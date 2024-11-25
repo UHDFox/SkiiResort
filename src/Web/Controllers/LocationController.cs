@@ -1,4 +1,5 @@
 using AutoMapper;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using SkiiResort.Application.Location;
 using SkiiResort.Application.Location.Models;
@@ -9,6 +10,7 @@ using SkiiResort.Web.Contracts.Location.Requests;
 
 namespace SkiiResort.Web.Controllers;
 
+[Authorize(Roles = "SuperAdmin")]
 [ApiController]
 [Route("api/v1/[controller]")]
 public sealed class LocationController : Controller

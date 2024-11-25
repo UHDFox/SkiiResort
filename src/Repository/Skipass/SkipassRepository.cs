@@ -17,7 +17,7 @@ internal sealed class SkipassRepository : ISkipassRepository
     public async Task<IReadOnlyCollection<SkipassRecord>> GetAllAsync(int offset, int limit) =>
         await context.Skipasses.Skip(offset).Take(limit).ToListAsync();
 
-    public async Task<int> GetTotalAmountAsync() => await context.Visitors.CountAsync();
+    public async Task<int> GetTotalAmountAsync() => await context.Skipasses.CountAsync();
 
     public async Task<SkipassRecord?> GetByIdAsync(Guid skipassId) =>
         await context.Skipasses

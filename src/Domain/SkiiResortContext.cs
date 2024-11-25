@@ -3,6 +3,7 @@ using SkiiResort.Domain.Entities.Location;
 using SkiiResort.Domain.Entities.Skipass;
 using SkiiResort.Domain.Entities.Tariff;
 using SkiiResort.Domain.Entities.Tariffication;
+using SkiiResort.Domain.Entities.User;
 using SkiiResort.Domain.Entities.Visitor;
 using SkiiResort.Domain.Entities.VisitorsAction;
 using SkiiResort.Domain.Enums;
@@ -29,10 +30,13 @@ public sealed class SkiiResortContext : DbContext
 
     public DbSet<LocationRecord> Locations => Set<LocationRecord>();
 
+    public DbSet<UserRecord> Users => Set<UserRecord>();
+
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
         modelBuilder.HasPostgresEnum<OperationType>();
+        modelBuilder.HasPostgresEnum<UserRole>();
 
         base.OnModelCreating(modelBuilder);
         modelBuilder.ApplyConfigurationsFromAssembly(GetType().Assembly);
@@ -44,5 +48,4 @@ public sealed class SkiiResortContext : DbContext
             .Properties<DateTimeOffset>()
             .HaveConversion<DateTimeOffsetConverter>();
     }
-
 }

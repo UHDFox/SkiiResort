@@ -1,9 +1,10 @@
 <Project Sdk="Microsoft.NET.Sdk.Web">
- <PropertyGroup>
+  <PropertyGroup>
     <TargetFramework>net7.0</TargetFramework>
   </PropertyGroup>
   <ItemGroup>
     <PackageReference Include="AutoMapper"/>
+    <PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer"/>
     <PackageReference Include="Microsoft.AspNetCore.Mvc.NewtonsoftJson"/>
     <PackageReference Include="Microsoft.AspNetCore.OpenApi"/>
     <PackageReference Include="Microsoft.EntityFrameworkCore.Tools">
@@ -15,12 +16,10 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Content Include="..\.dockerignore">
-      <Link>.dockerignore</Link>
-    </Content>
+    <ProjectReference Include="..\Application\Application.csproj"/>
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\Application\Application.csproj"/>
+    <Compile Remove="Infrastructure\Authentication\PasswordHasher.cs"/>
   </ItemGroup>
 </Project>
