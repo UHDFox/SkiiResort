@@ -2,7 +2,6 @@ using AutoMapper;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using SkiiResort.Application.Location;
-using SkiiResort.Application.Location.Models;
 using SkiiResort.Domain.Entities.Location;
 using SkiiResort.Web.Contracts.CommonResponses;
 using SkiiResort.Web.Contracts.Location;
@@ -30,7 +29,7 @@ public sealed class LocationController : Controller
     public async Task<IActionResult> GetListAsync(int? offset, int? limit)
     {
         var result = mapper.Map<IReadOnlyCollection<LocationResponse>>
-            (await locationService.GetAllAsync(offset.GetValueOrDefault(0), limit.GetValueOrDefault(5)));
+            (await locationService.GetListAsync(offset.GetValueOrDefault(0), limit.GetValueOrDefault(5)));
 
         return Ok(new GetAllResponse<LocationResponse>(result, result.Count));
     }
@@ -45,7 +44,7 @@ public sealed class LocationController : Controller
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
     public async Task<IActionResult> AddAsync(CreateLocationRequest data)
     {
-        var result = await locationService.AddAsync(mapper.Map<AddLocationModel>(data));
+        var result = await locationService.AddAsync(mapper.Map<LocationModel>(data));
         return Created($"{Request.Path}", mapper.Map<LocationResponse>(await locationService.GetByIdAsync(result)));
     }
 
@@ -54,7 +53,7 @@ public sealed class LocationController : Controller
     [ProducesResponseType(StatusCodes.Status404NotFound)]
     public async Task<IActionResult> UpdateAsync(UpdateLocationRequest data)
     {
-        await locationService.UpdateAsync(mapper.Map<UpdateLocationModel>(data));
+        await locationService.UpdateAsync(mapper.Map<LocationModel>(data));
         return Ok(new UpdatedResponse(data.Id));
     }
 

@@ -1,23 +1,26 @@
-﻿using SkiiResort.Domain.Enums;
+using Application;
+using SkiiResort.Domain.Enums;
 
 namespace SkiiResort.Application.User;
 
-public sealed class AddUserModel
+public sealed class UserModel : ServiceModel
 {
-    public AddUserModel(string name, string password, string email, UserRole role, DateTimeOffset createdAt)
+    public UserModel(Guid id, string name, string email, string password, UserRole role, DateTimeOffset createdAt)
+    : base(id)
     {
+        Id = id;
         Name = name;
-        Password = password;
         Email = email;
+        Password = password;
         Role = role;
         CreatedAt = createdAt;
     }
 
     public string Name { get; set; }
 
-    public string Password { get; set; }
-
     public string Email { get; set; }
+
+    public string Password { get; set; }
 
     public UserRole Role { get; set; }
 

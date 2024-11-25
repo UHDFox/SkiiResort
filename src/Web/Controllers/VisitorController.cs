@@ -27,7 +27,7 @@ public sealed class VisitorController : Controller
     [ProducesResponseType(StatusCodes.Status201Created, Type = typeof(CreatedResponse))]
     public async Task<IActionResult> AddAsync(CreateVisitorRequest model)
     {
-        var id = await visitorService.AddAsync(mapper.Map<AddVisitorModel>(model));
+        var id = await visitorService.AddAsync(mapper.Map<VisitorModel>(model));
         return Created($"{Request.Path}", mapper.Map<VisitorResponse>(await visitorService.GetByIdAsync(id)));
     }
 
@@ -39,7 +39,7 @@ public sealed class VisitorController : Controller
     {
         var result = await visitorService.GetListAsync(offset.GetValueOrDefault(0), limit.GetValueOrDefault(5));
         return Ok(new GetAllResponse<VisitorResponse>(mapper.Map<IReadOnlyCollection<VisitorResponse>>(result),
-            await visitorService.GetTotalAmountAsync()));
+            result.Count));
     }
 
     [HttpGet("id:guid")]
@@ -58,7 +58,7 @@ public sealed class VisitorController : Controller
     [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(UpdatedResponse))]
     public async Task<IActionResult> UpdateAsync(UpdateVisitorRequest model)
     {
-        var result = await visitorService.UpdateAsync(mapper.Map<UpdateVisitorModel>(model));
+        var result = await visitorService.UpdateAsync(mapper.Map<VisitorModel>(model));
         return Ok(new UpdatedResponse(model.Id));
     }
 

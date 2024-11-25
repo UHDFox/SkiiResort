@@ -27,7 +27,7 @@ public sealed class TariffController : Controller
     [ProducesResponseType(StatusCodes.Status400BadRequest, Type = typeof(ValidationProblemDetails))]
     public async Task<IActionResult> AddAsync(CreateTariffRequest tariffModel)
     {
-        var id = await context.AddAsync(mapper.Map<AddTariffModel>(tariffModel));
+        var id = await context.AddAsync(mapper.Map<TariffModel>(tariffModel));
         return Created($"{Request.Path}", mapper.Map<TariffResponse>(await context.GetByIdAsync(id)));
     }
 
@@ -59,7 +59,7 @@ public sealed class TariffController : Controller
     [ProducesResponseType(StatusCodes.Status404NotFound)]
     public async Task<IActionResult> UpdateAsync(UpdateTariffRequest tariffModel)
     {
-        await context.UpdateAsync(mapper.Map<UpdateTariffModel>(tariffModel));
+        await context.UpdateAsync(mapper.Map<TariffModel>(tariffModel));
         return Ok(new UpdatedResponse(tariffModel.Id));
     }
 

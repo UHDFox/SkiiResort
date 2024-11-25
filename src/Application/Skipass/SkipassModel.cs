@@ -1,11 +1,17 @@
+using Application;
 using SkiiResort.Domain.Entities.Tariff;
 using SkiiResort.Domain.Entities.Visitor;
 
 namespace SkiiResort.Application.Skipass;
 
-public sealed class GetSkipassModel
+public sealed class SkipassModel : ServiceModel
 {
-    public GetSkipassModel(Guid id, double balance, Guid tariffId, Guid visitorId, bool status)
+    public SkipassModel() : base(Guid.Empty)
+    {
+    }
+
+    public SkipassModel(Guid id, double balance, Guid tariffId, Guid visitorId, bool status)
+    : base(id)
     {
         Id = id;
         Balance = balance;
@@ -13,8 +19,6 @@ public sealed class GetSkipassModel
         VisitorId = visitorId;
         Status = status;
     }
-
-    public Guid Id { get; set; }
 
     public double Balance { get; set; }
 

@@ -2,7 +2,6 @@ using AutoMapper;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using SkiiResort.Application.Tariffication;
-using SkiiResort.Application.Tariffication.Models;
 using SkiiResort.Web.Contracts.CommonResponses;
 using SkiiResort.Web.Contracts.Tariffication;
 using SkiiResort.Web.Contracts.Tariffication.Requests;
@@ -30,7 +29,7 @@ public sealed class TarifficationController : Controller
     public async Task<IActionResult> GetListAsync(int? offset, int? limit)
     {
         var result = mapper.Map<IReadOnlyCollection<TarifficationResponse>>
-            (await tarifficationService.GetAllAsync(offset.GetValueOrDefault(0), limit.GetValueOrDefault(5)));
+            (await tarifficationService.GetListAsync(offset.GetValueOrDefault(0), limit.GetValueOrDefault(5)));
 
         return Ok(new GetAllResponse<TarifficationResponse>(result, result.Count));
     }
@@ -47,7 +46,7 @@ public sealed class TarifficationController : Controller
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
     public async Task<IActionResult> AddAsync(CreateTarifficationRequest request)
     {
-        var id = await tarifficationService.AddAsync(mapper.Map<AddTarifficationModel>(request));
+        var id = await tarifficationService.AddAsync(mapper.Map<TarifficationModel>(request));
         return Created(Request.Path, await GetByIdAsync(id));
     }
 
@@ -57,7 +56,7 @@ public sealed class TarifficationController : Controller
     [ProducesResponseType(StatusCodes.Status404NotFound)]
     public async Task<IActionResult> UpdateAsync(UpdateTarifficationRequest request)
     {
-        await tarifficationService.UpdateAsync(mapper.Map<UpdateTarifficationModel>(request));
+        await tarifficationService.UpdateAsync(mapper.Map<TarifficationModel>(request));
         return Ok(new UpdatedResponse(request.Id));
     }
 

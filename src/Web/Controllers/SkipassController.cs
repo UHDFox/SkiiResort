@@ -48,7 +48,7 @@ public sealed class SkipassController : Controller
     [ProducesResponseType(StatusCodes.Status400BadRequest, Type = typeof(ValidationProblemDetails))]
     public async Task<IActionResult> AddAsync(CreateSkipassRequest skipassModel)
     {
-        var id = await context.AddAsync(mapper.Map<AddSkipassModel>(skipassModel));
+        var id = await context.AddAsync(mapper.Map<SkipassModel>(skipassModel));
 
         return Created($"{Request.Path}", mapper.Map<SkipassResponse>(await context.GetByIdAsync(id)));
     }
@@ -59,7 +59,7 @@ public sealed class SkipassController : Controller
     [ProducesResponseType(StatusCodes.Status404NotFound)]
     public async Task<IActionResult> UpdateAsync(UpdateSkipassRequest skipassModel)
     {
-        await context.UpdateAsync(mapper.Map<UpdateSkipassModel>(skipassModel));
+        await context.UpdateAsync(mapper.Map<SkipassModel>(skipassModel));
         return Ok(new UpdatedResponse(skipassModel.Id));
     }
 

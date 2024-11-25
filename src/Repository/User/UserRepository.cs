@@ -15,4 +15,10 @@ internal sealed class UserRepository : Repository<UserRecord>,IUserRepository
 
     public Task<UserRecord?> GetByEmailAsync(string email)
         => context.Users.FirstOrDefaultAsync(e => e.Email == email);
+
+    public new void UpdateAsync(UserRecord data)
+    {
+        context.Entry(data).Property(x => x.PasswordHash).IsModified = true;
+        Context.Users.Update(data);
+    }
 }
