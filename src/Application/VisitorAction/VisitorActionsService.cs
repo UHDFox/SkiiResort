@@ -97,7 +97,7 @@ internal sealed class VisitorActionsService : IVisitorActions
                     throw new ArgumentOutOfRangeException(nameof(model.TransactionType));
             }
 
-            skipassRepository.Update(skipassRecord);
+            skipassRepository.UpdateAsync(skipassRecord);
 
             result = await visitorActionsRepository.AddAsync(mapper.Map<VisitorActionsRecord>(model));
             await visitorActionsRepository.SaveChangesAsync();
@@ -162,11 +162,11 @@ internal sealed class VisitorActionsService : IVisitorActions
             }
 
 
-            skipassRepository.Update(skipassRecord);
+            skipassRepository.UpdateAsync(skipassRecord);
 
 
             mapper.Map(model, entity);
-            visitorActionsRepository.Update(entity);
+            visitorActionsRepository.UpdateAsync(entity);
             await visitorActionsRepository.SaveChangesAsync();
 
             await dbContextTransaction.CommitAsync();
@@ -198,7 +198,7 @@ internal sealed class VisitorActionsService : IVisitorActions
                     throw new ArgumentOutOfRangeException(nameof(visitorActionRecord.TransactionType));
             }
 
-            skipassRepository.Update(skipassRecord);
+            skipassRepository.UpdateAsync(skipassRecord);
             result = await visitorActionsRepository.DeleteAsync(id);
             await dbContextTransaction.CommitAsync();
         }

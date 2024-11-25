@@ -10,7 +10,7 @@ public interface IRepository<TEntity>
 
     Task<Guid> AddAsync(TEntity data);
 
-    void Update(TEntity data);
+    void UpdateAsync(TEntity data);
 
     Task<bool> DeleteAsync(Guid id);
 

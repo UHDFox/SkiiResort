@@ -48,7 +48,7 @@ internal sealed class TariffService : ITariffService
 
         mapper.Map(tariffModel, entity);
 
-        repository.Update(entity);
+        repository.UpdateAsync(entity);
         await repository.SaveChangesAsync();
 
         return tariffModel;

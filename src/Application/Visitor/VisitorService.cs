@@ -69,7 +69,7 @@ internal sealed class VisitorService : IVisitorService
 
 
         mapper.Map(model, entity);
-        repository.Update(entity);
+        repository.UpdateAsync(entity);
         await repository.SaveChangesAsync();
 
         return model;

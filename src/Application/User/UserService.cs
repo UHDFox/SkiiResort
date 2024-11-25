@@ -93,7 +93,7 @@ internal sealed class UserService : IUserService
         mapper.Map(userModel, entity);
 
 
-        repository.Update(entity);
+        repository.UpdateAsync(entity);
         await repository.SaveChangesAsync();
 
         return userModel;

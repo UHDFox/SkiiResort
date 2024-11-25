@@ -43,7 +43,7 @@ internal sealed class LocationService : ILocationService
 
         mapper.Map(model, entity);
 
-        repository.Update(entity);
+        repository.UpdateAsync(entity);
 
         await repository.SaveChangesAsync();
 
