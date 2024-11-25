@@ -5,7 +5,11 @@ namespace SkiiResort.Domain.Entities.Visitor;
 
 public sealed class VisitorRecord : DataObject
 {
-    public VisitorRecord(string name, int age, string phone, DateTimeOffset birthdate, string passport,
+    public VisitorRecord(string name,
+        int age,
+        string phone,
+        DateTimeOffset birthdate,
+        string passport,
         Guid userId)
     {
         Name = name;
@@ -15,6 +19,7 @@ public sealed class VisitorRecord : DataObject
         Passport = passport;
         UserId = userId;
     }
+
     public string Name { get; set; }
 
     public int Age { get; set; }

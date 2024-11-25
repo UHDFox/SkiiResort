@@ -11,6 +11,7 @@ public sealed class TarifficationRecord : DataObject
         TariffId = tariffId;
         LocationId = locationId;
     }
+
     public double Price { get; set; }
 
     public Guid TariffId { get; set; }

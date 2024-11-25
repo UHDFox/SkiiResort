@@ -8,6 +8,7 @@ public sealed class LocationRecord : DataObject
     {
         Name = name;
     }
+
     public string Name { get; set; }
 
     public IReadOnlyList<TarifficationRecord> Tariffications { get; set; } = new List<TarifficationRecord>();

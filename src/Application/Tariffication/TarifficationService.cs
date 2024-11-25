@@ -10,7 +10,7 @@ public sealed class TarifficationService : Service<TarifficationModel, Tariffica
     private readonly ITarifficationRepository repository;
 
     public TarifficationService(ITarifficationRepository repository, IMapper mapper)
-    : base(repository, mapper)
+        : base(repository, mapper)
     {
         this.repository = repository;
         this.mapper = mapper;

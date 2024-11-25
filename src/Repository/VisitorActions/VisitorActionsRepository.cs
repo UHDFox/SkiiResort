@@ -5,7 +5,7 @@ using SkiiResort.Domain.Entities.VisitorsAction;
 
 namespace SkiiResort.Repository.VisitorActions;
 
-internal sealed class VisitorActionsRepository : Repository<VisitorActionsRecord>,IVisitorActionsRepository
+internal sealed class VisitorActionsRepository : Repository<VisitorActionsRecord>, IVisitorActionsRepository
 {
     private readonly SkiiResortContext context;
 
@@ -13,5 +13,6 @@ internal sealed class VisitorActionsRepository : Repository<VisitorActionsRecord
     {
         this.context = context;
     }
+
     public async Task<IDbContextTransaction> BeginTransaction() => await context.Database.BeginTransactionAsync();
 }

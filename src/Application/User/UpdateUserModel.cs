@@ -25,5 +25,3 @@ public sealed class UpdateUserModel
 
     public DateTimeOffset CreatedAt { get; set; }
 }
-
-

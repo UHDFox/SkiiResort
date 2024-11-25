@@ -13,6 +13,7 @@ public sealed class UserRecord : DataObject
         Role = role;
         CreatedAt = createdAt;
     }
+
     public string Name { get; set; }
 
     public string PasswordHash { get; set; }

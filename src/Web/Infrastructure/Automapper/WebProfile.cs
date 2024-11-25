@@ -62,7 +62,7 @@ public sealed class WebProfile : Profile
         CreateMap<RegisterRequest, RegisterModel>();*/
         CreateMap<CreateUserRequest, UserModel>()
             .ConstructUsing(src => new UserModel(
-                Guid.NewGuid(),  // Generate a new ID or handle it as needed
+                Guid.NewGuid(), // Generate a new ID or handle it as needed
                 src.Name,
                 src.Email,
                 src.Password,

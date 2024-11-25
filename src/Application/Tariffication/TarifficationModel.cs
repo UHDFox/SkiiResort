@@ -8,11 +8,10 @@ public class TarifficationModel : ServiceModel
 {
     public TarifficationModel() : base(Guid.Empty)
     {
-
     }
 
     public TarifficationModel(Guid id, double price, Guid tariffId, Guid locationId)
-    : base(id)
+        : base(id)
     {
         Id = id;
         Price = price;

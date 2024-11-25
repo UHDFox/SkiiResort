@@ -7,7 +7,7 @@ using SkiiResort.Repository.Visitor;
 
 namespace SkiiResort.Application.Visitor;
 
-internal sealed class VisitorService : Service<VisitorModel, VisitorRecord> ,IVisitorService
+internal sealed class VisitorService : Service<VisitorModel, VisitorRecord>, IVisitorService
 {
     private static readonly Regex passportRegex = new(@"\d{4}-\d{6}", RegexOptions.IgnoreCase | RegexOptions.Compiled);
     private static readonly Regex phoneNumberRegex = new(@"^\d{9,11}$", RegexOptions.IgnoreCase | RegexOptions.Compiled);
@@ -16,7 +16,7 @@ internal sealed class VisitorService : Service<VisitorModel, VisitorRecord> ,IVi
     private readonly IVisitorRepository repository;
 
     public VisitorService(IMapper mapper, IVisitorRepository repository)
-    : base(repository, mapper)
+        : base(repository, mapper)
     {
         this.mapper = mapper;
         this.repository = repository;

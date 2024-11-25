@@ -6,7 +6,7 @@ namespace SkiiResort.Application.User;
 public sealed class UserModel : ServiceModel
 {
     public UserModel(Guid id, string name, string email, string password, UserRole role, DateTimeOffset createdAt)
-    : base(id)
+        : base(id)
     {
         Id = id;
         Name = name;

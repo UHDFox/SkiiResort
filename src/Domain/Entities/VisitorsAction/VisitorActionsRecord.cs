@@ -14,6 +14,7 @@ public sealed class VisitorActionsRecord : DataObject
         BalanceChange = balanceChange;
         TransactionType = transactionType;
     }
+
     public Guid SkipassId { get; set; }
 
     public SkipassRecord? Skipass { get; set; }

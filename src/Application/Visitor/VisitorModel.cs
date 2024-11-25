@@ -10,7 +10,7 @@ public sealed class VisitorModel : ServiceModel
     }
 
     public VisitorModel(Guid id, string name, int age, string phone, DateTimeOffset birthdate, string passport, Guid userId)
-    : base(id)
+        : base(id)
     {
         Id = id;
         Name = name;
@@ -20,6 +20,7 @@ public sealed class VisitorModel : ServiceModel
         Passport = passport;
         UserId = userId;
     }
+
     public string? Name { get; set; }
 
     public int Age { get; set; }

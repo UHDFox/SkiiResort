@@ -11,7 +11,7 @@ public sealed class SkipassModel : ServiceModel
     }
 
     public SkipassModel(Guid id, double balance, Guid tariffId, Guid visitorId, bool status)
-    : base(id)
+        : base(id)
     {
         Id = id;
         Balance = balance;

@@ -11,7 +11,7 @@ public class TariffModel : ServiceModel
     }
 
     public TariffModel(Guid id, string name, double priceModifier, bool isVip)
-    : base(id)
+        : base(id)
     {
         Name = name;
         PriceModifier = priceModifier;

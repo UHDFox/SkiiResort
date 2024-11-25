@@ -20,7 +20,6 @@ public sealed class ApplicationProfile : Profile
 {
     public ApplicationProfile()
     {
-
         CreateMap<SkipassModel, SkipassRecord>().ReverseMap();
 
         CreateMap<TariffModel, TariffRecord>().ReverseMap();
@@ -32,7 +31,7 @@ public sealed class ApplicationProfile : Profile
 
         CreateMap<LocationModel, LocationRecord>().ReverseMap();
 
-       CreateMap<TarifficationModel, TarifficationRecord>().ReverseMap();
+        CreateMap<TarifficationModel, TarifficationRecord>().ReverseMap();
 
         CreateMap<UserModel, UserRecord>()
             .ConstructUsing(src => new UserRecord(

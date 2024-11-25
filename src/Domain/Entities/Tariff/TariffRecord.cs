@@ -11,6 +11,7 @@ public sealed class TariffRecord : DataObject
         PriceModifier = priceModifier;
         IsVip = isVip;
     }
+
     public string Name { get; set; }
 
     public double PriceModifier { get; set; }

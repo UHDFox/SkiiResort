@@ -13,6 +13,7 @@ public sealed class SkipassRecord : DataObject
         VisitorId = visitorId;
         Status = status;
     }
+
     public double Balance { get; set; }
 
     public Guid TariffId { get; set; }

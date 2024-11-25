@@ -11,11 +11,9 @@ internal sealed class TariffService : Service<TariffModel, TariffRecord>, ITarif
     private readonly ITariffRepository repository;
 
     public TariffService(IMapper mapper, ITariffRepository repository)
-    : base(repository, mapper)
+        : base(repository, mapper)
     {
         this.mapper = mapper;
         this.repository = repository;
     }
-
-
 }

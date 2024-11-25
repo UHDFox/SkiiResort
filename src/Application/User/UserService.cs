@@ -16,7 +16,7 @@ internal sealed class UserService : Service<UserModel, UserRecord>, IUserService
     private readonly IPasswordProvider passwordProvider;
 
     public UserService(IMapper mapper, IUserRepository repository, IJwtProvider jwtProvider, IPasswordProvider passwordProvider)
-    : base(repository, mapper)
+        : base(repository, mapper)
     {
         this.mapper = mapper;
         this.repository = repository;
@@ -46,12 +46,7 @@ internal sealed class UserService : Service<UserModel, UserRecord>, IUserService
         }
 
         var token = jwtProvider.GenerateToken(user);
-        var cookieOptions = new CookieOptions
-        {
-            HttpOnly = true,
-            SameSite = SameSiteMode.Strict,
-            Expires = DateTime.UtcNow.AddMinutes(20)
-        };
+        var cookieOptions = new CookieOptions { HttpOnly = true, SameSite = SameSiteMode.Strict, Expires = DateTime.UtcNow.AddMinutes(20) };
 
         context.Response.Cookies.Append("some-cookie", token, cookieOptions);
 

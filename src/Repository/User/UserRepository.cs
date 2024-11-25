@@ -4,7 +4,7 @@ using SkiiResort.Domain.Entities.User;
 
 namespace SkiiResort.Repository.User;
 
-internal sealed class UserRepository : Repository<UserRecord>,IUserRepository
+internal sealed class UserRepository : Repository<UserRecord>, IUserRepository
 {
     private readonly SkiiResortContext context;
 

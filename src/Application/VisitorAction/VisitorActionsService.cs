@@ -26,7 +26,7 @@ internal sealed class VisitorActionsService : Service<VisitorActionsModel, Visit
         ITariffRepository tariffRepository,
         ILocationRepository locationRepository,
         ITarifficationRepository tarifficationRepository)
-    : base(visitorActionsRepository, mapper)
+        : base(visitorActionsRepository, mapper)
     {
         this.mapper = mapper;
         this.visitorActionsRepository = visitorActionsRepository;
@@ -35,6 +35,7 @@ internal sealed class VisitorActionsService : Service<VisitorActionsModel, Visit
         this.locationRepository = locationRepository;
         this.tarifficationRepository = tarifficationRepository;
     }
+
     public new async Task<Guid> AddAsync(VisitorActionsModel model)
     {
         Guid result;

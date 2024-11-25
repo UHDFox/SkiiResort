@@ -12,7 +12,7 @@ public sealed class VisitorActionsModel : ServiceModel
     }
 
     public VisitorActionsModel(Guid id, Guid skipassId, Guid locationId, DateTimeOffset time, double balanceChange, OperationType transactionType)
-    : base(id)
+        : base(id)
     {
         Id = id;
         SkipassId = skipassId;

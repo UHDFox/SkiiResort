@@ -10,7 +10,7 @@ internal sealed class LocationService : Service<LocationModel, LocationRecord>, 
     private readonly ILocationRepository repository;
 
     public LocationService(ILocationRepository repository, IMapper mapper)
-    : base(repository, mapper)
+        : base(repository, mapper)
     {
         this.repository = repository;
         this.mapper = mapper;

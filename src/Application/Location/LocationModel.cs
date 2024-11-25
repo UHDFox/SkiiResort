@@ -6,11 +6,10 @@ public class LocationModel : ServiceModel
 {
     public LocationModel() : base(Guid.Empty)
     {
-
     }
 
     public LocationModel(Guid id, string name)
-    : base(id)
+        : base(id)
     {
         Id = id;
         Name = name;
