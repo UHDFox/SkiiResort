@@ -3,7 +3,7 @@ using SkiiResort.Domain.Entities.Tariffication;
 
 namespace SkiiResort.Domain.Entities.Tariff;
 
-public sealed class TariffRecord
+public sealed class TariffRecord : DataObject
 {
     public TariffRecord(string name, double priceModifier, bool isVip)
     {
@@ -11,9 +11,6 @@ public sealed class TariffRecord
         PriceModifier = priceModifier;
         IsVip = isVip;
     }
-
-    public Guid Id { get; set; }
-
     public string Name { get; set; }
 
     public double PriceModifier { get; set; }

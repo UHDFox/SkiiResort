@@ -4,7 +4,7 @@ using SkiiResort.Domain.Entities.VisitorsAction;
 
 namespace SkiiResort.Domain.Entities.Skipass;
 
-public sealed class SkipassRecord
+public sealed class SkipassRecord : DataObject
 {
     public SkipassRecord(double balance, Guid tariffId, Guid visitorId, bool status)
     {
@@ -13,9 +13,6 @@ public sealed class SkipassRecord
         VisitorId = visitorId;
         Status = status;
     }
-
-    public Guid Id { get; set; }
-
     public double Balance { get; set; }
 
     public Guid TariffId { get; set; }
