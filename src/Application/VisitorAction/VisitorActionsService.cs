@@ -1,3 +1,4 @@
+using Application;
 using AutoMapper;
 using SkiiResort.Application.Exceptions;
 using SkiiResort.Domain.Entities.VisitorsAction;
@@ -10,7 +11,7 @@ using SkiiResort.Repository.VisitorActions;
 
 namespace SkiiResort.Application.VisitorAction;
 
-internal sealed class VisitorActionsService : IVisitorActions
+internal sealed class VisitorActionsService : Service<VisitorActionsModel, VisitorActionsRecord>, IVisitorActionsService
 {
     private readonly ILocationRepository locationRepository;
     private readonly IMapper mapper;
@@ -25,6 +26,7 @@ internal sealed class VisitorActionsService : IVisitorActions
         ITariffRepository tariffRepository,
         ILocationRepository locationRepository,
         ITarifficationRepository tarifficationRepository)
+        : base(visitorActionsRepository, mapper)
     {
         this.mapper = mapper;
         this.visitorActionsRepository = visitorActionsRepository;
@@ -34,21 +36,7 @@ internal sealed class VisitorActionsService : IVisitorActions
         this.tarifficationRepository = tarifficationRepository;
     }
 
-    public async Task<IReadOnlyCollection<GetVisitorActionsModel>> GetAllAsync(int offset, int limit)
-    {
-        var totalAmount = await visitorActionsRepository.GetTotalAmountAsync();
-
-        return mapper.Map<IReadOnlyCollection<GetVisitorActionsModel>>(
-            await visitorActionsRepository.GetAllAsync(offset, limit));
-    }
-
-    public async Task<GetVisitorActionsModel> GetByIdAsync(Guid id)
-    {
-        var entity = await visitorActionsRepository.GetByIdAsync(id) ?? throw new NotFoundException();
-        return mapper.Map<GetVisitorActionsModel>(entity);
-    }
-
-    public async Task<Guid> AddAsync(AddVisitorActionsModel model)
+    public new async Task<Guid> AddAsync(VisitorActionsModel model)
     {
         Guid result;
 
@@ -97,7 +85,7 @@ internal sealed class VisitorActionsService : IVisitorActions
                     throw new ArgumentOutOfRangeException(nameof(model.TransactionType));
             }
 
-            skipassRepository.Update(skipassRecord);
+            skipassRepository.UpdateAsync(skipassRecord);
 
             result = await visitorActionsRepository.AddAsync(mapper.Map<VisitorActionsRecord>(model));
             await visitorActionsRepository.SaveChangesAsync();
@@ -111,17 +99,17 @@ internal sealed class VisitorActionsService : IVisitorActions
     {
         model.TransactionType = OperationType.Negative;
 
-        return await AddAsync(model);
+        return await AddAsync(mapper.Map<VisitorActionsModel>(model));
     }
 
     public async Task<Guid> DepositSkipassBalance(AddVisitorActionsModel model)
     {
         model.TransactionType = OperationType.Positive;
         model.Time = DateTimeOffset.UtcNow;
-        return await AddAsync(model);
+        return await AddAsync(mapper.Map<VisitorActionsModel>(model));
     }
 
-    public async Task<UpdateVisitorActionsModel> UpdateAsync(UpdateVisitorActionsModel model)
+    public new async Task<VisitorActionsModel> UpdateAsync(VisitorActionsModel model)
     {
         await using (var dbContextTransaction = await visitorActionsRepository.BeginTransaction())
         {
@@ -162,11 +150,11 @@ internal sealed class VisitorActionsService : IVisitorActions
             }
 
 
-            skipassRepository.Update(skipassRecord);
+            skipassRepository.UpdateAsync(skipassRecord);
 
 
             mapper.Map(model, entity);
-            visitorActionsRepository.Update(entity);
+            visitorActionsRepository.UpdateAsync(entity);
             await visitorActionsRepository.SaveChangesAsync();
 
             await dbContextTransaction.CommitAsync();
@@ -175,7 +163,7 @@ internal sealed class VisitorActionsService : IVisitorActions
         return model;
     }
 
-    public async Task<bool> DeleteAsync(Guid id)
+    public new async Task<bool> DeleteAsync(Guid id)
     {
         var visitorActionRecord = mapper.Map<VisitorActionsRecord>(await GetByIdAsync(id));
         var skipassRecord = await skipassRepository.GetByIdAsync(visitorActionRecord.SkipassId)
@@ -198,7 +186,7 @@ internal sealed class VisitorActionsService : IVisitorActions
                     throw new ArgumentOutOfRangeException(nameof(visitorActionRecord.TransactionType));
             }
 
-            skipassRepository.Update(skipassRecord);
+            skipassRepository.UpdateAsync(skipassRecord);
             result = await visitorActionsRepository.DeleteAsync(id);
             await dbContextTransaction.CommitAsync();
         }

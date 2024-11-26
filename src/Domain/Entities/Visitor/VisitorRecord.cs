@@ -3,9 +3,13 @@ using SkiiResort.Domain.Entities.User;
 
 namespace SkiiResort.Domain.Entities.Visitor;
 
-public sealed class VisitorRecord
+public sealed class VisitorRecord : DataObject
 {
-    public VisitorRecord(string name, int age, string phone, DateTimeOffset birthdate, string passport,
+    public VisitorRecord(string name,
+        int age,
+        string phone,
+        DateTimeOffset birthdate,
+        string passport,
         Guid userId)
     {
         Name = name;
@@ -15,8 +19,6 @@ public sealed class VisitorRecord
         Passport = passport;
         UserId = userId;
     }
-
-    public Guid Id { get; set; }
 
     public string Name { get; set; }
 

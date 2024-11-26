@@ -18,7 +18,7 @@ public sealed class JwtProvider : IJwtProvider
 
     public string GenerateToken(UserRecord user)
     {
-            var claims = new List<Claim> { new Claim(ClaimTypes.Name, user.Name), new Claim(ClaimTypes.Role, user.Role.ToString()) };
+        var claims = new List<Claim> { new Claim(ClaimTypes.Name, user.Name), new Claim(ClaimTypes.Role, user.Role.ToString()) };
 
         var jwt = new JwtSecurityToken(
             issuer: AuthOptions.Issuer,

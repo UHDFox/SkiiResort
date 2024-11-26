@@ -3,7 +3,7 @@ using SkiiResort.Domain.Enums;
 
 namespace SkiiResort.Domain.Entities.User;
 
-public sealed class UserRecord
+public sealed class UserRecord : DataObject
 {
     public UserRecord(string name, string passwordHash, string email, UserRole role, DateTimeOffset createdAt)
     {
@@ -13,8 +13,6 @@ public sealed class UserRecord
         Role = role;
         CreatedAt = createdAt;
     }
-
-    public Guid Id { get; set; }
 
     public string Name { get; set; }
 

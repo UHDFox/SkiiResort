@@ -26,5 +26,4 @@ public sealed class UpdateVisitorRequest
     public string Passport { get; set; }
 
     public Guid UserId { get; set; }
-
 }

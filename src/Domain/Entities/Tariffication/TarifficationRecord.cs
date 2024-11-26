@@ -3,7 +3,7 @@ using SkiiResort.Domain.Entities.Tariff;
 
 namespace SkiiResort.Domain.Entities.Tariffication;
 
-public sealed class TarifficationRecord
+public sealed class TarifficationRecord : DataObject
 {
     public TarifficationRecord(double price, Guid tariffId, Guid locationId)
     {
@@ -11,8 +11,6 @@ public sealed class TarifficationRecord
         TariffId = tariffId;
         LocationId = locationId;
     }
-
-    public Guid Id { get; set; }
 
     public double Price { get; set; }
 

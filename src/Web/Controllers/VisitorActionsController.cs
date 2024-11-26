@@ -13,9 +13,9 @@ namespace SkiiResort.Web.Controllers;
 public sealed class VisitorActionsController : Controller
 {
     private readonly IMapper mapper;
-    private readonly IVisitorActions visitorActionsService;
+    private readonly IVisitorActionsService visitorActionsService;
 
-    public VisitorActionsController(IVisitorActions visitorActionsService, IMapper mapper)
+    public VisitorActionsController(IVisitorActionsService visitorActionsService, IMapper mapper)
     {
         this.visitorActionsService = visitorActionsService;
         this.mapper = mapper;
@@ -27,7 +27,7 @@ public sealed class VisitorActionsController : Controller
     [ProducesResponseType(StatusCodes.Status404NotFound)]
     public async Task<IActionResult> GetAllAsync(int? offset, int? limit)
     {
-        var result = await visitorActionsService.GetAllAsync(offset.GetValueOrDefault(0), limit.GetValueOrDefault(15));
+        var result = await visitorActionsService.GetListAsync(offset.GetValueOrDefault(0), limit.GetValueOrDefault(15));
         return Ok(new GetAllResponse<VisitorActionsResponse>(
             mapper.Map<IReadOnlyCollection<VisitorActionsResponse>>(result), result.Count));
     }
@@ -48,7 +48,7 @@ public sealed class VisitorActionsController : Controller
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
     public async Task<IActionResult> AddAsync(CreateVisitorActionsRequest model)
     {
-        var id = await visitorActionsService.AddAsync(mapper.Map<AddVisitorActionsModel>(model));
+        var id = await visitorActionsService.AddAsync(mapper.Map<VisitorActionsModel>(model));
         return Created($"{Request.Path}",
             mapper.Map<VisitorActionsResponse>(await visitorActionsService.GetByIdAsync(id)));
     }
@@ -82,7 +82,7 @@ public sealed class VisitorActionsController : Controller
     [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(UpdatedResponse))]
     public async Task<IActionResult> UpdateAsync(UpdateVisitorActionsRequest model)
     {
-        await visitorActionsService.UpdateAsync(mapper.Map<UpdateVisitorActionsModel>(model));
+        await visitorActionsService.UpdateAsync(mapper.Map<VisitorActionsModel>(model));
         return Ok(new UpdatedResponse(model.Id));
     }
 

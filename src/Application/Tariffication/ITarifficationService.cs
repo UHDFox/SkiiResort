@@ -1,16 +1,7 @@
-using SkiiResort.Application.Tariffication.Models;
+using Application;
 
 namespace SkiiResort.Application.Tariffication;
 
-public interface ITarifficationService
+public interface ITarifficationService : IService<TarifficationModel>
 {
-    Task<IReadOnlyCollection<GetTarifficationModel>> GetAllAsync(int offset, int limit);
-
-    Task<GetTarifficationModel> GetByIdAsync(Guid id);
-
-    Task<Guid> AddAsync(AddTarifficationModel model);
-
-    Task<UpdateTarifficationModel> UpdateAsync(UpdateTarifficationModel model);
-
-    Task<bool> DeleteAsync(Guid id);
 }

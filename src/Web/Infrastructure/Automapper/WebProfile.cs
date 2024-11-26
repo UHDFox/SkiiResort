@@ -1,8 +1,8 @@
 using AutoMapper;
-using SkiiResort.Application.Location.Models;
+using SkiiResort.Application.Location;
 using SkiiResort.Application.Skipass;
 using SkiiResort.Application.Tariff;
-using SkiiResort.Application.Tariffication.Models;
+using SkiiResort.Application.Tariffication;
 using SkiiResort.Application.User;
 using SkiiResort.Application.Visitor;
 using SkiiResort.Application.VisitorAction;
@@ -27,36 +27,65 @@ public sealed class WebProfile : Profile
 {
     public WebProfile()
     {
-        CreateMap<GetSkipassModel, SkipassResponse>().ReverseMap();
-        CreateMap<CreateSkipassRequest, AddSkipassModel>().ReverseMap();
-        CreateMap<UpdateSkipassRequest, UpdateSkipassModel>().ReverseMap();
+        CreateMap<SkipassModel, SkipassResponse>().ReverseMap();
+        CreateMap<CreateSkipassRequest, SkipassModel>().ReverseMap();
+        CreateMap<UpdateSkipassRequest, SkipassModel>().ReverseMap();
 
-        CreateMap<GetTariffModel, TariffResponse>().ReverseMap();
-        CreateMap<CreateTariffRequest, AddTariffModel>().ReverseMap();
-        CreateMap<UpdateTariffRequest, UpdateTariffModel>().ReverseMap();
+        CreateMap<TariffModel, TariffResponse>().ReverseMap();
+        CreateMap<CreateTariffRequest, TariffModel>().ReverseMap();
+        CreateMap<UpdateTariffRequest, TariffModel>().ReverseMap();
 
-        CreateMap<GetVisitorModel, VisitorResponse>().ReverseMap();
-        CreateMap<CreateVisitorRequest, AddVisitorModel>().ReverseMap();
-        CreateMap<UpdateVisitorRequest, UpdateVisitorModel>().ReverseMap();
+        CreateMap<VisitorModel, VisitorResponse>().ReverseMap();
+        CreateMap<CreateVisitorRequest, VisitorModel>().ReverseMap();
+        CreateMap<UpdateVisitorRequest, VisitorModel>().ReverseMap();
 
-        CreateMap<GetVisitorActionsModel, VisitorActionsResponse>().ReverseMap();
-        CreateMap<CreateVisitorActionsRequest, AddVisitorActionsModel>().ReverseMap();
-        CreateMap<UpdateVisitorActionsRequest, UpdateVisitorActionsModel>().ReverseMap();
+        CreateMap<VisitorActionsModel, VisitorActionsResponse>().ReverseMap();
+        CreateMap<CreateVisitorActionsRequest, VisitorActionsModel>().ReverseMap();
+        CreateMap<UpdateVisitorActionsRequest, VisitorActionsModel>().ReverseMap();
 
-        CreateMap<GetLocationModel, LocationResponse>().ReverseMap();
-        CreateMap<CreateLocationRequest, AddLocationModel>().ReverseMap();
-        CreateMap<UpdateLocationRequest, UpdateLocationModel>().ReverseMap();
+        CreateMap<LocationModel, LocationResponse>().ReverseMap();
+        CreateMap<CreateLocationRequest, LocationModel>().ReverseMap();
+        CreateMap<UpdateLocationRequest, LocationModel>().ReverseMap();
 
-        CreateMap<GetTarifficationModel, TarifficationResponse>().ReverseMap();
-        CreateMap<CreateTarifficationRequest, AddTarifficationModel>().ReverseMap();
-        CreateMap<UpdateTarifficationRequest, UpdateTarifficationModel>().ReverseMap();
+        CreateMap<TarifficationModel, TarifficationResponse>().ReverseMap();
+        CreateMap<CreateTarifficationRequest, TarifficationModel>().ReverseMap();
+        CreateMap<UpdateTarifficationRequest, TarifficationModel>().ReverseMap();
+
+
         CreateMap<TapSkipassRequest, AddVisitorActionsModel>().ReverseMap();
         CreateMap<DepositSkipassBalanceRequest, AddVisitorActionsModel>();
 
-        CreateMap<GetUserModel, UserResponse>().ReverseMap();
+        /*CreateMap<GetUserModel, UserResponse>().ReverseMap();
         CreateMap<CreateUserRequest, AddUserModel>().ReverseMap();
         CreateMap<UpdateUserRequest, UpdateUserModel>().ReverseMap();
         CreateMap<LoginRequest, LoginModel>();
+        CreateMap<RegisterRequest, RegisterModel>();*/
+        CreateMap<CreateUserRequest, UserModel>()
+            .ConstructUsing(src => new UserModel(
+                Guid.NewGuid(), // Generate a new ID or handle it as needed
+                src.Name,
+                src.Email,
+                src.Password,
+                src.Role,
+                src.CreatedAt
+            ));
+        CreateMap<UpdateUserRequest, UserModel>()
+            .ConstructUsing(src => new UserModel(
+                src.Id,
+                src.Name,
+                src.Email,
+                src.Password,
+                src.Role,
+                src.CreatedAt));
+        CreateMap<LoginRequest, LoginModel>();
         CreateMap<RegisterRequest, RegisterModel>();
+        CreateMap<UserModel, UserResponse>()
+            .ConstructUsing(src => new UserResponse(
+                src.Id,
+                src.Name,
+                src.Password,
+                src.Email,
+                src.Role,
+                src.CreatedAt));
     }
 }

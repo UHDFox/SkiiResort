@@ -4,7 +4,7 @@ using SkiiResort.Domain.Enums;
 
 namespace SkiiResort.Domain.Entities.VisitorsAction;
 
-public sealed class VisitorActionsRecord
+public sealed class VisitorActionsRecord : DataObject
 {
     public VisitorActionsRecord(Guid skipassId, Guid locationId, DateTimeOffset time, double balanceChange, OperationType transactionType)
     {
@@ -14,9 +14,6 @@ public sealed class VisitorActionsRecord
         BalanceChange = balanceChange;
         TransactionType = transactionType;
     }
-
-
-    public Guid Id { get; set; }
 
     public Guid SkipassId { get; set; }
 

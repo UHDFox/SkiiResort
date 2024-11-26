@@ -21,7 +21,7 @@ public static class ServiceCollectionExtension
 
         services.AddTransient<IVisitorService, VisitorService>();
 
-        services.AddTransient<IVisitorActions, VisitorActionsService>();
+        services.AddTransient<IVisitorActionsService, VisitorActionsService>();
 
         services.AddTransient<ILocationService, LocationService>();
 

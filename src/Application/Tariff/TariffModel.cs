@@ -1,21 +1,24 @@
+using Application;
 using SkiiResort.Domain.Entities.Skipass;
 using SkiiResort.Domain.Entities.Tariffication;
 
 namespace SkiiResort.Application.Tariff;
 
-public sealed class GetTariffModel
+public class TariffModel : ServiceModel
 {
-    public GetTariffModel(Guid id, string name, double priceModifier, bool isVip)
+    public TariffModel() : base(Guid.Empty)
     {
-        Id = id;
+    }
+
+    public TariffModel(Guid id, string name, double priceModifier, bool isVip)
+        : base(id)
+    {
         Name = name;
         PriceModifier = priceModifier;
         IsVip = isVip;
     }
 
-    public Guid Id { get; set; }
-
-    public string? Name { get; set; }
+    public string Name { get; set; } = "";
 
     public double PriceModifier { get; set; }
 

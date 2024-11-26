@@ -1,19 +1,23 @@
+using Application;
 using SkiiResort.Domain.Entities.Location;
 using SkiiResort.Domain.Entities.Tariff;
 
-namespace SkiiResort.Application.Tariffication.Models;
+namespace SkiiResort.Application.Tariffication;
 
-public sealed class GetTarifficationModel
+public class TarifficationModel : ServiceModel
 {
-    public GetTarifficationModel(Guid id, double price, Guid tariffId, Guid locationId)
+    public TarifficationModel() : base(Guid.Empty)
+    {
+    }
+
+    public TarifficationModel(Guid id, double price, Guid tariffId, Guid locationId)
+        : base(id)
     {
         Id = id;
         Price = price;
         TariffId = tariffId;
         LocationId = locationId;
     }
-
-    public Guid Id { get; set; }
 
     public double Price { get; set; }
 

@@ -7,7 +7,7 @@ using SkiiResort.Repository.Visitor;
 
 namespace SkiiResort.Application.Visitor;
 
-internal sealed class VisitorService : IVisitorService
+internal sealed class VisitorService : Service<VisitorModel, VisitorRecord>, IVisitorService
 {
     private static readonly Regex passportRegex = new(@"\d{4}-\d{6}", RegexOptions.IgnoreCase | RegexOptions.Compiled);
     private static readonly Regex phoneNumberRegex = new(@"^\d{9,11}$", RegexOptions.IgnoreCase | RegexOptions.Compiled);
@@ -16,12 +16,13 @@ internal sealed class VisitorService : IVisitorService
     private readonly IVisitorRepository repository;
 
     public VisitorService(IMapper mapper, IVisitorRepository repository)
+        : base(repository, mapper)
     {
         this.mapper = mapper;
         this.repository = repository;
     }
 
-    public async Task<Guid> AddAsync(AddVisitorModel model)
+    public new async Task<Guid> AddAsync(VisitorModel model)
     {
         var record = mapper.Map<VisitorRecord>(model);
         if (!passportRegex.IsMatch(record.Passport))
@@ -37,27 +38,12 @@ internal sealed class VisitorService : IVisitorService
         return await repository.AddAsync(record);
     }
 
-    public async Task<IReadOnlyCollection<GetVisitorModel>> GetListAsync(int offset, int limit)
-    {
-        var totalAmount = await repository.GetTotalAmountAsync();
-
-        return mapper.Map<IReadOnlyCollection<GetVisitorModel>>(await repository.GetAllAsync(offset, limit));
-    }
-
-    public async Task<int> GetTotalAmountAsync() => await repository.GetTotalAmountAsync();
-
-    public async Task<GetVisitorModel> GetByIdAsync(Guid id)
-    {
-        var entity = await repository.GetByIdAsync(id) ?? throw new NotFoundException();
-        return mapper.Map<GetVisitorModel>(entity);
-    }
-
-    public async Task<UpdateVisitorModel> UpdateAsync(UpdateVisitorModel model)
+    public new async Task<VisitorModel> UpdateAsync(VisitorModel model)
     {
         var entity = await repository.GetByIdAsync(model.Id)
                      ?? throw new NotFoundException("visitor entity not found");
 
-        if (!passportRegex.IsMatch(model.Passport))
+        if (model.Passport != null && !passportRegex.IsMatch(model.Passport))
         {
             throw new ValidationException("Validation error - check passport series and number");
         }
@@ -69,15 +55,9 @@ internal sealed class VisitorService : IVisitorService
 
 
         mapper.Map(model, entity);
-        repository.Update(entity);
+        repository.UpdateAsync(entity);
         await repository.SaveChangesAsync();
 
         return model;
-    }
-
-    public async Task<bool> DeleteAsync(Guid id)
-    {
-        await GetByIdAsync(id);
-        return await repository.DeleteAsync(id);
     }
 }
